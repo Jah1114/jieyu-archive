@@ -10,6 +10,7 @@
     {"id":"event-008","worldId":"world-01","day":"太南谷早期","title":"进入修仙者集市","summary":"开始接触灵石、法器、储物袋、委托与小会交易。","locationIds":["loc-tainan"],"links":["world-01"]},
     {"id":"event-009","worldId":"world-01","day":"太南谷","title":"完成低风险委托","summary":"参与药材整理、灵谷种子护送，建立最初资源与熟人渠道。","locationIds":[],"links":["person-yeqing","person-chenyan"]},
     {"id":"event-010","worldId":"world-01","day":"第123天左右","title":"遇到行者陆明远","summary":"确认其保护伞电子模块对灵石和外放灵力会产生可重复微弱荧光响应；真实机制未知。","locationIds":["loc-tainan"],"links":["person-lumingyuan","project-spirit-electronics"]},
-    {"id":"event-011","worldId":"world-01","day":"约第124天上午","title":"看到金刚符与符法报价","summary":"确认成品约1块下品灵石，符法约50块；意识到持续型防御与无量灵海路线高度契合，但当前资金不足。","locationIds":["loc-tainan"],"links":["project-storage-bag","project-diamond-talisman"]}
+    {"id":"event-011","worldId":"world-01","day":"约第124天上午","title":"看到金刚符与符法报价","summary":"确认成品约1块下品灵石，符法约50块；意识到持续型防御与无量灵海路线高度契合，但当前资金不足。","locationIds":["loc-tainan"],"links":["project-storage-bag","project-diamond-talisman"]},
+    {"id":"event-012","worldId":"world-01","day":"约第124天上午","title":"启动制符周转试验","summary":"与陈砚、叶青继续逛太南小会并询价；以3张自制护身符实际换得3份火弹符材料，私人灵石仍约3块，护身符余约3张。随后继续查看法器、药材与杂学纸册，当前停在旧书/杂学摊浏览《低阶符纸处理杂录》等薄册，尚未购买。","locationIds":["loc-tainan"],"links":["person-chenyan","person-yeqing","project-talisman-stability","project-storage-bag"]}
   ]
 }
