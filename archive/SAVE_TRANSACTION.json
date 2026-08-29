@@ -1,25 +1,14 @@
 {
   "schemaVersion": 1,
-  "state": "in_progress",
-  "activeTransaction": {
+  "state": "clean",
+  "activeTransaction": null,
+  "lastCompletedTransaction": {
     "id": "maintenance-20260830-source-protocol-name-alignment",
     "type": "maintenance",
     "startedAt": "2026-08-30T00:53:01+08:00",
-    "targetFiles": [
-      "archive/OPERATION_PROTOCOL.md",
-      "README.md",
-      "archive/CONTINUITY.md",
-      "archive/SAVE_TRANSACTION.json"
-    ],
-    "note": "将 GitHub 文档中项目来源规范名称统一为 GitHub 活协议版，避免替换来源后仍引用旧事务版文件名。未推进游戏剧情。"
-  },
-  "lastCompletedTransaction": {
-    "id": "maintenance-20260830-market-live-protocol",
-    "type": "maintenance",
-    "startedAt": "2026-08-30T00:43:23+08:00",
-    "completedAt": "2026-08-30T00:50:04+08:00",
-    "validationRunId": 33263964271,
-    "note": "已新增跨世界市场观察层与携带页参考行情；新增 GitHub 活操作协议，并要求每次读档/存档重新读取项目来源与最新活协议。未推进游戏剧情。"
+    "completedAt": "2026-08-30T00:55:09+08:00",
+    "validationRunId": 33264239312,
+    "note": "已将 GitHub 活协议、README 与 CONTINUITY 对项目来源的引用统一为《界域长期项目_统一运行规范_GitHub活协议版.md》。未推进游戏剧情。"
   },
   "repair": {
     "required": false,
