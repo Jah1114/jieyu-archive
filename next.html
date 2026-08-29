@@ -1,48 +1,168 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>界域档案 · 数据驱动预览</title>
 <style>
-:root{--bg:#0b0f12;--side:#0e1317;--panel:#12181d;--panel2:#161d23;--line:#29323a;--text:#e8edf1;--muted:#8d99a5;--soft:#b7c4cc;--accent:#9fb7aa;--good:#9bbba7;--warn:#cbb98b}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}button,input{font:inherit}.app{min-height:100vh;display:grid;grid-template-columns:230px minmax(0,1fr)}.side{height:100vh;position:sticky;top:0;border-right:1px solid var(--line);background:var(--side);padding:22px 14px}.brand{padding:0 8px 18px}.eyebrow{font-size:10px;letter-spacing:.22em;color:var(--muted)}.brand h1{font-size:19px;margin:7px 0 3px}.brand p{font-size:11px;color:var(--muted);margin:0}.nav{display:grid;gap:5px}.nav button{background:transparent;color:var(--muted);border:1px solid transparent;border-radius:9px;text-align:left;padding:9px 11px;cursor:pointer}.nav button:hover,.nav button.active{background:var(--panel);color:var(--text);border-color:var(--line)}.side-note{position:absolute;left:14px;right:14px;bottom:18px;padding:11px;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:10px;line-height:1.55;background:var(--panel)}main{width:100%;max-width:1480px;justify-self:center;padding:26px clamp(18px,3.5vw,46px) 60px}.top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.top h2{margin:0;font-size:25px}.top p{margin:6px 0 0;color:var(--muted);font-size:12px}.search{width:min(390px,45vw);padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text);outline:none}.notice,.sync{border:1px solid #354238;background:#111a16;border-radius:11px;padding:11px 13px;color:#b9c9bf;font-size:11px;margin-bottom:13px}.sync{background:var(--panel);border-color:var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}.badge{display:inline-flex;padding:3px 7px;border:1px solid var(--line);border-radius:999px;font-size:10px;color:var(--muted)}.badge.good{border-color:#3b5544;color:var(--good)}.badge.warn{border-color:#574e33;color:var(--warn)}.section{display:none}.section.active{display:block}.grid{display:grid;gap:13px}.c4{grid-template-columns:repeat(4,minmax(0,1fr))}.c3{grid-template-columns:repeat(3,minmax(0,1fr))}.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:15px;min-width:0}.label{font-size:10px;color:var(--muted);letter-spacing:.05em}.big{font-size:20px;font-weight:680;margin:5px 0}.small{font-size:11px;line-height:1.65}.muted{color:var(--muted)}.head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:24px 0 10px}.head h3{margin:0;font-size:17px}.head p{margin:0;font-size:10px;color:var(--muted)}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.chip{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 7px}.person,.ability,.project,.intel,.event{cursor:default}.name{font-size:15px;font-weight:650}.row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.details{color:var(--muted);font-size:11px;line-height:1.65;margin-top:8px}.timeline{position:relative;padding-left:18px}.timeline:before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:var(--line)}.event{position:relative;padding:0 0 17px 12px}.event:before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);left:-17px;top:6px}.event h4{font-size:13px;margin:0 0 4px}.event p{font-size:11px;line-height:1.6;color:var(--muted);margin:0}.kv{display:grid;grid-template-columns:130px 1fr;gap:8px 13px;font-size:11px}.kv>div:nth-child(odd){color:var(--muted)}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}.error{border-color:#684646;background:#1c1212;color:#d7aaaa}.footer{margin-top:32px;text-align:center;color:var(--muted);font-size:10px}
+:root{--bg:#0b0f12;--side:#0e1317;--panel:#12181d;--panel2:#161d23;--line:#29323a;--text:#e8edf1;--muted:#8d99a5;--soft:#b7c4cc;--accent:#9fb7aa;--good:#9bbba7;--warn:#cbb98b;--bad:#d09a9a}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}button,input{font:inherit}.app{min-height:100vh;display:grid;grid-template-columns:230px minmax(0,1fr)}.side{height:100vh;position:sticky;top:0;border-right:1px solid var(--line);background:var(--side);padding:22px 14px}.brand{padding:0 8px 18px}.eyebrow{font-size:10px;letter-spacing:.22em;color:var(--muted)}.brand h1{font-size:19px;margin:7px 0 3px}.brand p{font-size:11px;color:var(--muted);margin:0}.nav{display:grid;gap:5px}.nav button{background:transparent;color:var(--muted);border:1px solid transparent;border-radius:9px;text-align:left;padding:9px 11px;cursor:pointer}.nav button:hover,.nav button.active{background:var(--panel);color:var(--text);border-color:var(--line)}.side-note{position:absolute;left:14px;right:14px;bottom:18px;padding:11px;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:10px;line-height:1.55;background:var(--panel)}main{width:100%;max-width:1480px;justify-self:center;padding:26px clamp(18px,3.5vw,46px) 60px}.top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.top h2{margin:0;font-size:25px}.top p{margin:6px 0 0;color:var(--muted);font-size:12px}.search{width:min(390px,45vw);padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text);outline:none}.notice,.sync{border:1px solid #354238;background:#111a16;border-radius:11px;padding:11px 13px;color:#b9c9bf;font-size:11px;margin-bottom:13px}.sync{background:var(--panel);border-color:var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}.badge{display:inline-flex;padding:3px 7px;border:1px solid var(--line);border-radius:999px;font-size:10px;color:var(--muted)}.badge.good{border-color:#3b5544;color:var(--good)}.badge.warn{border-color:#574e33;color:var(--warn)}.badge.bad{border-color:#684646;color:var(--bad)}.section{display:none}.section.active{display:block}.grid{display:grid;gap:13px}.c4{grid-template-columns:repeat(4,minmax(0,1fr))}.c3{grid-template-columns:repeat(3,minmax(0,1fr))}.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:15px;min-width:0}.label{font-size:10px;color:var(--muted);letter-spacing:.05em}.big{font-size:20px;font-weight:680;margin:5px 0}.small{font-size:11px;line-height:1.65}.muted{color:var(--muted)}.head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:24px 0 10px}.head h3{margin:0;font-size:17px}.head p{margin:0;font-size:10px;color:var(--muted)}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.chip,.rel{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 7px;background:transparent}.rel{cursor:pointer}.rel:hover{color:var(--text);border-color:#53616d;background:var(--panel2)}.rel.broken{color:var(--bad);border-color:#684646}.name{font-size:15px;font-weight:650}.row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.details{color:var(--muted);font-size:11px;line-height:1.65;margin-top:8px}.subhead{font-size:10px;color:var(--soft);margin-top:12px}.timeline{position:relative;padding-left:18px}.timeline:before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:var(--line)}.event{position:relative;padding:0 0 17px 12px}.event:before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);left:-17px;top:6px}.event h4{font-size:13px;margin:0 0 4px}.event p{font-size:11px;line-height:1.6;color:var(--muted);margin:0}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}.error{border-color:#684646!important;background:#1c1212!important;color:#d7aaaa!important}.diag-line{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line);font-size:11px;line-height:1.5}.diag-line:last-child{border-bottom:0}.diag-key{min-width:64px;color:var(--muted)}.flash{animation:flash 1.4s ease}@keyframes flash{0%,100%{box-shadow:none}25%{box-shadow:0 0 0 2px rgba(159,183,170,.38)}}.footer{margin-top:32px;text-align:center;color:var(--muted);font-size:10px}
 @media(max-width:900px){.app{grid-template-columns:1fr}.side{height:auto;position:static;border-right:0;border-bottom:1px solid var(--line)}.nav{display:flex;overflow-x:auto}.nav button{white-space:nowrap}.side-note{position:static;margin-top:10px}.top{flex-direction:column}.search{width:100%}.c4,.c3{grid-template-columns:repeat(2,minmax(0,1fr))}main{max-width:none;padding:18px 14px 60px}}
-@media(max-width:560px){.c4,.c3,.c2{grid-template-columns:1fr}.kv{grid-template-columns:1fr}}
+@media(max-width:560px){.c4,.c3,.c2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="app"><aside class="side"><div class="brand"><div class="eyebrow">DOMAIN ARCHIVE · NEXT</div><h1>界域档案</h1><p id="brandPlayer">第一视角长期存档终端</p></div><nav class="nav" id="nav"><button class="active" data-tab="overview">概览</button><button data-tab="people">人物</button><button data-tab="world">世界</button><button data-tab="timeline">时间线</button><button data-tab="abilities">能力</button><button data-tab="inventory">携带</button><button data-tab="projects">项目</button><button data-tab="intel">情报</button></nav><div class="side-note">数据驱动预览版。信息从 <code>data/</code> 读取；这版用于验证长期结构，稳定后再替换正式首页。</div></aside>
-<main><div class="top"><div><h2 id="pageTitle">系统概述</h2><p id="pageSub">正在读取结构化档案……</p></div><input id="search" class="search" placeholder="搜索人物、能力、项目、情报、事件……"></div><div class="notice">公开内容仅代表 <b>徐长卿当前认知</b>。未知事实保持未知；后台设定不在此页展示。</div><div class="sync" id="syncBox"><span>正在读取存档同步状态……</span><span class="badge">loading</span></div>
-<section id="overview" class="section active"><div id="overviewCards" class="grid c4"></div><div class="head"><h3>当前状态</h3><p>来自 player.json / meta.json</p></div><div id="currentState" class="grid c3"></div><div class="head"><h3>最近事件</h3><p>来自 timeline.json</p></div><div class="card"><div id="recentEvents" class="timeline"></div></div></section>
-<section id="people" class="section"><div id="peopleGrid" class="grid c3"></div></section>
-<section id="world" class="section"><div id="worldGrid" class="grid c3"></div><div class="head"><h3>已知地点</h3></div><div id="locationsGrid" class="grid c3"></div><div class="head"><h3>已知规则与市场</h3></div><div id="worldDetails" class="grid c2"></div></section>
-<section id="timeline" class="section"><div class="card"><div id="timelineGrid" class="timeline"></div></div></section>
-<section id="abilities" class="section"><div id="abilitiesGrid" class="grid c2"></div></section>
-<section id="inventory" class="section"><div id="currencyGrid" class="grid c3"></div><div class="head"><h3>物品</h3></div><div id="inventoryGrid" class="grid c2"></div></section>
-<section id="projects" class="section"><div id="projectsGrid" class="grid c2"></div></section>
-<section id="intel" class="section"><div id="intelGrid" class="grid c2"></div></section>
-<div class="footer">界域档案 · next.html · 数据层迁移预览</div></main></div>
+<div class="app">
+<aside class="side">
+  <div class="brand"><div class="eyebrow">DOMAIN ARCHIVE · NEXT</div><h1>界域档案</h1><p id="brandPlayer">第一视角长期存档终端</p></div>
+  <nav class="nav" id="nav">
+    <button class="active" data-tab="overview">概览</button>
+    <button data-tab="people">人物</button>
+    <button data-tab="world">世界</button>
+    <button data-tab="timeline">时间线</button>
+    <button data-tab="abilities">能力</button>
+    <button data-tab="inventory">携带</button>
+    <button data-tab="projects">项目</button>
+    <button data-tab="intel">情报</button>
+  </nav>
+  <div class="side-note">数据驱动预览版。所有页面从 <code>data/</code> 读取；单个可选字段缺失不会再导致整站崩溃。</div>
+</aside>
+<main>
+  <div class="top"><div><h2 id="pageTitle">系统概述</h2><p id="pageSub">正在读取结构化档案……</p></div><input id="search" class="search" placeholder="搜索人物、能力、项目、情报、事件……"></div>
+  <div class="notice">公开内容仅代表 <b>徐长卿当前认知</b>。未知事实保持未知；后台设定不在此页展示。</div>
+  <div class="sync" id="syncBox"><span>正在读取存档状态……</span><span class="badge">loading</span></div>
+
+  <section id="overview" class="section active">
+    <div id="overviewCards" class="grid c4"></div>
+    <div class="head"><h3>当前状态</h3><p>player.json / meta.json</p></div><div id="currentState" class="grid c3"></div>
+    <div class="head"><h3>最近事件</h3><p>timeline.json</p></div><div class="card"><div id="recentEvents" class="timeline"></div></div>
+    <div class="head"><h3>档案诊断</h3><p>借鉴 broken-link / vault diagnostics</p></div><div id="diagnostics" class="card"></div>
+  </section>
+  <section id="people" class="section"><div id="peopleGrid" class="grid c3"></div></section>
+  <section id="world" class="section"><div id="worldGrid" class="grid c3"></div><div class="head"><h3>已知地点</h3></div><div id="locationsGrid" class="grid c3"></div><div class="head"><h3>已知规则与市场</h3></div><div id="worldDetails" class="grid c2"></div></section>
+  <section id="timeline" class="section"><div class="card"><div id="timelineGrid" class="timeline"></div></div></section>
+  <section id="abilities" class="section"><div id="abilitiesGrid" class="grid c2"></div></section>
+  <section id="inventory" class="section"><div id="currencyGrid" class="grid c3"></div><div class="head"><h3>物品</h3></div><div id="inventoryGrid" class="grid c2"></div></section>
+  <section id="projects" class="section"><div id="projectsGrid" class="grid c2"></div></section>
+  <section id="intel" class="section"><div id="intelGrid" class="grid c2"></div></section>
+  <div class="footer">界域档案 · next.html · 数据驱动架构预览</div>
+</main>
+</div>
 <script>
-const $=s=>document.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const $=s=>document.querySelector(s);
+const arr=v=>Array.isArray(v)?v:[];
+const obj=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const paths=['data/meta.json','data/global/player.json','data/global/people.json','data/global/abilities.json','data/global/inventory.json','data/worlds/world-01.json','data/timeline.json','data/projects.json','data/intel.json'];
-let DATA={};
-async function load(){try{const vals=await Promise.all(paths.map(p=>fetch(p,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`${p}: ${r.status}`);return r.json()})));[DATA.meta,DATA.player,DATA.people,DATA.abilities,DATA.inventory,DATA.world,DATA.timeline,DATA.projects,DATA.intel]=vals;render();}catch(e){$('#syncBox').classList.add('error');$('#syncBox').innerHTML=`<span>数据读取失败：${esc(e.message)}</span><span class="badge warn">error</span>`;}}
-function chips(xs=[]){return `<div class="chips">${xs.map(x=>`<span class="chip">${esc(x)}</span>`).join('')}</div>`}
-function render(){const {meta,player,world}=DATA;$('#brandPlayer').textContent=`${player.name} · 第一视角长期存档终端`;$('#pageSub').textContent=`《${world.name}》· 约第${meta.currentNarrative.worldDay}天 ${meta.currentNarrative.dayPart} · ${meta.currentNarrative.location}`;$('#syncBox').innerHTML=`<span><b>续档前沿：</b>${esc(meta.currentNarrative.frontier)}</span><span class="badge ${meta.sync.publicSiteMayLagNarrative?'warn':'good'}">${meta.sync.publicSiteMayLagNarrative?'剧情领先于正式首页':'已同步'}</span>`;
-$('#overviewCards').innerHTML=[['当前世界',world.name,world.phase],['时间',`第 ${meta.currentNarrative.worldDay} 天`,`${meta.currentNarrative.dayPart} · ${meta.currentNarrative.location}`],['境界',player.currentState.realm,player.currentState.spiritualRoots],['离界窗口','已开启',player.currentState.exitWindow]].map(x=>`<div class="card searchable" data-search="${x.join(' ')}"><div class="label">${x[0]}</div><div class="big">${x[1]}</div><div class="small muted">${x[2]}</div></div>`).join('');
-$('#currentState').innerHTML=[['核心天赋','无量灵海','完整周天永久增加法力上限与自然回复'],['身体 / 法力',`${player.currentState.body} / ${player.currentState.mana}`,'经脉、控制、境界仍是瞬时输出瓶颈'],['当前前沿','金刚符路线','储物袋仍是近期资源优先级；金刚符是长期防御方向']].map(x=>`<div class="card searchable" data-search="${x.join(' ')}"><div class="label">${x[0]}</div><div class="big">${x[1]}</div><div class="small muted">${x[2]}</div></div>`).join('');
-renderPeople();renderWorld();renderTimeline();renderAbilities();renderInventory();renderProjects();renderIntel();bindSearch();}
-function renderPeople(){const ps=DATA.people.people;$('#peopleGrid').innerHTML=ps.map(p=>`<div class="card person searchable" data-search="${esc([p.name,p.status,p.kind,JSON.stringify(p.known),p.relationship].join(' '))}"><div class="row"><div><div class="name">${esc(p.name)}</div>${chips([p.gender,p.age,p.kind])}</div><span class="badge">${esc(p.status)}</span></div><div class="details">${esc(p.relationship)}</div><div class="details">${Object.entries(p.known).slice(0,4).map(([k,v])=>`<b>${esc(k)}</b>：${esc(Array.isArray(v)?v.join('；'):v)}`).join('<br>')}</div></div>`).join('');}
-function renderWorld(){const w=DATA.world;$('#worldGrid').innerHTML=[['世界编号','WORLD 01',w.status],['当前阶段',w.phase,`约第${w.currentDayApprox}天`],['当前身份',w.identity,w.currentLocation]].map(x=>`<div class="card searchable" data-search="${x.join(' ')}"><div class="label">${x[0]}</div><div class="big">${esc(x[1])}</div><div class="small muted">${esc(x[2])}</div></div>`).join('');$('#locationsGrid').innerHTML=w.knownLocations.map(l=>`<div class="card searchable" data-search="${l.name} ${l.status} ${l.note}"><div class="name">${esc(l.name)}</div>${chips([l.status])}<div class="details">${esc(l.note)}</div></div>`).join('');$('#worldDetails').innerHTML=`<div class="card searchable" data-search="${esc(w.knownRules.join(' '))}"><div class="name">已知规则</div><div class="details">${w.knownRules.map(x=>`• ${esc(x)}`).join('<br>')}</div></div><div class="card searchable" data-search="${esc(w.economy.knownPrices.join(' '))}"><div class="name">已知价格</div><div class="details">${w.economy.knownPrices.map(x=>`• ${esc(x)}`).join('<br>')}</div></div>`;}
-function eventHtml(e){return `<div class="event searchable" data-search="${esc(`${e.day} ${e.title} ${e.summary}`)}"><div class="label">${esc(e.day)}</div><h4>${esc(e.title)}</h4><p>${esc(e.summary)}</p>${chips((e.links||[]).slice(0,4))}</div>`}
-function renderTimeline(){const es=DATA.timeline.events;$('#timelineGrid').innerHTML=es.map(eventHtml).join('');$('#recentEvents').innerHTML=es.slice(-4).map(eventHtml).join('');}
-function renderAbilities(){const as=DATA.abilities.abilities;$('#abilitiesGrid').innerHTML=as.map(a=>`<div class="card ability searchable" data-search="${esc([a.name,a.type,a.source,a.mastery,...a.effects,...a.limits].join(' '))}"><div class="row"><div class="name">${esc(a.name)}</div><span class="badge">${esc(a.type)}</span></div>${chips([a.mastery,a.source])}<div class="details"><b>效果</b><br>${a.effects.map(x=>`• ${esc(x)}`).join('<br>')}<br><br><b>限制</b><br>${a.limits.map(x=>`• ${esc(x)}`).join('<br>')}<br><br><b>跨界状态</b>：${esc(a.crossWorldStatus)}</div></div>`).join('');}
-function renderInventory(){const d=DATA.inventory;$('#currencyGrid').innerHTML=d.currencies.map(c=>`<div class="card searchable" data-search="${esc(c.name)}"><div class="label">${esc(c.scope)}</div><div class="big">${esc(c.amountApprox)} · ${esc(c.name)}</div><div class="small muted">${esc(c.note||'')}</div></div>`).join('');$('#inventoryGrid').innerHTML=d.items.map(i=>`<div class="card searchable" data-search="${esc([i.name,i.category,i.location,i.source,i.crossWorldStatus].join(' '))}"><div class="row"><div class="name">${esc(i.name)}</div><span class="badge">约 ${esc(i.quantityApprox)}</span></div>${chips([i.category,i.location])}<div class="details">来源：${esc(i.source)}<br>跨界：${esc(i.crossWorldStatus)}</div></div>`).join('');}
-function renderProjects(){const ps=DATA.projects.projects;$('#projectsGrid').innerHTML=ps.map(p=>`<div class="card project searchable" data-search="${esc([p.name,p.type,p.status,p.goal,...p.confirmed,...p.unknown,...p.needs].join(' '))}"><div class="row"><div class="name">${esc(p.name)}</div><span class="badge">${esc(p.status)}</span></div>${chips([p.type])}<div class="details"><b>目标</b>：${esc(p.goal)}<br><br><b>已确认</b><br>${p.confirmed.map(x=>`• ${esc(x)}`).join('<br>')}<br><br><b>缺少条件</b><br>${p.needs.map(x=>`• ${esc(x)}`).join('<br>')}</div></div>`).join('');}
-function renderIntel(){const xs=DATA.intel.intel;$('#intelGrid').innerHTML=xs.map(i=>`<div class="card intel searchable" data-search="${esc([i.title,i.status,i.claim,...i.unknown,JSON.stringify(i.evidenceChain)].join(' '))}"><div class="row"><div class="name">${esc(i.title)}</div><span class="badge">${esc(i.status)}</span></div><div class="details">${esc(i.claim)}</div><div class="head" style="margin:14px 0 7px"><h3 style="font-size:12px">证据链</h3></div><div class="details">${i.evidenceChain.map(e=>`${e.order}. <b>${esc(e.source)}</b>：${esc(e.result)} <span class="chip">${esc(e.confidence)}</span>`).join('<br><br>')}</div>${i.unknown.length?`<div class="details"><b>仍未知</b><br>${i.unknown.map(x=>`• ${esc(x)}`).join('<br>')}</div>`:''}</div>`).join('');}
-const titles={overview:['系统概述','当前状态与最近事件'],people:['人物档案','结构化人物与长期联系'],world:['世界档案','当前世界局部信息'],timeline:['时间线','事件与关联ID'],abilities:['能力与技艺','来源、限制与跨界兼容'],inventory:['携带与资源','货币、物品与位置'],projects:['长期项目','实验、资源目标与能力发展'],intel:['情报与证据链','确认事实、来源与未知项']};
-$('#nav').addEventListener('click',e=>{const b=e.target.closest('button[data-tab]');if(!b)return;document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));$('#'+b.dataset.tab).classList.add('active');$('#pageTitle').textContent=titles[b.dataset.tab][0];$('#pageSub').textContent=titles[b.dataset.tab][1];window.scrollTo({top:0,behavior:'smooth'});});
-function bindSearch(){$('#search').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll('.searchable').forEach(el=>{el.style.opacity=!q||el.dataset.search.toLowerCase().includes(q)?'1':'.16'});});}
+let DATA={},REG=new Map(),BACK=new Map(),DIAG={errors:[],warnings:[],linkCount:0};
+
+async function load(){
+  try{
+    const vals=await Promise.all(paths.map(p=>fetch(p,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`${p}: HTTP ${r.status}`);return r.json()})));
+    [DATA.meta,DATA.player,DATA.people,DATA.abilities,DATA.inventory,DATA.world,DATA.timeline,DATA.projects,DATA.intel]=vals;
+    normalize();buildIndex();render();
+  }catch(e){
+    $('#syncBox').classList.add('error');
+    $('#syncBox').innerHTML=`<span>数据读取失败：${esc(e.message)}</span><span class="badge bad">error</span>`;
+  }
+}
+function normalize(){
+  DATA.meta=obj(DATA.meta); DATA.player=obj(DATA.player); DATA.people=obj(DATA.people); DATA.abilities=obj(DATA.abilities); DATA.inventory=obj(DATA.inventory); DATA.world=obj(DATA.world); DATA.timeline=obj(DATA.timeline); DATA.projects=obj(DATA.projects); DATA.intel=obj(DATA.intel);
+  DATA.people.people=arr(DATA.people.people); DATA.abilities.abilities=arr(DATA.abilities.abilities); DATA.inventory.currencies=arr(DATA.inventory.currencies); DATA.inventory.items=arr(DATA.inventory.items); DATA.world.knownLocations=arr(DATA.world.knownLocations); DATA.world.knownRules=arr(DATA.world.knownRules); DATA.world.economy=obj(DATA.world.economy); DATA.world.economy.knownPrices=arr(DATA.world.economy.knownPrices); DATA.timeline.events=arr(DATA.timeline.events); DATA.projects.projects=arr(DATA.projects.projects); DATA.intel.intel=arr(DATA.intel.intel);
+}
+function addEntity(id,label,kind,tab){if(!id)return;if(REG.has(id)){DIAG.errors.push(`重复ID：${id}`);return}REG.set(id,{id,label:label||id,kind,tab});BACK.set(id,[])}
+function addBack(target,fromId,fromLabel,kind){DIAG.linkCount++;if(!REG.has(target)){DIAG.errors.push(`坏引用：${fromLabel} → ${target}`);return}BACK.get(target).push({fromId,fromLabel,kind})}
+function buildIndex(){
+  REG=new Map();BACK=new Map();DIAG={errors:[],warnings:[],linkCount:0};
+  addEntity(DATA.player.id,DATA.player.name,'主角','overview');
+  addEntity(DATA.world.id,DATA.world.name,'世界','world');
+  DATA.world.knownLocations.forEach(x=>addEntity(x.id,x.name,'地点','world'));
+  DATA.people.people.forEach(x=>addEntity(x.id,x.name,'人物','people'));
+  DATA.abilities.abilities.forEach(x=>addEntity(x.id,x.name,'能力','abilities'));
+  DATA.inventory.items.forEach(x=>addEntity(x.id,x.name,'物品','inventory'));
+  DATA.inventory.currencies.forEach(x=>addEntity(x.id,x.name,'货币','inventory'));
+  DATA.projects.projects.forEach(x=>addEntity(x.id,x.name,'项目','projects'));
+  DATA.intel.intel.forEach(x=>addEntity(x.id,x.title,'情报','intel'));
+  DATA.timeline.events.forEach(x=>addEntity(x.id,x.title,'事件','timeline'));
+
+  DATA.timeline.events.forEach(e=>arr(e.links).forEach(id=>addBack(id,e.id,e.title,'事件')));
+  DATA.projects.projects.forEach(p=>arr(p.participants).forEach(id=>addBack(id,p.id,p.name,'项目')));
+  DATA.intel.intel.forEach(i=>arr(i.relatedIds).forEach(id=>addBack(id,i.id,i.title,'情报')));
+  DATA.people.people.forEach(p=>{if(p.firstWorldId)addBack(p.firstWorldId,p.id,p.name,'人物')});
+  DATA.abilities.abilities.forEach(a=>{if(a.sourceWorldId)addBack(a.sourceWorldId,a.id,a.name,'能力')});
+  DATA.inventory.items.forEach(i=>{if(i.sourceWorldId)addBack(i.sourceWorldId,i.id,i.name,'物品')});
+
+  if(DATA.meta.currentWorldId&&!REG.has(DATA.meta.currentWorldId))DIAG.errors.push(`meta.currentWorldId 不存在：${DATA.meta.currentWorldId}`);
+  if(DATA.player.currentWorldId&&!REG.has(DATA.player.currentWorldId))DIAG.errors.push(`player.currentWorldId 不存在：${DATA.player.currentWorldId}`);
+  if(DATA.player.coreTalentId&&!REG.has(DATA.player.coreTalentId))DIAG.errors.push(`核心天赋引用不存在：${DATA.player.coreTalentId}`);
+  DATA.projects.projects.forEach(p=>{if(!Array.isArray(p.unknown))DIAG.warnings.push(`项目「${p.name}」未填写 unknown；按“暂无明确未知项”处理。`)});
+}
+function chips(xs=[]){return `<div class="chips">${arr(xs).map(x=>`<span class="chip">${esc(x)}</span>`).join('')}</div>`}
+function relChip(id){const r=REG.get(id);return r?`<button class="rel" data-rel="${esc(id)}" title="${esc(r.kind)}">${esc(r.label)}</button>`:`<button class="rel broken" disabled>${esc(id)}</button>`}
+function relations(ids=[]){const list=arr(ids);return list.length?`<div class="chips">${list.map(relChip).join('')}</div>`:''}
+function backlinks(id){const xs=BACK.get(id)||[];if(!xs.length)return'';return `<div class="subhead">反向关联 · ${xs.length}</div><div class="chips">${xs.slice(0,8).map(x=>relChip(x.fromId)).join('')}${xs.length>8?`<span class="chip">+${xs.length-8}</span>`:''}</div>`}
+function entityWrap(id,inner,classes='card searchable'){return `<div id="entity-${esc(id)}" class="${classes}" data-search="${esc(inner.replace(/<[^>]+>/g,' '))}">${inner}</div>`}
+
+function render(){
+  const meta=DATA.meta,player=DATA.player,world=DATA.world,narr=obj(meta.currentNarrative),sync=obj(meta.sync),state=obj(player.currentState);
+  $('#brandPlayer').textContent=`${player.name||'徐长卿'} · 第一视角长期存档终端`;
+  $('#pageSub').textContent=`《${world.name||'未知世界'}》· 约第${narr.worldDay??'?'}天 ${narr.dayPart||''} · ${narr.location||world.currentLocation||'未知地点'}`;
+  $('#syncBox').innerHTML=`<span><b>存档前沿：</b>${esc(narr.frontier||'暂无')}</span><span class="badge good">${esc(sync.lastArchiveCommand||'存档')} · 已读取</span>`;
+  $('#overviewCards').innerHTML=[['当前世界',world.name,world.phase],['时间',`第 ${narr.worldDay??'?'} 天`,`${narr.dayPart||''} · ${narr.location||''}`],['境界',state.realm,state.spiritualRoots],['离界窗口',String(state.exitWindow||'未知').includes('开启')?'已开启':'未知',state.exitWindow]].map(x=>`<div class="card searchable" data-search="${esc(x.join(' '))}"><div class="label">${esc(x[0])}</div><div class="big">${esc(x[1])}</div><div class="small muted">${esc(x[2])}</div></div>`).join('');
+  $('#currentState').innerHTML=[['核心天赋','无量灵海','完整周天永久增加法力上限与自然回复'],['身体 / 法力',`${state.body||'未知'} / ${state.mana||'未知'}`,'经脉、控制、境界仍是瞬时输出瓶颈'],['当前重点','储物袋 + 金刚符路线','先稳健积累资源；持续防御属于长期能力方向']].map(x=>`<div class="card searchable" data-search="${esc(x.join(' '))}"><div class="label">${esc(x[0])}</div><div class="big">${esc(x[1])}</div><div class="small muted">${esc(x[2])}</div></div>`).join('');
+  renderPeople();renderWorld();renderTimeline();renderAbilities();renderInventory();renderProjects();renderIntel();renderDiagnostics();bindSearch();
+}
+function renderPeople(){
+  $('#peopleGrid').innerHTML=DATA.people.people.map(p=>{
+    const known=obj(p.known);const knownHtml=Object.entries(known).slice(0,5).map(([k,v])=>`<b>${esc(k)}</b>：${esc(Array.isArray(v)?v.join('；'):v)}`).join('<br>');
+    const inner=`<div class="row"><div><div class="name">${esc(p.name)}</div>${chips([p.gender,p.age,p.kind])}</div><span class="badge">${esc(p.status)}</span></div><div class="details">${esc(p.relationship||'')}</div><div class="details">${knownHtml}</div>${backlinks(p.id)}`;
+    return entityWrap(p.id,inner,'card person searchable')
+  }).join('')||'<div class="empty">暂无人物档案</div>';
+}
+function renderWorld(){
+  const w=DATA.world;
+  $('#worldGrid').innerHTML=[['世界编号',String(w.id||'world-01').toUpperCase(),w.status],['当前阶段',w.phase,`约第${w.currentDayApprox??'?'}天`],['当前身份',w.identity,w.currentLocation]].map(x=>`<div class="card searchable" data-search="${esc(x.join(' '))}"><div class="label">${esc(x[0])}</div><div class="big">${esc(x[1])}</div><div class="small muted">${esc(x[2])}</div></div>`).join('');
+  $('#locationsGrid').innerHTML=DATA.world.knownLocations.map(l=>entityWrap(l.id,`<div class="name">${esc(l.name)}</div>${chips([l.status])}<div class="details">${esc(l.note||'')}</div>${backlinks(l.id)}`)).join('')||'<div class="empty">暂无地点</div>';
+  $('#worldDetails').innerHTML=`<div class="card searchable" data-search="${esc(DATA.world.knownRules.join(' '))}"><div class="name">已知规则</div><div class="details">${DATA.world.knownRules.map(x=>`• ${esc(x)}`).join('<br>')||'暂无'}</div></div><div class="card searchable" data-search="${esc(DATA.world.economy.knownPrices.join(' '))}"><div class="name">已知价格</div><div class="details">${DATA.world.economy.knownPrices.map(x=>`• ${esc(x)}`).join('<br>')||'暂无'}</div></div>`;
+}
+function eventHtml(e){const inner=`<div class="label">${esc(e.day)}</div><h4>${esc(e.title)}</h4><p>${esc(e.summary)}</p>${relations(e.links)}${backlinks(e.id)}`;return `<div id="entity-${esc(e.id)}" class="event searchable" data-search="${esc(`${e.day} ${e.title} ${e.summary}`)}">${inner}</div>`}
+function renderTimeline(){const es=DATA.timeline.events;$('#timelineGrid').innerHTML=es.map(eventHtml).join('')||'<div class="empty">暂无事件</div>';$('#recentEvents').innerHTML=es.slice(-4).map(eventHtml).join('')||'<div class="empty">暂无最近事件</div>'}
+function renderAbilities(){
+  $('#abilitiesGrid').innerHTML=DATA.abilities.abilities.map(a=>{
+    const effects=arr(a.effects),limits=arr(a.limits);const inner=`<div class="row"><div class="name">${esc(a.name)}</div><span class="badge">${esc(a.type)}</span></div>${chips([a.mastery,a.source].filter(Boolean))}<div class="details"><b>效果</b><br>${effects.map(x=>`• ${esc(x)}`).join('<br>')||'暂无'}<br><br><b>限制</b><br>${limits.map(x=>`• ${esc(x)}`).join('<br>')||'暂无'}<br><br><b>跨界状态</b>：${esc(a.crossWorldStatus||'待验证')}</div>${backlinks(a.id)}`;return entityWrap(a.id,inner,'card ability searchable')
+  }).join('')||'<div class="empty">暂无能力</div>';
+}
+function renderInventory(){
+  $('#currencyGrid').innerHTML=DATA.inventory.currencies.map(c=>entityWrap(c.id,`<div class="label">${esc(c.scope)}</div><div class="big">${esc(c.amountApprox)} · ${esc(c.name)}</div><div class="small muted">${esc(c.note||'')}</div>${backlinks(c.id)}`)).join('')||'<div class="empty">暂无货币</div>';
+  $('#inventoryGrid').innerHTML=DATA.inventory.items.map(i=>{const inner=`<div class="row"><div class="name">${esc(i.name)}</div><span class="badge">约 ${esc(i.quantityApprox)}</span></div>${chips([i.category,i.location])}<div class="details">来源：${esc(i.source||'未知')}<br>跨界：${esc(i.crossWorldStatus||'待验证')}</div>${backlinks(i.id)}`;return entityWrap(i.id,inner)}).join('')||'<div class="empty">暂无物品</div>';
+}
+function renderProjects(){
+  $('#projectsGrid').innerHTML=DATA.projects.projects.map(p=>{
+    const confirmed=arr(p.confirmed),unknown=arr(p.unknown),needs=arr(p.needs);const search=[p.name,p.type,p.status,p.goal,...confirmed,...unknown,...needs].join(' ');
+    const inner=`<div class="row"><div class="name">${esc(p.name)}</div><span class="badge">${esc(p.status)}</span></div>${chips([p.type])}<div class="details"><b>目标</b>：${esc(p.goal||'暂无')}<br><br><b>已确认</b><br>${confirmed.map(x=>`• ${esc(x)}`).join('<br>')||'暂无'}<br><br><b>仍未知</b><br>${unknown.map(x=>`• ${esc(x)}`).join('<br>')||'暂无明确未知项'}<br><br><b>缺少条件</b><br>${needs.map(x=>`• ${esc(x)}`).join('<br>')||'暂无'}${p.risk?`<br><br><b>风险/限制</b>：${esc(p.risk)}`:''}</div><div class="subhead">参与者</div>${relations(p.participants)}${backlinks(p.id)}`;
+    return `<div id="entity-${esc(p.id)}" class="card project searchable" data-search="${esc(search)}">${inner}</div>`
+  }).join('')||'<div class="empty">暂无长期项目</div>';
+}
+function renderIntel(){
+  $('#intelGrid').innerHTML=DATA.intel.intel.map(i=>{
+    const evidence=arr(i.evidenceChain),unknown=arr(i.unknown);const evidenceHtml=evidence.map(e=>`${esc(e.order)}. <b>${esc(e.source)}</b>：${esc(e.result)} <span class="chip">${esc(e.confidence)}</span>`).join('<br><br>')||'暂无证据链';
+    const inner=`<div class="row"><div class="name">${esc(i.title)}</div><span class="badge">${esc(i.status)}</span></div><div class="details">${esc(i.claim||'')}</div><div class="subhead">证据链</div><div class="details">${evidenceHtml}</div><div class="subhead">仍未知</div><div class="details">${unknown.map(x=>`• ${esc(x)}`).join('<br>')||'暂无'}</div><div class="subhead">关联档案</div>${relations(i.relatedIds)}${backlinks(i.id)}`;
+    return entityWrap(i.id,inner,'card intel searchable')
+  }).join('')||'<div class="empty">暂无情报</div>';
+}
+function renderDiagnostics(){
+  const entityCount=REG.size,broken=DIAG.errors.length,warns=DIAG.warnings.length;
+  const head=`<div class="row"><div><div class="name">${broken?'发现需要处理的问题':'结构检查通过'}</div><div class="details">${entityCount} 个实体 · ${DIAG.linkCount} 条关联 · ${broken} 个错误 · ${warns} 个提醒</div></div><span class="badge ${broken?'bad':'good'}">${broken?'needs attention':'healthy'}</span></div>`;
+  const errs=DIAG.errors.map(x=>`<div class="diag-line"><span class="diag-key">错误</span><span>${esc(x)}</span></div>`).join('');
+  const ws=DIAG.warnings.slice(0,8).map(x=>`<div class="diag-line"><span class="diag-key">提醒</span><span>${esc(x)}</span></div>`).join('');
+  $('#diagnostics').innerHTML=head+(errs||ws?`<div style="margin-top:10px">${errs}${ws}</div>`:`<div class="details">当前未发现重复 ID 或无法解析的关联引用。</div>`);
+}
+const titles={overview:['系统概述','当前状态、最近事件与档案健康度'],people:['人物档案','人物资料 + 反向关联'],world:['世界档案','当前世界局部信息'],timeline:['时间线','事件与可跳转关联'],abilities:['能力与技艺','来源、限制、跨界兼容与关联事件'],inventory:['携带与资源','货币、物品、位置与来源'],projects:['长期项目','实验、资源目标、参与者与关联情报'],intel:['情报与证据链','确认事实、证据、未知项与关联档案']};
+function activateTab(tab){document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===tab));$('#pageTitle').textContent=titles[tab]?.[0]||'界域档案';$('#pageSub').textContent=titles[tab]?.[1]||'';window.scrollTo({top:0,behavior:'smooth'})}
+$('#nav').addEventListener('click',e=>{const b=e.target.closest('button[data-tab]');if(b)activateTab(b.dataset.tab)});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-rel]');if(!b)return;const id=b.dataset.rel,r=REG.get(id);if(!r)return;activateTab(r.tab);setTimeout(()=>{const el=document.getElementById(`entity-${id}`);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}},120)});
+function bindSearch(){const input=$('#search');if(!input||input.dataset.bound)return;input.dataset.bound='1';input.addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll('.searchable').forEach(el=>{el.style.opacity=!q||String(el.dataset.search||'').toLowerCase().includes(q)?'1':'.15'})})}
 load();
 </script>
-</body></html>
+</body>
+</html>
