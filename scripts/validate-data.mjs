@@ -14,11 +14,36 @@ const projects = read('data/projects.json');
 const intel = read('data/intel.json');
 const chapters = read('data/chapters.json');
 const features = exists('data/features.json') ? read('data/features.json') : { features: [] };
+const saveTransaction = exists('archive/SAVE_TRANSACTION.json') ? read('archive/SAVE_TRANSACTION.json') : null;
 
 const errors = [];
 const warnings = [];
 const ids = new Map();
 const types = new Map();
+
+if (!saveTransaction) {
+  errors.push('缺少存档事务文件：archive/SAVE_TRANSACTION.json');
+} else {
+  const allowedStates = new Set(['clean', 'in_progress', 'repair_required']);
+  if (!allowedStates.has(saveTransaction.state)) errors.push(`未知存档事务状态：${saveTransaction.state}`);
+  if (saveTransaction.state === 'clean') {
+    if (saveTransaction.activeTransaction !== null) errors.push('事务状态为 clean，但 activeTransaction 不是 null');
+    if (saveTransaction.repair?.required === true) errors.push('事务状态为 clean，但 repair.required=true');
+  }
+  if (saveTransaction.state === 'in_progress') {
+    const tx = saveTransaction.activeTransaction;
+    if (!tx || !tx.id || !tx.startedAt) errors.push('事务状态为 in_progress，但缺少 activeTransaction.id/startedAt');
+    if (tx && !Array.isArray(tx.targetFiles)) errors.push('进行中的事务 targetFiles 必须为数组');
+    warnings.push('当前存档事务仍为 in_progress；读档必须暂停并先确认/修复该事务。');
+  }
+  if (saveTransaction.state === 'repair_required') {
+    if (saveTransaction.repair?.required !== true) errors.push('事务状态为 repair_required，但 repair.required 不是 true');
+    if (!saveTransaction.repair?.reason) errors.push('事务状态为 repair_required，但缺少 repair.reason');
+    warnings.push('当前存档事务标记为 repair_required；禁止直接继续游戏。');
+  }
+  if (saveTransaction.protocol?.readRequiresCleanState !== true) warnings.push('事务协议未启用 readRequiresCleanState');
+  if (saveTransaction.protocol?.cleanOnlyAfterVerification !== true) warnings.push('事务协议未启用 cleanOnlyAfterVerification');
+}
 
 const worlds = [];
 for (const entry of worldRegistry.worlds ?? []) {
@@ -182,10 +207,11 @@ for (const f of features.features ?? []) {
   if (f.backendSettingPath && !exists(f.backendSettingPath)) errors.push(`功能后台设定路径不存在：${f.id} → ${f.backendSettingPath}`);
 }
 
-for (const file of ['next.html','assets/next.js','assets/next-enhancements.js','assets/next.css']) {
+for (const file of ['index.html','next.html','assets/next.js','assets/next-enhancements.js','assets/next-relations.js','assets/next.css','assets/next-relations.css']) {
   if (!exists(file)) errors.push(`缺少前端文件：${file}`);
 }
 
+console.log(`存档事务：${saveTransaction?.state ?? 'missing'}`);
 console.log(`访问实例：${worlds.length}`);
 console.log(`实体：${ids.size}`);
 console.log(`引用：${refs.length}`);
