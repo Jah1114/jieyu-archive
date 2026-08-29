@@ -1,0 +1,21 @@
+{
+  "features": [
+    {
+      "id": "feature-jiewang",
+      "name": "界网",
+      "importance": "核心跨世界社会基础设施",
+      "state": "未解锁",
+      "publicVisible": false,
+      "unlockRule": "徐长卿必须在正史剧情中实际接触并确认界网存在后，第一视角网站才允许显示该模块。",
+      "backendSettingPath": "lore/SETTING.md",
+      "plannedViews": ["连接状态", "好友", "私信", "社区", "知识库", "开源项目", "节点", "界网来源情报"],
+      "principles": [
+        "界网不是界域官方系统",
+        "不提供全知信息",
+        "网络可能不可达或中断",
+        "信息有真假与世界线差异",
+        "日常通讯需要很小但真实的维护/能源成本"
+      ]
+    }
+  ]
+}
