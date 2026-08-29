@@ -4,17 +4,21 @@ on:
   push:
     branches: [main]
     paths:
+      - 'archive/**'
       - 'data/**'
       - 'story/**'
       - 'assets/**'
+      - 'index.html'
       - 'next.html'
       - 'scripts/validate-data.mjs'
       - '.github/workflows/validate-data.yml'
   pull_request:
     paths:
+      - 'archive/**'
       - 'data/**'
       - 'story/**'
       - 'assets/**'
+      - 'index.html'
       - 'next.html'
       - 'scripts/validate-data.mjs'
       - '.github/workflows/validate-data.yml'
