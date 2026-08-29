@@ -6,14 +6,14 @@
     "worldDay": 124,
     "dayPart": "上午",
     "location": "太南谷",
-    "frontier": "在太南小会摊位看到低阶持续防御符金刚符；尚未购买，已确认成品约1块下品灵石、符法约50块。"
+    "frontier": "与陈砚、叶青继续逛太南小会；已以3张自制护身符换得3份火弹符材料，私人灵石仍约3块。随后浏览法器、药材与杂学纸册，当前停在旧书/杂学摊翻看《低阶符纸处理杂录》等薄册，尚未购买。"
   },
   "sync": {
     "continuityUpdated": true,
     "structuredDataUpdated": true,
-    "homepageUpdated": true,
+    "homepageUpdated": false,
     "lastArchiveCommand": "存档",
-    "note": "项目命令仅保留‘存档/读档’。正式 index.html 已使用数据驱动档案；next.html 暂保留为同构备用入口。"
+    "note": "本轮推进了太南小会制符周转试验与市场询价；未形成新的自然章节节点，未更新章节索引/正史章节文件。"
   },
   "principles": {
     "perspective": "徐长卿第一视角",
