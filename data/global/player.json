@@ -1,0 +1,25 @@
+{
+  "id": "player-xuchangqing",
+  "name": "徐长卿",
+  "gender": "男",
+  "age": 24,
+  "heightCm": 185,
+  "weightKgApprox": 70,
+  "origin": {
+    "education": "普通大专",
+    "occupation": "无业",
+    "living": "独居",
+    "skills": ["会开车"],
+    "interests": ["AI", "科技产品", "养蚂蚁"]
+  },
+  "personality": ["偏理性", "不喜欢强行当队长", "涉及自身底牌与核心利益时会自主判断"],
+  "coreTalentId": "ability-wulianglinghai",
+  "currentWorldId": "world-01",
+  "currentState": {
+    "realm": "练气一层",
+    "spiritualRoots": "五灵根：木最明显，水土次，火金弱",
+    "body": "良好",
+    "mana": "充盈",
+    "exitWindow": "已开启，可主动离界，无已知倒计时"
+  }
+}
