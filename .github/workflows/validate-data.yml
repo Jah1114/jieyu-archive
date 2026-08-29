@@ -6,12 +6,16 @@ on:
     paths:
       - 'data/**'
       - 'story/**'
+      - 'assets/**'
+      - 'next.html'
       - 'scripts/validate-data.mjs'
       - '.github/workflows/validate-data.yml'
   pull_request:
     paths:
       - 'data/**'
       - 'story/**'
+      - 'assets/**'
+      - 'next.html'
       - 'scripts/validate-data.mjs'
       - '.github/workflows/validate-data.yml'
 
@@ -27,3 +31,5 @@ jobs:
           node-version: '20'
       - name: Validate structured archive
         run: node scripts/validate-data.mjs
+      - name: Check browser JavaScript syntax
+        run: node --check assets/next.js
