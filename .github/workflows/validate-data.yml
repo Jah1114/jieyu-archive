@@ -35,6 +35,8 @@ jobs:
           node-version: '20'
       - name: Validate structured archive
         run: node scripts/validate-data.mjs
+      - name: Validate persistence structure
+        run: node scripts/validate-persistence.mjs
       - name: Validate market and live operation protocol
         run: node scripts/validate-market.mjs
       - name: Check browser JavaScript syntax
