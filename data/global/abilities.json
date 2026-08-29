@@ -1,0 +1,24 @@
+{
+  "abilities": [
+    {
+      "id": "ability-wulianglinghai",
+      "name": "无量灵海",
+      "type": "天赋",
+      "sourceWorldId": null,
+      "source": "与生俱来",
+      "mastery": "核心天赋",
+      "effects": ["每完成完整周天，法力/灵力上限永久增加", "每完成完整周天，自然回复速度永久增加", "与正式功法周天兼容", "无理论上限"],
+      "limits": ["不自动提升境界", "不自动提升单发威力", "不自动提升肉体", "不自动提升悟性", "瞬时输出受经脉、身体、控制、境界、术法结构限制"],
+      "crossWorldStatus": "核心跨世界能力，已知可保留",
+      "evidence": "长期亲自确认"
+    },
+    {"id":"ability-changchungong","name":"《长春功》前两层","type":"功法","sourceWorldId":"world-01","source":"韩立传授","mastery":"第一层稳定修炼","effects":["正式练气功法周天","可同步推动无量灵海增长"],"limits":["五灵根导致常规吸灵资质差"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自修炼"},
+    {"id":"ability-fireball","name":"火弹术","type":"法术","sourceWorldId":"world-01","source":"韩立传授","mastery":"入门","effects":["稳定释放小火弹","连续施法续航明显"],"limits":["连续高强度施法先受经脉吞吐限制","单发威力并不异常"],"crossWorldStatus":"待进入下一世界验证","evidence":"第85天实战确认"},
+    {"id":"ability-object-control","name":"驱物术","type":"法术","sourceWorldId":"world-01","source":"韩立传授","mastery":"入门","effects":["控制石块、短刀级物体","约三四丈范围内移动转向"],"limits":["速度、复杂轨迹、移动目标命中仍弱"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自练习"},
+    {"id":"ability-conceal","name":"敛气术","type":"法术","sourceWorldId":"world-01","source":"顾承山交易","mastery":"入门","effects":["低耗长期维持","降低灵力异常显眼程度"],"limits":["瞒不过高阶修士认真探查"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自使用"},
+    {"id":"ability-protective-qi","name":"护体行气","type":"技巧","sourceWorldId":"world-01","source":"韩立指点","mastery":"熟悉","effects":["灵力附于皮肉筋骨以减轻冲击"],"limits":["不是完整防御术法"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自使用"},
+    {"id":"ability-body-infuse","name":"灵力灌体","type":"技巧","sourceWorldId":"world-01","source":"自行摸索与练习","mastery":"熟悉","effects":["短时强化拳脚与腿部爆发","局部增强抗冲击"],"limits":["身体与经脉承担反冲"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自使用"},
+    {"id":"ability-swift-step","name":"疾风步","type":"武学","sourceWorldId":"world-01","source":"叶青交换/指导","mastery":"入门","effects":["短距快速移动","与灵力灌腿结合后稳定性提高"],"limits":["仍属基础凡俗身法"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自练习"},
+    {"id":"ability-talisman","name":"制符","type":"技艺","sourceWorldId":"world-01","source":"韩立、顾承山指点","mastery":"火弹符较稳定；护身符初学","effects":["将灵力转化为可储存符箓","火弹符可交易和预存火力"],"limits":["材料、手腕、注意力、成功率与销售渠道仍是瓶颈"],"crossWorldStatus":"技艺知识应可保留，实际材料/规则待新世界验证","evidence":"亲自制作"}
+  ]
+}
