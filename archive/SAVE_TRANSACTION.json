@@ -1,32 +1,14 @@
 {
   "schemaVersion": 1,
-  "state": "in_progress",
-  "activeTransaction": {
+  "state": "clean",
+  "activeTransaction": null,
+  "lastCompletedTransaction": {
     "id": "maintenance-20260830-market-live-protocol",
     "type": "maintenance",
     "startedAt": "2026-08-30T00:43:23+08:00",
-    "targetFiles": [
-      "archive/OPERATION_PROTOCOL.md",
-      "archive/SAVE_TRANSACTION.json",
-      "README.md",
-      "archive/CONTINUITY.md",
-      "data/global/inventory.json",
-      "data/worlds/world-01.json",
-      "assets/next-market.js",
-      "index.html",
-      "next.html",
-      "scripts/validate-market.mjs",
-      ".github/workflows/validate-data.yml"
-    ],
-    "note": "新增跨世界市场观察层；让携带页显示可靠参考行情；新增每次读档/存档都必须重读的 GitHub 活操作协议。未推进游戏剧情。"
-  },
-  "lastCompletedTransaction": {
-    "id": "maintenance-20260830-protocol-unification",
-    "type": "maintenance",
-    "startedAt": "2026-08-30T00:14:42+08:00",
-    "completedAt": "2026-08-30T00:18:28+08:00",
-    "validationRunId": 33262586218,
-    "note": "已统一项目来源规范与 GitHub README/CONTINUITY/ROADMAP/IMPLEMENTATION_STATUS 口径，并增加跨文件语义一致性校验；未推进游戏剧情。"
+    "completedAt": "2026-08-30T00:50:04+08:00",
+    "validationRunId": 33263964271,
+    "note": "已新增跨世界市场观察层与携带页参考行情；新增 GitHub 活操作协议，并要求每次读档/存档重新读取项目来源与最新活协议。未推进游戏剧情。"
   },
   "repair": {
     "required": false,
