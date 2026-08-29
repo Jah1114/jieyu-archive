@@ -1,0 +1,11 @@
+{
+  "worlds": [
+    {
+      "id": "world-01",
+      "order": 1,
+      "name": "凡人修仙传",
+      "file": "data/worlds/world-01.json",
+      "status": "current"
+    }
+  ]
+}
