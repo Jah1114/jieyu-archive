@@ -1,183 +1,93 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>界域档案 · 徐长卿</title>
-<style>
-:root{
-  --bg:#0c0f12;--panel:#12171c;--panel2:#171d23;--text:#e8edf2;--muted:#8d99a5;--border:#28313a;
-  --accent:#9fb7aa;--accent2:#c5d6cd;--danger:#c18f8f;--warn:#c9b889;--ok:#8fb39d;
-}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}button,input{font:inherit}
-.app{min-height:100vh;display:grid;grid-template-columns:240px minmax(0,1fr)}
-.sidebar{border-right:1px solid var(--border);padding:24px 16px;position:sticky;top:0;height:100vh;background:#0e1216}.brand{padding:0 8px 20px}.brand .eyebrow{font-size:11px;letter-spacing:.24em;color:var(--muted)}.brand h1{font-size:20px;margin:8px 0 4px}.brand p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}.nav{display:flex;flex-direction:column;gap:6px;margin-top:12px}.nav button{border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 12px;border-radius:10px;text-align:left;cursor:pointer}.nav button:hover,.nav button.active{color:var(--text);background:var(--panel);border-color:var(--border)}.side-note{position:absolute;bottom:20px;left:16px;right:16px;border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:12px;font-size:11px;color:var(--muted);line-height:1.6}
-.main{padding:28px clamp(18px,4vw,48px) 60px;width:100%;max-width:1400px;justify-self:center}.topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:22px}.title h2{margin:0;font-size:26px}.title p{margin:6px 0 0;color:var(--muted);font-size:13px}.search{width:min(420px,48vw);background:var(--panel);border:1px solid var(--border);border-radius:12px;color:var(--text);padding:11px 13px;outline:none}.search:focus{border-color:#51606c}.notice{border:1px solid #354238;background:#111a16;border-radius:12px;padding:12px 14px;color:#b9c9bf;font-size:12px;margin-bottom:18px}
-.grid{display:grid;gap:14px}.grid.cols4{grid-template-columns:repeat(4,minmax(0,1fr))}.grid.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.cols2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;min-width:0}.card h3{font-size:14px;margin:0 0 10px}.card .big{font-size:22px;font-weight:650;margin:4px 0}.label{font-size:11px;color:var(--muted);letter-spacing:.06em}.muted{color:var(--muted)}.small{font-size:12px;line-height:1.65}.section{display:none}.section.active{display:block}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:28px 0 12px}.section-head h3{margin:0;font-size:18px}.section-head p{margin:0;color:var(--muted);font-size:12px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:11px;color:var(--muted);background:#101419}.chip.ok{color:#adc9b7;border-color:#365044}.chip.warn{color:#d1c28f;border-color:#544b32}.chip.info{color:#a9bccb;border-color:#354554}
-.person{cursor:pointer;transition:.15s}.person:hover,.chapter:hover{transform:translateY(-1px);border-color:#3c4853}.person-top{display:flex;gap:10px;align-items:center;justify-content:space-between}.person-name{font-size:17px;font-weight:650}.person-meta{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.65}.detail{margin-top:12px;border-top:1px solid var(--border);padding-top:12px;display:none}.person.open .detail,.chapter.open .chapter-body{display:block}
-.timeline{position:relative;padding-left:20px}.timeline:before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--border)}.event{position:relative;margin:0 0 18px;padding:0 0 0 14px}.event:before{content:"";position:absolute;left:-19px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px #18221d}.event h4{margin:0 0 5px;font-size:14px}.event p{margin:0;color:var(--muted);font-size:12px;line-height:1.65}.event .day{font-size:11px;color:#b9c6bf;margin-bottom:4px}
-.ability{display:flex;gap:14px;align-items:flex-start}.ability .symbol{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);display:grid;place-items:center;background:var(--panel2);flex:none}.ability h4{margin:0 0 5px;font-size:14px}.ability p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}.kv{display:grid;grid-template-columns:120px 1fr;gap:9px 14px;font-size:12px}.kv div:nth-child(odd){color:var(--muted)}.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}.table th{color:var(--muted);font-weight:500}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.filter{border:1px solid var(--border);background:var(--panel);color:var(--muted);border-radius:999px;padding:7px 10px;font-size:11px;cursor:pointer}.filter.active{background:#18211c;color:var(--text);border-color:#3a4b41}.world-split{display:grid;grid-template-columns:1fr 1fr;gap:14px}.source-tag{display:inline-block;padding:2px 6px;border-radius:6px;border:1px solid var(--border);font-size:10px;color:var(--muted);margin-left:6px}.footer{margin-top:34px;color:var(--muted);font-size:11px;text-align:center}
-.journey-hero{display:grid;grid-template-columns:1.5fr .8fr;gap:14px;margin-bottom:14px}.journey-kicker{font-size:11px;color:var(--muted);letter-spacing:.12em}.journey-title{font-size:24px;font-weight:700;margin:6px 0 8px}.chapter{cursor:pointer;transition:.15s}.chapter-head{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:start}.chapter-no{font-size:11px;color:var(--muted);padding-top:3px}.chapter h4{margin:0 0 5px;font-size:15px}.chapter-summary{margin:0;color:var(--muted);font-size:12px;line-height:1.65}.chapter-body{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;line-height:1.8;color:#cbd3da}.chapter-body p{margin:0 0 10px}.chapter-body p:last-child{margin-bottom:0}.chapter-arrow{color:var(--muted);font-size:12px;padding-top:2px}.chapter.open .chapter-arrow{transform:rotate(90deg)}
-@media(min-width:1800px){.main{max-width:1520px}}
-@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--border);padding:14px}.brand{padding-bottom:10px}.nav{flex-direction:row;overflow-x:auto}.nav button{white-space:nowrap}.side-note{position:static;margin-top:10px}.main{padding:20px 14px 80px;max-width:none;justify-self:stretch}.grid.cols4,.grid.cols3{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar{align-items:flex-start;flex-direction:column}.search{width:100%}.world-split,.journey-hero{grid-template-columns:1fr}}
-@media(max-width:560px){.grid.cols4,.grid.cols3,.grid.cols2{grid-template-columns:1fr}.kv{grid-template-columns:1fr}.kv div:nth-child(odd){margin-top:5px}.person-top{align-items:flex-start}.chapter-head{grid-template-columns:1fr auto}.chapter-no{grid-column:1/-1}.chapter-arrow{grid-column:2;grid-row:2}}
-</style>
+<link rel="stylesheet" href="assets/next.css">
+<link rel="stylesheet" href="assets/next-relations.css">
 </head>
 <body>
 <div class="app">
-  <aside class="sidebar">
-    <div class="brand"><div class="eyebrow">DOMAIN ARCHIVE</div><h1>界域档案</h1><p>徐长卿 · 第一视角长期存档终端</p></div>
+  <aside class="side">
+    <div class="brand">
+      <div class="eyebrow">DOMAIN ARCHIVE</div>
+      <h1>界域档案</h1>
+      <p id="brandPlayer">第一视角长期存档终端</p>
+    </div>
     <nav class="nav" id="nav">
       <button class="active" data-tab="overview">概览</button>
-      <button data-tab="self">徐长卿</button>
       <button data-tab="people">人物</button>
       <button data-tab="world">世界</button>
       <button data-tab="timeline">时间线</button>
       <button data-tab="journey">旅程</button>
       <button data-tab="abilities">能力</button>
       <button data-tab="inventory">携带</button>
-      <button data-tab="intel">情报库</button>
+      <button data-tab="projects">项目</button>
+      <button data-tab="intel">情报</button>
+      <button data-tab="diagnostics">诊断</button>
     </nav>
-    <div class="side-note"><b>认知边界</b><br>本站只记录徐长卿截至当前实际知道的信息。NPC秘密、幕后事实与未确认事件不会写入档案。</div>
+    <div class="side-note">档案直接读取结构化存档。人物、地点、能力、物品、事件、章节、项目与情报使用稳定 ID 和统一关系层互相关联；正史正文仍以 Markdown 文件为权威来源。</div>
   </aside>
 
-  <main class="main">
-    <div class="topbar"><div class="title"><h2 id="pageTitle">系统概述</h2><p id="pageSub">《凡人修仙传》· 入界第123天 · 太南谷</p></div><input id="search" class="search" placeholder="搜索人物、能力、事件、旅程、情报……" /></div>
-    <div class="notice">档案内容仅代表 <b>徐长卿当前认知</b>。所有信息按“亲眼确认 / 亲自测试 / 本人自述 / 同行告知 / NPC告知 / 原作记忆 / 推测”区分来源。</div>
-
-    <section class="section active" id="overview">
-      <div class="grid cols4">
-        <div class="card"><div class="label">当前世界</div><div class="big">凡人修仙传</div><div class="small muted">太南小会时期</div></div>
-        <div class="card"><div class="label">时间</div><div class="big">第 123 天</div><div class="small muted">当前位于太南谷</div></div>
-        <div class="card"><div class="label">境界</div><div class="big">练气一层</div><div class="small muted">五灵根 · 木最显</div></div>
-        <div class="card"><div class="label">离界窗口</div><div class="big">已开启</div><div class="small muted">可主动离界 · 无已知倒计时</div></div>
+  <main>
+    <div class="top">
+      <div><h2 id="pageTitle">系统概述</h2><p id="pageSub">正在读取结构化档案……</p></div>
+      <div class="top-controls">
+        <select id="scope" class="scope" aria-label="世界范围"><option value="current">当前世界</option><option value="all">全部世界</option></select>
+        <input id="search" class="search" placeholder="搜索人物、地点、能力、项目、情报、事件、章节……">
       </div>
-      <div class="section-head"><h3>当前状态</h3><p>只保留真正需要长期同步的状态</p></div>
-      <div class="grid cols3">
-        <div class="card"><h3>核心天赋</h3><div class="big">无量灵海</div><div class="small muted">每次完整周天永久增加法力上限与自然回复；无理论上限。</div></div>
-        <div class="card"><h3>身体 / 法力</h3><div class="big">良好 / 充盈</div><div class="small muted">低耗维持接近日常常驻；真正瓶颈仍是经脉、控制与境界。</div></div>
-        <div class="card"><h3>近期目标</h3><div class="big">储物袋</div><div class="small muted">约 12–20 块下品灵石；之后考虑防御法器与持续防御符法。</div></div>
-      </div>
-      <div class="section-head"><h3>当前同行</h3><p>点击人物可展开已知详情</p></div>
-      <div class="grid cols3" id="overviewPeople"></div>
-      <div class="section-head"><h3>最近事件</h3><p>仅列重要节点</p></div>
-      <div class="card"><div class="timeline" id="recentTimeline"></div></div>
+    </div>
+
+    <div class="notice">公开内容仅代表 <b>徐长卿当前认知</b>。未知事实保持未知；后台设定不会在这里泄露。</div>
+    <div class="sync" id="syncBox"><span>正在读取存档状态……</span><span class="badge">读取中</span></div>
+
+    <section id="overview" class="section active">
+      <div id="overviewCards" class="grid c4"></div>
+      <div class="head"><h3>当前状态</h3><p>来自结构化存档</p></div>
+      <div id="currentState" class="grid c3"></div>
+      <div class="head"><h3>最近事件</h3><p>按当前世界范围显示</p></div>
+      <div class="card"><div id="recentEvents" class="timeline"></div></div>
+      <div class="head"><h3>档案健康</h3><p>浏览器端 + GitHub Actions 双重检查</p></div>
+      <div id="overviewDiagnostics" class="grid c3"></div>
     </section>
 
-    <section class="section" id="self">
-      <div class="grid cols2">
-        <div class="card"><h3>基础资料</h3><div class="kv"><div>姓名</div><div>徐长卿</div><div>性别 / 年龄</div><div>男 · 24岁</div><div>身高 / 体重</div><div>185cm · 约70kg</div><div>现实背景</div><div>普通大专学历，无业，独居</div><div>已知技能</div><div>会开车；喜欢AI与科技产品；养蚂蚁发烧友</div><div>性格倾向</div><div>偏理性；不喜欢强行当队长</div></div></div>
-        <div class="card"><h3>当前修行</h3><div class="kv"><div>境界</div><div>练气一层</div><div>灵根</div><div>五灵根：木最显，水土其次，火金较弱</div><div>主修</div><div>《长春功》前两层</div><div>状态</div><div>第一层稳定修炼中</div><div>离界窗口</div><div>已开启，可主动离界</div></div></div>
-      </div>
-      <div class="section-head"><h3>无量灵海</h3><p>核心长期成长记录</p></div>
-      <div class="card"><div class="ability"><div class="symbol">∞</div><div><h4>无量灵海</h4><p>与生俱来。每完成一次完整周天，法力/灵力上限与自然回复速度永久增加，没有理论上限。可以与正式功法周天同步增长。</p><div class="chips" style="margin-top:10px"><span class="chip ok">亲自确认</span><span class="chip">永久成长</span><span class="chip">无需外部资源</span></div></div></div><hr style="border:0;border-top:1px solid var(--border);margin:16px 0"><div class="small"><b>明确限制：</b>不自动提升境界、单发法术威力、肉身、悟性。法力多 ≠ 瞬间输出无限；受经脉、身体承载、控制、境界与术法结构限制。</div></div>
-      <div class="section-head"><h3>已知成长节点</h3></div>
-      <div class="card"><div class="timeline"><div class="event"><div class="day">七玄门早期</div><h4>低强度行气逐渐可以边做事边维持</h4><p>搬药、赶路、重复工作时可保持部分周天。</p></div><div class="event"><div class="day">七玄门大战后</div><h4>连续火弹证明续航优势可用于斗法</h4><p>单发强度普通，但可把斗法拖入持续消耗。</p></div><div class="event"><div class="day">太南谷前</div><h4>低耗技能开始接近日常常驻</h4><p>敛气术等低强度消耗逐渐能被自然回复覆盖。</p></div></div></div>
+    <section id="people" class="section"><div id="peopleGrid" class="grid c3"></div></section>
+    <section id="world" class="section">
+      <div id="worldGrid" class="grid c3"></div>
+      <div class="head"><h3>已知地点</h3></div><div id="locationsGrid" class="grid c3"></div>
+      <div class="head"><h3>已知规则与市场</h3></div><div id="worldDetails" class="grid c2"></div>
+    </section>
+    <section id="timeline" class="section"><div class="card"><div id="timelineGrid" class="timeline"></div></div></section>
+    <section id="journey" class="section"><div id="journeyGrid" class="grid c2"></div></section>
+    <section id="abilities" class="section"><div id="abilitiesGrid" class="grid c2"></div></section>
+    <section id="inventory" class="section">
+      <div id="currencyGrid" class="grid c3"></div>
+      <div class="head"><h3>物品</h3></div><div id="inventoryGrid" class="grid c2"></div>
+    </section>
+    <section id="projects" class="section"><div id="projectsGrid" class="grid c2"></div></section>
+    <section id="intel" class="section"><div id="intelGrid" class="grid c2"></div></section>
+    <section id="diagnostics" class="section">
+      <div class="head" style="margin-top:0"><h3>自动诊断</h3><p>重复 ID / 坏引用 / 结构问题</p></div>
+      <div id="diagnosticsSummary" class="grid c3"></div>
+      <div class="head"><h3>检查结果</h3></div><div id="diagnosticsList" class="diag-list"></div>
     </section>
 
-    <section class="section" id="people">
-      <div class="toolbar" id="peopleFilters"><button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="current">当前同行</button><button class="filter" data-filter="walker">行者</button><button class="filter" data-filter="npc">本世界人物</button><button class="filter" data-filter="apart">已分开</button></div>
-      <div class="grid cols3" id="peopleGrid"></div>
-    </section>
-
-    <section class="section" id="world">
-      <div class="grid cols3"><div class="card"><div class="label">世界 01</div><div class="big">凡人修仙传</div><div class="small muted">当前仍在世界内 · 离界窗口已开启</div></div><div class="card"><div class="label">已知地点</div><div class="big">5+</div><div class="small muted">七玄门、嘉元城、青石山、太南谷等</div></div><div class="card"><div class="label">世界状态</div><div class="big">已偏离原作</div><div class="small muted">原作只作为进入时的初始条件，不再视为固定剧情。</div></div></div>
-      <div class="section-head"><h3>现实确认 vs 原作记忆</h3></div>
-      <div class="world-split"><div class="card"><h3>进入后亲自确认</h3><ul class="small muted"><li>灵根、练气体系、灵石、法器、符箓、坊市/小会真实存在。</li><li>低阶散修生活核心是资源、交易、修炼与风险控制。</li><li>太南谷为修仙者聚集地之一。</li><li>七玄门大战中确有修仙者介入。</li></ul></div><div class="card"><h3>穿越前原作记忆</h3><ul class="small muted"><li>韩立是原作关键人物。</li><li>太南谷与原作早期修仙路线有关。</li><li>原作剧情现在只能作为参考，不能当作未来必然事件。</li></ul></div></div>
-      <div class="section-head"><h3>已知地点</h3></div><div class="grid cols3"><div class="card"><h3>彩霞山 · 七玄门</h3><p class="small muted">早期落脚与修炼起点；已发生野狼帮大战。</p></div><div class="card"><h3>嘉元城</h3><p class="small muted">离开七玄门后的重要过渡地。</p></div><div class="card"><h3>青石山</h3><p class="small muted">顾承山洞府所在地；首次系统接触迷阵与散修生活。</p></div><div class="card"><h3>太南谷</h3><p class="small muted">当前所在地；散修交易、小会、委托与法器市场。</p></div></div>
-    </section>
-
-    <section class="section" id="timeline"><div class="card"><div class="timeline" id="fullTimeline"></div></div></section>
-
-    <section class="section" id="journey">
-      <div class="journey-hero">
-        <div class="card"><div class="journey-kicker">WORLD 01 · CANON JOURNEY</div><div class="journey-title">《凡人修仙传》</div><p class="small muted">这里保存的是已经发生的正史章节。当前版本是根据可靠记录整理的章节级正文，不冒充逐字聊天原文；后续自然剧情段结束时继续追加。</p><div class="chips" style="margin-top:12px"><span class="chip ok">正史</span><span class="chip">第一视角</span><span class="chip">8章已归档</span></div></div>
-        <div class="card"><div class="label">当前进度</div><div class="big">太南小会</div><div class="small muted">第123天左右</div><hr style="border:0;border-top:1px solid var(--border);margin:14px 0"><div class="label">最近章节</div><div style="margin-top:7px;font-size:14px">陆明远与跨体系实验</div></div>
-      </div>
-      <div class="section-head"><h3>正史章节</h3><p>点击章节展开整理正文</p></div>
-      <div class="grid" id="chaptersGrid"></div>
-    </section>
-
-    <section class="section" id="abilities"><div class="grid cols2" id="abilitiesGrid"></div></section>
-
-    <section class="section" id="inventory">
-      <div class="grid cols4"><div class="card"><div class="label">私人灵石</div><div class="big">约 3</div><div class="small muted">下品灵石</div></div><div class="card"><div class="label">火弹符</div><div class="big">约 16</div><div class="small muted">自留</div></div><div class="card"><div class="label">护身符</div><div class="big">约 6</div><div class="small muted">自留</div></div><div class="card"><div class="label">共同资金</div><div class="big">0</div><div class="small muted">此前用于陈砚《引火诀》</div></div></div>
-      <div class="section-head"><h3>携带清单</h3></div>
-      <div class="card"><table class="table"><thead><tr><th>物品</th><th>分类</th><th>来源</th><th>当前认知</th></tr></thead><tbody><tr><td>《长春功》前两层</td><td>功法资料</td><td>韩立</td><td>当前主修</td></tr><tr><td>基础木行吐纳</td><td>功法资料</td><td>韩立</td><td>入门基础</td></tr><tr><td>《常用药录》</td><td>书籍</td><td>青牛镇</td><td>凡俗药材知识</td></tr><tr><td>火弹符 ×约16</td><td>战斗符箓</td><td>自行制作</td><td>可用于快速释放火弹</td></tr><tr><td>护身符 ×约6</td><td>防御符箓</td><td>自行制作</td><td>当前重要保命储备</td></tr></tbody></table></div>
-    </section>
-
-    <section class="section" id="intel"><div class="grid cols2" id="intelGrid"></div></section>
-    <div class="footer">界域档案 · 当前存档快照：入界第123天 · 后续以“同步档案”为更新指令</div>
+    <div class="footer">界域档案 · 第一视角长期存档终端</div>
   </main>
 </div>
-<script>
-const people=[
- {name:'陈砚',gender:'男',age:'23岁',type:'walker current',status:'当前同行 / 朋友',summary:'南京人；第二个世界；练气一层，四灵根，火金较显；已学《引火诀》。',detail:'和徐长卿在前往七玄门途中相识。当前实战手段仍少，但已正式进入修仙体系。',source:'本人自述 + 亲眼确认'},
- {name:'叶青',gender:'女',age:'约25–26岁',type:'walker current',status:'当前同行',summary:'第五个世界；练气一层，三灵根（水木火）；刀法、疾风步、药理与交易判断较强。',detail:'比徐长卿更早进入本世界约四个月，曾通过厉飞雨路线建立七玄门身份与资源。',source:'本人自述 + 亲眼确认'},
- {name:'顾承山',gender:'男',age:'接近80岁',type:'npc current',status:'暂时同行 / 前辈',summary:'练气六层散修；青石山洞府主人；熟悉制符、灵药、太南谷与低阶散修生活。',detail:'曾用二十张火弹符换取敛气术，并带徐长卿等进入太南谷。',source:'NPC自述 + 亲眼确认'},
- {name:'陆明远',gender:'男',age:'约25岁',type:'walker',status:'初步合作',summary:'杭州人；第三个世界；练气一层，四灵根，偏土；现实做过机械设计。',detail:'前一明确世界为《生化危机》电影版。持有保护伞设施工业腕带与若干传感器/电子模块。已和徐长卿约定有机会共同研究“科技 × 超凡”。',source:'本人自述 + 部分亲自测试'},
- {name:'沈修',gender:'男',age:'表面约20岁',type:'walker apart',status:'已分开 / 去向未知',summary:'第四个世界；无灵根；有弱念动力，几公斤级，精细控制较好。',detail:'最后确认时离界窗口已经开启，之后选择留一段时间再离界；目前无法确认是否仍在本世界。',source:'本人自述 + 亲眼确认'},
- {name:'韩立',gender:'男',age:'约17岁',type:'npc apart',status:'可信联系人 / 已分开',summary:'本世界重要人物。曾给予徐长卿基础修仙体系的关键帮助。',detail:'包括测灵根、行气、护体行气、驱物术、火弹术、《长春功》前两层、护身符等。关系不是师徒，也不是无条件盟友。',source:'亲眼确认'},
-];
-const events=[
- {day:'第 1 天',title:'进入《凡人修仙传》',text:'以镜州普通青年身份进入世界；无传统任务面板。'},
- {day:'早期',title:'加入七玄门药童体系',text:'与陈砚、沈修相识，并逐步接触韩立。'},
- {day:'七玄门时期',title:'确认五灵根并开始修仙',text:'韩立测得五灵根；学习基础行气、护体、驱物术与火弹术。'},
- {day:'第 85 天',title:'七玄门大战 · 首次修仙者实战',text:'连续释放7枚火弹消耗敌方黄色护罩；经脉先出现胀痛。证明无量灵海有明显续航优势，但护身符被敌方法术击碎也证明并不无敌。'},
- {day:'大战后',title:'随韩立离开七玄门',text:'获得《长春功》前两层，开始真正建立练气修炼体系。'},
- {day:'约第 93 天',title:'离界窗口首次开启',text:'可以主动离界，但没有倒计时；选择继续留在本世界。'},
- {day:'青石山时期',title:'认识顾承山',text:'第一次系统接触迷阵、低阶散修经济、制符交易与敛气术。'},
- {day:'太南谷早期',title:'进入修仙者集市',text:'开始接触灵石、法器、储物袋、委托与小会交易。'},
- {day:'太南谷',title:'完成低风险委托',text:'参与药材整理、灵谷种子护送，建立最初的资源与熟人渠道。'},
- {day:'第 123 天左右',title:'遇到行者陆明远',text:'亲自测试其保护伞电子模块：灵石或外放灵力接近时会产生可重复的微弱荧光响应；真实机制未知。'},
-];
-const chapters=[
- {no:'第一章',title:'初入镜州',range:'第1天起',summary:'第一次进入《凡人修仙传》，以普通镜州青年身份开始生存，并确认这里不是带任务栏的副本世界。',body:['徐长卿进入世界时拥有的只是粗布衣、少量碎银铜钱、水囊与干粮，身份也只是一个父母早亡、无田无业、外出谋生的镜州青年。','最早真正特殊的东西来自身体内部：哪怕没有系统面板，也能感到一股极少的灵力，以及只要完整运行周天便会永久增长的“无量灵海”。这意味着时间本身开始成为资源。']},
- {no:'第二章',title:'七玄门与同行者',range:'早期',summary:'进入七玄门体系，认识陈砚、沈修，并开始与韩立建立谨慎可信的联系。',body:['七玄门时期，徐长卿没有成为天才弟子，而是从药房、药园和基础身体训练开始。陈砚与沈修逐步被确认也是行者。','韩立后来为徐长卿测试灵根：五灵根，木最明显，水土次之，火金较弱。常规资质很差，但体内灵力恢复和总量增长异常，这也让韩立多次提醒必须隐藏。']},
- {no:'第三章',title:'从“有法力”到真正修仙',range:'七玄门时期',summary:'学习火弹术、驱物术、护体行气、灵力灌体等手段，逐渐理解“法力池”和“瞬时输出”并不是一回事。',body:['火弹术成为最早的真正法术。徐长卿很快发现，自己最大的优势并不是单发火弹比别人强，而是可以连续施放很多次。','驱物术则从石子和短刀开始；灵力灌体、护体行气和疾风步逐步构成近身与生存手段。与此同时，身体、经脉和控制力始终提醒着徐长卿：水库很大，不代表水管无限粗。']},
- {no:'第四章',title:'第85天 · 后山斗法',range:'第85天',summary:'第一次与真正低阶修仙者实战，连续七发火弹压迫黄色护罩，并亲身确认防御符与经脉吞吐的重要性。',body:['敌方低阶修士有黄色护罩和黄锥攻击。徐长卿先后使用两张护身符抵挡风险，其中一次黄锥撞碎护身符并让右侧肋部发麻；如果没有符，结果很可能严重得多。','火弹从第一发一直打到第七发，敌方护罩不断变暗。第八发凝聚到一半时，右臂和经脉已经明显发胀，徐长卿主动停手——法力仍有，但输出通道先到了极限。','之后通过驱物短刀佯攻、疾风步贴身和灵力灌体近身施压。敌修最终因为前线局势变化撤退，并非被徐长卿单杀。徐长卿没有追击，也没有在这场战斗中确认自己亲手杀人。']},
- {no:'第五章',title:'离开七玄门与离界窗口',range:'大战后—约第93天',summary:'随韩立向嘉元城方向行动，获得《长春功》前两层，并第一次获得明确的主动离界感。',body:['离开七玄门后，韩立把《长春功》前两层交给徐长卿。正式功法周天开始与无量灵海的永久增长兼容，徐长卿也真正进入练气一层。','约第93天，客栈夜里修炼时，徐长卿突然明确知道自己“可以离开这个世界”。没有倒计时，也没有催促；只要主动集中意识即可。徐长卿选择留下。']},
- {no:'第六章',title:'青石山 · 顾承山',range:'嘉元城之后',summary:'通过观察和试探破解老旧迷阵，结识练气六层散修顾承山，开始接触真正的散修生存逻辑。',body:['三人没有因为看到迷阵就直接闯入，而是用石子、驱物、地势和树影异常等方式观察，最终判断迷阵更多是方向干扰而非杀阵。','洞府主人顾承山与三人完成交易：徐长卿用二十张火弹符换取敛气术，材料由顾承山提供。之后又在反复制符中学会更稳定地制作火弹符，并开始学习护身符。']},
- {no:'第七章',title:'太南小会 · 低风险路线',range:'太南谷时期',summary:'第一次真正进入低阶修仙经济，靠制符、药材整理和护送委托积累资源，同时明确储物袋的跨世界价值。',body:['太南谷让徐长卿第一次直观看到大量练气二到五层的修士、法器、符箓和灵石价格。三十张火弹符只能卖到两块下品灵石，低阶制符远没有暴利。','三人拒绝了风险信息不透明的红岩涧采药委托，转而完成药材整理与灵谷种子护送。途中遇到可疑修士也没有强行把线索变成支线，而是让对方先走，最终顺利完成委托。','储物袋成为徐长卿最明确的近期目标：最小实用规格约十二块灵石，更常见的小储物袋在十五到二十块左右。对行者而言，它的意义远高于单纯方便。']},
- {no:'第八章',title:'陆明远与跨体系实验',range:'第123天左右',summary:'遇到第三世界行者陆明远，并第一次亲手确认“现代科技部件会对修仙灵力产生可重复物理响应”。',body:['陆明远来自杭州，现实做过约两年机械设计，前一明确世界是《生化危机》电影版。他带出了保护伞设施的身份腕带、传感器和电子部件。','其中一块小型黑色模块在灵石靠近时会出现微弱荧光。徐长卿进一步用极弱外放灵力进行非接触测试：聚灵则亮，散去则灭，并能重复。当前唯一可靠结论只是“它会响应灵力”，真实机制仍完全未知。','徐长卿与陆明远因此建立了很松散但明确的合作：未来如果还有机会处于同一世界，可以继续研究科技与超凡体系的交叉。随后在太南小会又见到持续型防御符“金刚符”；符法开价五十块灵石，成为一个遥远但明显适配无量灵海的发展方向。']},
-];
-const abilities=[
- ['无量灵海','天赋','每次完整周天永久增加法力上限与自然回复，无理论上限。','瓶颈：经脉、肉身、控制、境界、术法结构。','亲自确认'],
- ['《长春功》','功法','当前主修，第一层稳定修炼中；正式周天可同步推动无量灵海。','五灵根导致外界吸灵效率仍差。','韩立传授'],
- ['火弹术','法术','入门；单发普通，但连续施放续航优势明显。','高速连续施放会先压到经脉吞吐。','亲自实战'],
- ['驱物术','法术','入门；可控制小石子、短刀级物体并进行粗糙轨迹控制。','精细控制和速度仍弱。','韩立传授'],
- ['敛气术','法术','入门；低耗，可长期维持，降低灵力异常的外在显眼程度。','瞒不过高阶修士认真探查。','顾承山交易'],
- ['护体行气','技巧','将灵力附于皮肉筋骨附近，减轻冲击。','不是完整防御术法，更不是无敌罡气。','韩立传授'],
- ['灵力灌体','技巧','可短时强化拳脚、腿部爆发与局部抗击。','身体和经脉仍承受反冲。','自行摸索'],
- ['疾风步','武学','凡俗轻功，可与灵力灌腿结合形成更稳定的短距爆发。','目前仍属入门。','叶青交换'],
- ['制符','技艺','火弹符已较稳定；护身符初学。适合把日常恢复溢出的灵力转化为库存。','材料、手腕、精神、成功率与销售渠道仍是瓶颈。','韩立/顾承山指点'],
-];
-const intel=[
- ['陆明远：保护伞电子模块会响应灵力','亲自测试','已确认','灵石或外放灵力靠近时产生可重复微弱荧光；强度似乎随灵力增强而变。'],
- ['保护伞电子模块的真实响应机制','未知','未确认','可能是材料本身响应、电子结构受影响或其他机制；现阶段无仪器无法判断。'],
- ['离界窗口因人而异','综合观察','高可信推测','徐长卿、沈修、陆明远等开启时间不同；不像统一世界任务。'],
- ['离界窗口可作为紧急撤离手段','自身感知','推测','需要集中意识，因此不能视为濒死自动保命。'],
- ['原作剧情会继续按原作发生','原作记忆','不可靠','进入世界后已有多名行者产生干预，原作只能用于辨认初始背景。'],
- ['低阶散修委托存在真实风险差','顾承山告知','已确认','纸面上的“低阶”“安全”等描述不能替代现场判断。'],
-];
-function personCard(p){return `<div class="card person" data-type="${p.type}" data-search="${p.name} ${p.summary} ${p.detail}"><div class="person-top"><div><div class="person-name">${p.name}</div><div class="chips" style="margin-top:7px"><span class="chip">${p.gender}</span><span class="chip">${p.age}</span></div></div><span class="chip info">${p.status}</span></div><div class="person-meta">${p.summary}</div><div class="detail small"><b>已知详情</b><br>${p.detail}<br><br><span class="muted">信息来源：${p.source}</span></div></div>`}
-function eventHtml(e){return `<div class="event" data-search="${e.day} ${e.title} ${e.text}"><div class="day">${e.day}</div><h4>${e.title}</h4><p>${e.text}</p></div>`}
-function abilityHtml(a){return `<div class="card" data-search="${a.join(' ')}"><div class="ability"><div class="symbol">${a[0][0]}</div><div><h4>${a[0]}</h4><div class="chips" style="margin-bottom:8px"><span class="chip">${a[1]}</span><span class="chip ok">${a[4]}</span></div><p>${a[2]}</p><p style="margin-top:7px"><b>限制：</b>${a[3]}</p></div></div></div>`}
-function intelHtml(x){return `<div class="card" data-search="${x.join(' ')}"><h3>${x[0]}</h3><div class="chips"><span class="chip">${x[1]}</span><span class="chip ${x[2].includes('确认')?'ok':'warn'}">${x[2]}</span></div><p class="small muted">${x[3]}</p></div>`}
-function chapterHtml(c){return `<div class="card chapter" data-search="${c.no} ${c.title} ${c.range} ${c.summary} ${c.body.join(' ')}"><div class="chapter-head"><div class="chapter-no">${c.no}<br><span class="muted">${c.range}</span></div><div><h4>${c.title}</h4><p class="chapter-summary">${c.summary}</p></div><div class="chapter-arrow">›</div></div><div class="chapter-body">${c.body.map(p=>`<p>${p}</p>`).join('')}</div></div>`}
-document.querySelector('#peopleGrid').innerHTML=people.map(personCard).join('');
-document.querySelector('#overviewPeople').innerHTML=people.filter(p=>p.type.includes('current')).map(personCard).join('');
-document.querySelector('#fullTimeline').innerHTML=events.map(eventHtml).join('');
-document.querySelector('#recentTimeline').innerHTML=events.slice(-4).map(eventHtml).join('');
-document.querySelector('#chaptersGrid').innerHTML=chapters.map(chapterHtml).join('');
-document.querySelector('#abilitiesGrid').innerHTML=abilities.map(abilityHtml).join('');
-document.querySelector('#intelGrid').innerHTML=intel.map(intelHtml).join('');
 
-document.addEventListener('click',e=>{const pc=e.target.closest('.person');if(pc)pc.classList.toggle('open');const ch=e.target.closest('.chapter');if(ch)ch.classList.toggle('open')});
-const titles={overview:['系统概述','《凡人修仙传》· 入界第123天 · 太南谷'],self:['徐长卿档案','当前个人能力、状态与成长记录'],people:['人物档案','只显示徐长卿已经掌握的人物信息'],world:['世界档案','世界现实与原作记忆分离记录'],timeline:['时间线','重要事件与成长节点'],journey:['旅程','已经发生并归档的正史章节'],abilities:['能力与技艺','来源、效果、限制与掌握程度'],inventory:['携带与资源','当前已知个人物品与资源'],intel:['情报库','确认、传闻、推测与未知机制']};
-document.querySelectorAll('#nav button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(btn.dataset.tab).classList.add('active');document.getElementById('pageTitle').textContent=titles[btn.dataset.tab][0];document.getElementById('pageSub').textContent=titles[btn.dataset.tab][1];window.scrollTo({top:0,behavior:'smooth'});}));
-document.querySelectorAll('#peopleFilters .filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#peopleFilters .filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');const f=b.dataset.filter;document.querySelectorAll('#peopleGrid .person').forEach(c=>{c.style.display=(f==='all'||c.dataset.type.includes(f))?'block':'none'})}));
-document.getElementById('search').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.style.opacity=!q||el.dataset.search.toLowerCase().includes(q)?'1':'.18'});});
-</script>
+<div id="drawerBackdrop" class="drawer-backdrop"></div>
+<aside id="drawer" class="drawer" aria-label="档案详情">
+  <div class="drawer-head">
+    <div><div id="drawerKicker" class="drawer-kicker">档案详情</div><div id="drawerTitle" class="drawer-title">—</div></div>
+    <button id="drawerClose" class="drawer-close" aria-label="关闭">×</button>
+  </div>
+  <div id="drawerBody" class="drawer-body"></div>
+</aside>
+
+<script src="assets/next.js" defer></script>
+<script src="assets/next-enhancements.js" defer></script>
+<script src="assets/next-relations.js" defer></script>
 </body>
 </html>
