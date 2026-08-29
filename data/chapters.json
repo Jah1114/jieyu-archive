@@ -8,6 +8,7 @@
       "title": "初入镜州",
       "range": "第1天起",
       "summary": "以镜州普通青年身份进入世界，确认无传统任务面板；认识陈砚、沈修，并开始理解无量灵海的基础增长方式。",
+      "locationIds": [],
       "relatedIds": ["player-xuchangqing", "person-chenyan", "person-shenxiu", "ability-wulianglinghai", "event-001", "event-002"],
       "sourcePath": "story/world01_fanren/CHAPTERS.md"
     },
@@ -19,6 +20,7 @@
       "title": "七玄门时期",
       "range": "早期",
       "summary": "进入七玄门药童体系，确认五灵根资质，与韩立、叶青建立重要联系，并系统接触基础修仙与身体训练。",
+      "locationIds": ["loc-qixuanmen"],
       "relatedIds": ["person-hanli", "person-yeqing", "person-chenyan", "person-shenxiu", "ability-fireball", "ability-object-control", "event-003"],
       "sourcePath": "story/world01_fanren/CHAPTERS.md"
     },
@@ -30,6 +32,7 @@
       "title": "第85天 · 后山斗法",
       "range": "第85天",
       "summary": "首次正面对抗低阶修士，连续七发火弹压迫护罩，第八发因经脉负担主动取消；确认续航优势与吞吐瓶颈。",
+      "locationIds": ["loc-qixuanmen"],
       "relatedIds": ["ability-fireball", "person-yeqing", "person-chenyan", "person-shenxiu", "event-004"],
       "sourcePath": "story/world01_fanren/CHAPTERS.md"
     },
@@ -41,6 +44,7 @@
       "title": "离开七玄门与离界窗口",
       "range": "大战后—约第93天",
       "summary": "随韩立离开七玄门，获得《长春功》前两层；约第93天首次明确感知主动离界窗口，但选择继续停留。",
+      "locationIds": ["loc-qixuanmen", "loc-jiayuan"],
       "relatedIds": ["person-hanli", "ability-changchungong", "event-005", "event-006"],
       "sourcePath": "story/world01_fanren/CHAPTERS.md"
     },
@@ -52,6 +56,7 @@
       "title": "嘉元城与青石山",
       "range": "第93天后",
       "summary": "开始从韩立身边独立，在青石山通过现实观察破解老旧迷阵，结识顾承山并建立制符与敛气术交易关系。",
+      "locationIds": ["loc-jiayuan", "loc-qingshi"],
       "relatedIds": ["person-guchengshan", "person-hanli", "person-yeqing", "person-chenyan", "ability-conceal", "ability-talisman", "event-007"],
       "sourcePath": "story/world01_fanren/CHAPTERS.md"
     },
@@ -63,6 +68,7 @@
       "title": "太南小会 · 散修生活",
       "range": "太南谷时期",
       "summary": "真正接触散修经济、灵石、法器与储物袋价格，选择药材整理和灵谷护送等低风险路线积累资源。",
+      "locationIds": ["loc-tainan"],
       "relatedIds": ["person-guchengshan", "person-yeqing", "person-chenyan", "project-storage-bag", "project-talisman-stability", "event-008", "event-009"],
       "sourcePath": "story/world01_fanren/CHAPTERS.md"
     },
@@ -74,6 +80,7 @@
       "title": "陆明远与跨体系实验",
       "range": "第123天左右",
       "summary": "遇到第三世界行者陆明远，亲自确认保护伞电子模块会对灵石和外放灵力产生可重复的微弱荧光响应。",
+      "locationIds": ["loc-tainan"],
       "relatedIds": ["person-lumingyuan", "project-spirit-electronics", "intel-umbrella-module-response", "event-010"],
       "sourcePath": "story/world01_fanren/CHAPTERS.md"
     },
@@ -85,6 +92,7 @@
       "title": "金刚符路线",
       "range": "约第124天上午",
       "summary": "在太南小会确认金刚符成品与符法报价，意识到持续型防御与无量灵海高度适配，但短期资金远不足以购买符法。",
+      "locationIds": ["loc-tainan"],
       "relatedIds": ["project-diamond-talisman", "project-storage-bag", "event-011"],
       "sourcePath": "story/world01_fanren/CHAPTERS.md"
     }
