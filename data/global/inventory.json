@@ -1,7 +1,6 @@
 {
   "currencies": [
-    {"id":"currency-low-spirit-stone","name":"下品灵石","amountApprox":3,"scope":"私人","worldId":"world-01"},
-    {"id":"currency-team-fund","name":"共同资金","amountApprox":0,"scope":"团队","worldId":"world-01","note":"此前2块用于陈砚购买《引火诀》"}
+    {"id":"currency-low-spirit-stone","name":"下品灵石","amountApprox":3,"scope":"私人","worldId":"world-01"}
   ],
   "items": [
     {"id":"item-fire-talisman","name":"火弹符","category":"战斗符箓","quantityApprox":16,"location":"随身","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证"},
