@@ -10,10 +10,16 @@
       "relatedIds":["ability-fireball","ability-talisman"]
     },
     {
-      "id":"item-protection-talisman","name":"护身符","category":"防御符箓","quantityApprox":6,"location":"随身","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证",
-      "acquisitionMethod":"自行制作","acquisitionNote":"在顾承山指导下开始学习，后续自行制作并留存。",
+      "id":"item-protection-talisman","name":"护身符","category":"防御符箓","quantityApprox":3,"location":"随身","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证",
+      "acquisitionMethod":"自行制作","acquisitionNote":"在顾承山指导下开始学习，后续自行制作并留存；约第124天上午在太南小会以其中3张换取三份火弹符材料，当前余约3张。",
       "actorLinks":[{"id":"player-xuchangqing","role":"制作"},{"id":"person-guchengshan","role":"制符指导"}],
       "relatedIds":["ability-talisman"]
+    },
+    {
+      "id":"item-fire-talisman-material-batches","name":"火弹符材料","category":"制符材料","quantityApprox":3,"unit":"份","location":"随身/由同行分担携带","sourceWorldId":"world-01","source":"太南小会符箓摊以物易物","crossWorldStatus":"待离界时验证",
+      "acquisitionMethod":"以物易物","acquisitionEventId":"event-012","acquisitionNote":"以3张自制护身符换取3份火弹符材料；摊主称每份按正常用量约可绘制50张上下，实际产出仍待本人制作验证。",
+      "actorLinks":[{"id":"player-xuchangqing","role":"交换获得"},{"id":"person-chenyan","role":"协助携带"},{"id":"person-yeqing","role":"协助验货与携带"}],
+      "relatedIds":["ability-talisman","project-talisman-stability"]
     },
     {
       "id":"item-changchun-notes","name":"《长春功》前两层资料","category":"功法资料","quantityApprox":1,"location":"随身","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"待离界时验证",
@@ -30,99 +36,42 @@
   ],
   "marketObservations": [
     {
-      "id":"market-fire-talisman-tainan-sale-01",
-      "subjectName":"火弹符",
-      "itemId":"item-fire-talisman",
-      "worldId":"world-01",
-      "locationId":"loc-tainan",
-      "currencyId":"currency-low-spirit-stone",
-      "quantity":30,
-      "unit":"张",
-      "amountApprox":2,
-      "priceType":"成交",
-      "observedAt":"太南小会时期",
-      "note":"低价成交记录；用于参考，不代表所有摊位固定价格。"
+      "id":"market-fire-talisman-tainan-sale-01","subjectName":"火弹符","itemId":"item-fire-talisman","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":30,"unit":"张","amountApprox":2,"priceType":"成交","observedAt":"太南小会时期","note":"低价成交记录；用于参考，不代表所有摊位固定价格。"
     },
     {
-      "id":"market-cheap-sword-tainan-01",
-      "subjectName":"便宜短剑类低阶法器",
-      "worldId":"world-01",
-      "locationId":"loc-tainan",
-      "currencyId":"currency-low-spirit-stone",
-      "quantity":1,
-      "unit":"件",
-      "amountApprox":12,
-      "priceType":"市场观察",
-      "observedAt":"太南小会时期",
-      "note":"低阶便宜档法器参考价。"
+      "id":"market-cheap-sword-tainan-01","subjectName":"便宜短剑类低阶法器","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":1,"unit":"件","amountApprox":12,"priceType":"市场观察","observedAt":"太南小会时期","note":"低阶便宜档法器参考价。"
     },
     {
-      "id":"market-flying-needle-tainan-01",
-      "subjectName":"低阶飞针",
-      "worldId":"world-01",
-      "locationId":"loc-tainan",
-      "currencyId":"currency-low-spirit-stone",
-      "quantity":1,
-      "unit":"件",
-      "amountApprox":9,
-      "priceType":"市场观察",
-      "observedAt":"太南小会时期",
-      "note":"已见到的低阶飞针参考价。"
+      "id":"market-flying-needle-tainan-01","subjectName":"低阶飞针","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":1,"unit":"件","amountApprox":9,"priceType":"市场观察","observedAt":"太南小会时期","note":"已见到的低阶飞针参考价。"
     },
     {
-      "id":"market-xuantie-shield-tainan-01",
-      "subjectName":"玄铁盾",
-      "worldId":"world-01",
-      "locationId":"loc-tainan",
-      "currencyId":"currency-low-spirit-stone",
-      "quantity":1,
-      "unit":"件",
-      "amountApprox":18,
-      "priceType":"市场观察",
-      "observedAt":"太南小会时期",
-      "note":"已见到的防御法器参考价。"
+      "id":"market-xuantie-shield-tainan-01","subjectName":"玄铁盾","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":1,"unit":"件","amountApprox":18,"priceType":"市场观察","observedAt":"太南小会时期","note":"已见到的防御法器参考价。"
     },
     {
-      "id":"market-storage-bag-tainan-01",
-      "subjectName":"小型储物袋",
-      "worldId":"world-01",
-      "locationId":"loc-tainan",
-      "currencyId":"currency-low-spirit-stone",
-      "quantity":1,
-      "unit":"件",
-      "amountMinApprox":12,
-      "amountMaxApprox":20,
-      "priceType":"市场观察",
-      "observedAt":"太南小会时期",
-      "note":"小型实用储物袋常见参考区间；不同成色和容量会变化。"
+      "id":"market-storage-bag-tainan-01","subjectName":"小型储物袋","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":1,"unit":"件","amountMinApprox":12,"amountMaxApprox":20,"priceType":"市场观察","observedAt":"太南小会时期","note":"小型实用储物袋常见参考区间；不同成色和容量会变化。"
     },
     {
-      "id":"market-diamond-talisman-tainan-01",
-      "subjectName":"金刚符成品",
-      "worldId":"world-01",
-      "locationId":"loc-tainan",
-      "currencyId":"currency-low-spirit-stone",
-      "quantity":1,
-      "unit":"张",
-      "amountApprox":1,
-      "priceType":"摊主开价",
-      "observedAt":"约第124天上午",
-      "note":"当前摊位报价；尚未购买。"
+      "id":"market-diamond-talisman-tainan-01","subjectName":"金刚符成品","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":1,"unit":"张","amountApprox":1,"priceType":"摊主开价","observedAt":"约第124天上午","note":"当前摊位报价；尚未购买。"
     },
     {
-      "id":"market-diamond-method-tainan-01",
-      "subjectName":"金刚符符法",
-      "worldId":"world-01",
-      "locationId":"loc-tainan",
-      "currencyId":"currency-low-spirit-stone",
-      "quantity":1,
-      "unit":"份",
-      "amountApprox":50,
-      "priceType":"摊主开价",
-      "observedAt":"约第124天上午",
-      "note":"当前摊位报价；尚未购买，不等于公允成交价。"
+      "id":"market-diamond-method-tainan-01","subjectName":"金刚符符法","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":1,"unit":"份","amountApprox":50,"priceType":"摊主开价","observedAt":"约第124天上午","note":"当前摊位报价；尚未购买，不等于公允成交价。"
+    },
+    {
+      "id":"market-fire-materials-tainan-01","subjectName":"火弹符基础材料","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":1,"unit":"批","amountApprox":1,"priceType":"摊主开价","observedAt":"约第124天上午","note":"一名材料摊主称一块下品灵石配齐并省着使用，大致可供绘制七八十张火弹符；具体纸、朱砂品质与实际产出未验证。"
+    },
+    {
+      "id":"market-fire-talisman-buyback-tainan-01","subjectName":"火弹符收购","itemId":"item-fire-talisman","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":20,"unit":"张","amountApprox":1,"priceType":"摊主开价","observedAt":"约第124天上午","note":"一家成品符摊的普通收购报价。"
+    },
+    {
+      "id":"market-fire-talisman-buyback-tainan-02","subjectName":"火弹符批量收购","itemId":"item-fire-talisman","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":25,"unit":"张","amountApprox":1,"priceType":"摊主开价","observedAt":"约第124天上午","note":"另一家符箓摊的普通收购报价；50张以上可按23张约1块，若未来能每隔数日稳定供给50张，摊主口头表示可按22张约1块。均尚未实际成交。"
+    },
+    {
+      "id":"market-protection-barter-tainan-01","subjectName":"护身符换火弹符材料","itemId":"item-protection-talisman","worldId":"world-01","locationId":"loc-tainan","quantity":3,"unit":"张护身符","priceType":"以物易物","observedAt":"约第124天上午","note":"实际成交：3张自制护身符换3份火弹符材料；摊主称每份正常用量约可绘制50张上下，实际产出待验证。"
+    },
+    {
+      "id":"market-talisman-paper-tainan-01","subjectName":"黄符纸","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":50,"unit":"张","amountApprox":1,"priceType":"摊主开价","observedAt":"约第124天上午","note":"第一家材料摊报价；朱砂另算，纸质较顾承山此前提供的练习材料稍差。"
     }
   ],
-  "unknownQuantityCategories": ["基础药材", "制符材料"],
+  "unknownQuantityCategories": ["基础药材", "其他未盘点制符材料"],
   "missingKeyAssets": ["正式法器", "储物袋"]
 }
