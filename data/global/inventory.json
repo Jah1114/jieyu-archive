@@ -3,10 +3,30 @@
     {"id":"currency-low-spirit-stone","name":"下品灵石","amountApprox":3,"scope":"私人","worldId":"world-01"}
   ],
   "items": [
-    {"id":"item-fire-talisman","name":"火弹符","category":"战斗符箓","quantityApprox":16,"location":"随身","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证"},
-    {"id":"item-protection-talisman","name":"护身符","category":"防御符箓","quantityApprox":6,"location":"随身","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证"},
-    {"id":"item-changchun-notes","name":"《长春功》前两层资料","category":"功法资料","quantityApprox":1,"location":"随身","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"待离界时验证"},
-    {"id":"item-wood-breathing-notes","name":"基础木行吐纳资料","category":"功法资料","quantityApprox":1,"location":"随身","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"待离界时验证"}
+    {
+      "id":"item-fire-talisman","name":"火弹符","category":"战斗符箓","quantityApprox":16,"location":"随身","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证",
+      "acquisitionMethod":"自行制作","acquisitionNote":"利用已掌握的制符方法反复制作并留存自用成品。",
+      "actorLinks":[{"id":"player-xuchangqing","role":"制作"}],
+      "relatedIds":["ability-fireball","ability-talisman"]
+    },
+    {
+      "id":"item-protection-talisman","name":"护身符","category":"防御符箓","quantityApprox":6,"location":"随身","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证",
+      "acquisitionMethod":"自行制作","acquisitionNote":"在顾承山指导下开始学习，后续自行制作并留存。",
+      "actorLinks":[{"id":"player-xuchangqing","role":"制作"},{"id":"person-guchengshan","role":"制符指导"}],
+      "relatedIds":["ability-talisman"]
+    },
+    {
+      "id":"item-changchun-notes","name":"《长春功》前两层资料","category":"功法资料","quantityApprox":1,"location":"随身","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"待离界时验证",
+      "acquisitionMethod":"赠予","acquisitionEventId":"event-005","acquisitionNote":"离开七玄门后，韩立将《长春功》前两层交给徐长卿。",
+      "actorLinks":[{"id":"person-hanli","role":"赠予"}],
+      "relatedIds":["ability-changchungong"]
+    },
+    {
+      "id":"item-wood-breathing-notes","name":"基础木行吐纳资料","category":"功法资料","quantityApprox":1,"location":"随身","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"待离界时验证",
+      "acquisitionMethod":"传授 / 整理记录","acquisitionNote":"早期由韩立提供适合徐长卿灵根情况的基础木行吐纳路线。",
+      "actorLinks":[{"id":"person-hanli","role":"传授"}],
+      "relatedIds":[]
+    }
   ],
   "unknownQuantityCategories": ["基础药材", "制符材料"],
   "missingKeyAssets": ["正式法器", "储物袋"]
