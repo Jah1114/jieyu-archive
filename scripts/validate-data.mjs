@@ -94,7 +94,20 @@ for (const p of people.people ?? []) {
   for (const x of p.worldIds ?? []) ref(x, p.id, 'worldIds', '世界');
 }
 for (const a of abilities.abilities ?? []) if (a.sourceWorldId) ref(a.sourceWorldId, a.id, 'sourceWorldId', '世界');
-for (const item of inventory.items ?? []) if (item.sourceWorldId) ref(item.sourceWorldId, item.id, 'sourceWorldId', '世界');
+for (const item of inventory.items ?? []) {
+  if (item.sourceWorldId) ref(item.sourceWorldId, item.id, 'sourceWorldId', '世界');
+  if (!Array.isArray(item.actorLinks)) errors.push(`物品 actorLinks 必须为数组：${item.id}`);
+  if (!Array.isArray(item.relatedIds)) errors.push(`物品 relatedIds 必须为数组：${item.id}`);
+  for (const a of item.actorLinks ?? []) {
+    if (!a || !a.id) {
+      errors.push(`物品人物关联缺少 id：${item.id}`);
+      continue;
+    }
+    ref(a.id, item.id, 'actorLinks');
+  }
+  if (item.acquisitionEventId) ref(item.acquisitionEventId, item.id, 'acquisitionEventId', '事件');
+  for (const x of item.relatedIds ?? []) ref(x, item.id, 'relatedIds');
+}
 for (const c of inventory.currencies ?? []) if (c.worldId) ref(c.worldId, c.id, 'worldId', '世界');
 for (const e of timeline.events ?? []) {
   ref(e.worldId, e.id, 'worldId', '世界');
@@ -112,6 +125,8 @@ for (const i of intel.intel ?? []) {
 }
 for (const c of chapters.chapters ?? []) {
   ref(c.worldId, c.id, 'worldId', '世界');
+  if (!Array.isArray(c.locationIds)) errors.push(`章节 locationIds 必须为数组：${c.id}`);
+  for (const x of c.locationIds ?? []) ref(x, c.id, 'locationIds', '地点');
   for (const x of c.relatedIds ?? []) ref(x, c.id, 'relatedIds');
 }
 
@@ -122,6 +137,14 @@ for (const r of refs) {
   }
   if (r.expectedType && types.get(r.target) !== r.expectedType) {
     errors.push(`引用类型错误：${r.from}.${r.field} → ${r.target}，预期 ${r.expectedType}，实际 ${types.get(r.target)}`);
+  }
+}
+
+for (const item of inventory.items ?? []) {
+  for (const a of item.actorLinks ?? []) {
+    const t = types.get(a.id);
+    if (t && !['人物','角色'].includes(t)) errors.push(`物品人物关联类型错误：${item.id} → ${a.id}，实际 ${t}`);
+    if (!a.role) warnings.push(`物品人物关联缺少角色说明：${item.id} → ${a.id}`);
   }
 }
 
