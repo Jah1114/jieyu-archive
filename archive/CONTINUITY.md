@@ -1,6 +1,6 @@
 # 对话续档入口（Continuity Handoff）
 
-> 用途：GitHub 侧跨对话续档入口。动态剧情以本文件及相关权威档案为准。稳定安全规则以项目来源中的《界域长期项目_统一运行规范_GitHub事务版.md》为准；当前仓库架构与实际读写路径以 `archive/OPERATION_PROTOCOL.md` 为准。
+> 用途：GitHub 侧跨对话续档入口。动态剧情以本文件及相关权威档案为准。稳定安全规则以项目来源中的《界域长期项目_统一运行规范_GitHub活协议版.md》为准；当前仓库架构与实际读写路径以 `archive/OPERATION_PROTOCOL.md` 为准。
 
 ## 最重要的操作规则
 
