@@ -11,10 +11,9 @@
   "sync": {
     "continuityUpdated": true,
     "structuredDataUpdated": true,
-    "dataDrivenPreviewUpdated": true,
-    "legacyIndexMayLag": true,
+    "homepageUpdated": true,
     "lastArchiveCommand": "存档",
-    "note": "项目命令已收敛为‘存档/读档’。next.html 直接读取当前结构化数据；index.html 暂作为旧版稳定首页，待 next 版验证后再替换。"
+    "note": "项目命令仅保留‘存档/读档’。正式 index.html 已使用数据驱动档案；next.html 暂保留为同构备用入口。"
   },
   "principles": {
     "perspective": "徐长卿第一视角",
