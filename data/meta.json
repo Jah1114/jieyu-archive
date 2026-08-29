@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "playerName": "徐长卿",
+  "currentWorldId": "world-01",
+  "currentNarrative": {
+    "worldDay": 124,
+    "dayPart": "上午",
+    "location": "太南谷",
+    "frontier": "在太南小会摊位看到低阶持续防御符金刚符；尚未购买，已确认成品约1块下品灵石、符法约50块。"
+  },
+  "sync": {
+    "continuityUpdated": true,
+    "publicSiteMayLagNarrative": true,
+    "lastArchiveCommand": "存档",
+    "note": "续档已推进到约第124天上午；公开网站部分展示仍可能停留在第123天，下一次完整同步档案时统一刷新。"
+  },
+  "principles": {
+    "perspective": "徐长卿第一视角",
+    "unknownsStayUnknown": true,
+    "canonOnly": true
+  }
+}
