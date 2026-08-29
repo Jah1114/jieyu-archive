@@ -1,0 +1,15 @@
+{
+  "events": [
+    {"id":"event-001","worldId":"world-01","day":"第1天","title":"进入《凡人修仙传》","summary":"以镜州普通青年身份进入世界；无传统任务面板。","links":["player-xuchangqing"]},
+    {"id":"event-002","worldId":"world-01","day":"早期","title":"加入七玄门药童体系","summary":"与陈砚、沈修相识，并逐步接触韩立。","links":["person-chenyan","person-shenxiu","person-hanli"]},
+    {"id":"event-003","worldId":"world-01","day":"七玄门时期","title":"确认五灵根并开始修仙","summary":"韩立确认五灵根；学习基础行气、护体、驱物术与火弹术。","links":["person-hanli","ability-fireball","ability-object-control"]},
+    {"id":"event-004","worldId":"world-01","day":"第85天","title":"七玄门大战 · 首次修仙者实战","summary":"连续释放7枚火弹压迫黄色护罩；第8发因经脉发胀主动停止。两张护身符在战斗中消耗，敌修因前线局势变化撤退。","links":["ability-fireball","person-yeqing","person-shenxiu","person-chenyan"]},
+    {"id":"event-005","worldId":"world-01","day":"大战后","title":"随韩立离开七玄门","summary":"获得《长春功》前两层，开始正式练气修炼。","links":["person-hanli","ability-changchungong"]},
+    {"id":"event-006","worldId":"world-01","day":"约第93天","title":"离界窗口首次开启","summary":"明确感知可以主动离开当前世界；没有倒计时，选择继续停留。","links":["player-xuchangqing"]},
+    {"id":"event-007","worldId":"world-01","day":"青石山时期","title":"认识顾承山","summary":"通过观察破解老旧迷阵，完成火弹符换敛气术交易，开始深入接触散修生活。","links":["person-guchengshan","ability-conceal","ability-talisman"]},
+    {"id":"event-008","worldId":"world-01","day":"太南谷早期","title":"进入修仙者集市","summary":"开始接触灵石、法器、储物袋、委托与小会交易。","links":["world-01"]},
+    {"id":"event-009","worldId":"world-01","day":"太南谷","title":"完成低风险委托","summary":"参与药材整理、灵谷种子护送，建立最初资源与熟人渠道。","links":["person-yeqing","person-chenyan"]},
+    {"id":"event-010","worldId":"world-01","day":"第123天左右","title":"遇到行者陆明远","summary":"确认其保护伞电子模块对灵石和外放灵力会产生可重复微弱荧光响应；真实机制未知。","links":["person-lumingyuan","project-spirit-electronics"]},
+    {"id":"event-011","worldId":"world-01","day":"约第124天上午","title":"看到金刚符与符法报价","summary":"确认成品约1块下品灵石，符法约50块；意识到持续型防御与无量灵海路线高度契合，但当前资金不足。","links":["project-storage-bag","project-diamond-talisman"]}
+  ]
+}
