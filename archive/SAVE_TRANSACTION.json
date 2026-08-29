@@ -1,25 +1,14 @@
 {
   "schemaVersion": 1,
-  "state": "in_progress",
-  "activeTransaction": {
+  "state": "clean",
+  "activeTransaction": null,
+  "lastCompletedTransaction": {
     "id": "maintenance-20260830-protocol-unification",
     "type": "maintenance",
     "startedAt": "2026-08-30T00:14:42+08:00",
-    "targetFiles": [
-      "README.md",
-      "archive/CONTINUITY.md",
-      "docs/ROADMAP.md",
-      "docs/IMPLEMENTATION_STATUS.md",
-      "scripts/validate-data.mjs",
-      "archive/SAVE_TRANSACTION.json"
-    ],
-    "note": "统一项目来源规范与 GitHub 文档口径；加强跨文件语义校验；不推进游戏剧情。"
-  },
-  "lastCompletedTransaction": {
-    "id": "baseline-20260829",
-    "type": "baseline",
-    "completedAt": "2026-08-29T23:27:00+08:00",
-    "note": "建立存档事务保护机制时的干净基线；未推进游戏剧情。"
+    "completedAt": "2026-08-30T00:18:28+08:00",
+    "validationRunId": 33262586218,
+    "note": "已统一项目来源规范与 GitHub README/CONTINUITY/ROADMAP/IMPLEMENTATION_STATUS 口径，并增加跨文件语义一致性校验；未推进游戏剧情。"
   },
   "repair": {
     "required": false,
