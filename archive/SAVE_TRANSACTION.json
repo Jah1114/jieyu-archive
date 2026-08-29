@@ -1,7 +1,22 @@
 {
   "schemaVersion": 1,
-  "state": "clean",
-  "activeTransaction": null,
+  "state": "in_progress",
+  "activeTransaction": {
+    "id": "maintenance-20260830-market-live-protocol",
+    "type": "maintenance",
+    "startedAt": "2026-08-30T00:43:23+08:00",
+    "targetFiles": [
+      "archive/OPERATION_PROTOCOL.md",
+      "archive/SAVE_TRANSACTION.json",
+      "README.md",
+      "archive/CONTINUITY.md",
+      "data/global/inventory.json",
+      "data/worlds/world-01.json",
+      "assets/next-enhancements.js",
+      "scripts/validate-data.mjs"
+    ],
+    "note": "新增跨世界市场观察层；让携带页显示可靠参考行情；新增每次读档/存档都必须重读的 GitHub 活操作协议。未推进游戏剧情。"
+  },
   "lastCompletedTransaction": {
     "id": "maintenance-20260830-protocol-unification",
     "type": "maintenance",
@@ -18,6 +33,9 @@
     "readRequiresCleanState": true,
     "saveSetsInProgressBeforeWrites": true,
     "continuityWrittenNearEnd": true,
-    "cleanOnlyAfterVerification": true
+    "cleanOnlyAfterVerification": true,
+    "liveProtocolPath": "archive/OPERATION_PROTOCOL.md",
+    "liveProtocolVersion": 1,
+    "rereadLiveProtocolEveryOperation": true
   }
 }
