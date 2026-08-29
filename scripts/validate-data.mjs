@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const read = p => JSON.parse(fs.readFileSync(p, 'utf8'));
+const readText = p => fs.readFileSync(p, 'utf8');
 const exists = p => fs.existsSync(p);
 
 const meta = read('data/meta.json');
@@ -15,11 +16,27 @@ const intel = read('data/intel.json');
 const chapters = read('data/chapters.json');
 const features = exists('data/features.json') ? read('data/features.json') : { features: [] };
 const saveTransaction = exists('archive/SAVE_TRANSACTION.json') ? read('archive/SAVE_TRANSACTION.json') : null;
+const continuityText = exists('archive/CONTINUITY.md') ? readText('archive/CONTINUITY.md') : '';
+const currentStateText = exists('archive/CURRENT_STATE.md') ? readText('archive/CURRENT_STATE.md') : '';
+const readmeText = exists('README.md') ? readText('README.md') : '';
 
 const errors = [];
 const warnings = [];
 const ids = new Map();
 const types = new Map();
+
+function requireText(path, text) {
+  if (!text) errors.push(`缺少或无法读取文本文件：${path}`);
+}
+
+function requireMention(path, text, value, label) {
+  if (!value) return;
+  if (!text.includes(String(value))) errors.push(`${path} 未体现 ${label}：${value}`);
+}
+
+requireText('README.md', readmeText);
+requireText('archive/CONTINUITY.md', continuityText);
+requireText('archive/CURRENT_STATE.md', currentStateText);
 
 if (!saveTransaction) {
   errors.push('缺少存档事务文件：archive/SAVE_TRANSACTION.json');
@@ -42,6 +59,8 @@ if (!saveTransaction) {
     warnings.push('当前存档事务标记为 repair_required；禁止直接继续游戏。');
   }
   if (saveTransaction.protocol?.readRequiresCleanState !== true) warnings.push('事务协议未启用 readRequiresCleanState');
+  if (saveTransaction.protocol?.saveSetsInProgressBeforeWrites !== true) warnings.push('事务协议未启用 saveSetsInProgressBeforeWrites');
+  if (saveTransaction.protocol?.continuityWrittenNearEnd !== true) warnings.push('事务协议未启用 continuityWrittenNearEnd');
   if (saveTransaction.protocol?.cleanOnlyAfterVerification !== true) warnings.push('事务协议未启用 cleanOnlyAfterVerification');
 }
 
@@ -173,8 +192,48 @@ for (const item of inventory.items ?? []) {
   }
 }
 
+// 跨文件语义一致性：机器可读当前状态优先作为摘要对齐基准。
+if (meta.playerName !== player.name) errors.push(`玩家姓名不一致：meta=${meta.playerName}，player=${player.name}`);
 if (!worlds.some(w => w.id === meta.currentWorldId)) errors.push(`meta.currentWorldId 未注册：${meta.currentWorldId}`);
 if (player.currentWorldId !== meta.currentWorldId) errors.push(`角色当前世界不一致：player=${player.currentWorldId}，meta=${meta.currentWorldId}`);
+
+const currentRegistryEntries = (worldRegistry.worlds ?? []).filter(w => w.status === 'current');
+if (currentRegistryEntries.length !== 1) {
+  errors.push(`世界注册表必须且只能有一个 current 访问实例，当前数量=${currentRegistryEntries.length}`);
+} else if (currentRegistryEntries[0].id !== meta.currentWorldId) {
+  errors.push(`注册表 current 与 meta.currentWorldId 不一致：registry=${currentRegistryEntries[0].id}，meta=${meta.currentWorldId}`);
+}
+
+const narrative = meta.currentNarrative ?? {};
+if (!Number.isInteger(narrative.worldDay) || narrative.worldDay < 1) errors.push('meta.currentNarrative.worldDay 必须为正整数');
+if (!narrative.dayPart) errors.push('meta.currentNarrative.dayPart 缺失');
+if (!narrative.location) errors.push('meta.currentNarrative.location 缺失');
+if (!narrative.frontier) errors.push('meta.currentNarrative.frontier 缺失');
+
+if (Number.isInteger(narrative.worldDay)) {
+  const dayMarker = `第${narrative.worldDay}天`;
+  requireMention('archive/CONTINUITY.md', continuityText, dayMarker, '当前世界日');
+  requireMention('archive/CURRENT_STATE.md', currentStateText, dayMarker, '当前世界日');
+}
+requireMention('archive/CONTINUITY.md', continuityText, narrative.dayPart, '当前时段');
+requireMention('archive/CURRENT_STATE.md', currentStateText, narrative.dayPart, '当前时段');
+requireMention('archive/CONTINUITY.md', continuityText, narrative.location, '当前地点');
+requireMention('archive/CURRENT_STATE.md', currentStateText, narrative.location, '当前地点');
+
+requireMention('README.md', readmeText, 'archive/SAVE_TRANSACTION.json', '事务第一检查点');
+requireMention('README.md', readmeText, '先查看项目来源', '新对话来源检索提示');
+requireMention('archive/CONTINUITY.md', continuityText, 'archive/SAVE_TRANSACTION.json', '事务第一检查点');
+requireMention('archive/CONTINUITY.md', continuityText, '先查看项目来源', '新对话来源检索提示');
+
+if (Number.isInteger(narrative.worldDay)) {
+  for (const e of timeline.events ?? []) {
+    if (e.worldId !== meta.currentWorldId || typeof e.day !== 'string') continue;
+    const match = e.day.match(/第\s*(\d+)\s*天/);
+    if (!match) continue;
+    const eventDay = Number(match[1]);
+    if (eventDay > narrative.worldDay) errors.push(`时间线事件晚于当前世界日：${e.id}=${eventDay} > ${narrative.worldDay}`);
+  }
+}
 
 for (const p of people.people ?? []) {
   if (!p.gender) errors.push(`人物缺少性别：${p.id}`);
