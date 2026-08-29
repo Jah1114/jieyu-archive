@@ -1,0 +1,29 @@
+name: Validate archive data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/**'
+      - 'story/**'
+      - 'scripts/validate-data.mjs'
+      - '.github/workflows/validate-data.yml'
+  pull_request:
+    paths:
+      - 'data/**'
+      - 'story/**'
+      - 'scripts/validate-data.mjs'
+      - '.github/workflows/validate-data.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate structured archive
+        run: node scripts/validate-data.mjs
