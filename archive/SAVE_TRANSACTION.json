@@ -15,7 +15,8 @@
       "assets/next-market.js",
       "index.html",
       "next.html",
-      "scripts/validate-data.mjs"
+      "scripts/validate-market.mjs",
+      ".github/workflows/validate-data.yml"
     ],
     "note": "新增跨世界市场观察层；让携带页显示可靠参考行情；新增每次读档/存档都必须重读的 GitHub 活操作协议。未推进游戏剧情。"
   },
