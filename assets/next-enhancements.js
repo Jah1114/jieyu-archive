@@ -87,3 +87,19 @@ renderAll = function(){
     <div class="small muted" style="margin-top:4px"><b>最新叙事前沿：</b>${esc(DATA.meta.currentNarrative.frontier)}</div>
   </div><span class="badge good">存档 · 已读取</span>`;
 };
+
+// 即使浏览器缓存极快、核心脚本已经先完成一次渲染，也重新应用增强索引与界面。
+(function ensureEnhancedRender(){
+  let tries=0;
+  const timer=setInterval(()=>{
+    tries++;
+    if(DATA.meta && DATA.player && DATA.timeline){
+      clearInterval(timer);
+      buildIndex();
+      buildScope();
+      renderAll();
+    }else if(tries>100){
+      clearInterval(timer);
+    }
+  },50);
+})();
