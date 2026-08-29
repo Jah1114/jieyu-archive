@@ -1,7 +1,20 @@
 {
   "schemaVersion": 1,
-  "state": "clean",
-  "activeTransaction": null,
+  "state": "in_progress",
+  "activeTransaction": {
+    "id": "maintenance-20260830-protocol-unification",
+    "type": "maintenance",
+    "startedAt": "2026-08-30T00:14:42+08:00",
+    "targetFiles": [
+      "README.md",
+      "archive/CONTINUITY.md",
+      "docs/ROADMAP.md",
+      "docs/IMPLEMENTATION_STATUS.md",
+      "scripts/validate-data.mjs",
+      "archive/SAVE_TRANSACTION.json"
+    ],
+    "note": "统一项目来源规范与 GitHub 文档口径；加强跨文件语义校验；不推进游戏剧情。"
+  },
   "lastCompletedTransaction": {
     "id": "baseline-20260829",
     "type": "baseline",
