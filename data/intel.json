@@ -1,0 +1,44 @@
+{
+  "intel": [
+    {
+      "id": "intel-umbrella-module-response",
+      "title": "保护伞电子模块会响应灵力",
+      "scope": "world-01",
+      "status": "已确认现象 / 机制未知",
+      "claim": "来自保护伞实验设施的小型电子/传感模块在灵石或外放灵力靠近时会产生可重复微弱荧光响应。",
+      "evidenceChain": [
+        {"order":1,"source":"陆明远自述","result":"进入《凡人修仙传》后，该模块开始对灵石有反应。","confidence":"本人自述"},
+        {"order":2,"source":"现场观察","result":"陆明远自己的下品灵石靠近数厘米后，半透明区域出现微弱荧光；移开则熄灭；可重复。","confidence":"亲眼确认"},
+        {"order":3,"source":"徐长卿亲自测试","result":"以极弱、非接触外放灵力靠近时，聚灵则亮、散去则灭；降低/增强灵力时荧光似乎相应变化。","confidence":"亲自测试"}
+      ],
+      "unknown": ["材料效应还是电子结构效应", "是否存在可测电流/电压", "是否能作为灵力传感器", "是否能被灵力稳定供能"],
+      "relatedIds": ["person-lumingyuan", "project-spirit-electronics", "event-010"]
+    },
+    {
+      "id": "intel-exit-window-personal",
+      "title": "离界窗口的开启时间因人而异",
+      "scope": "cross-world",
+      "status": "高可信推测",
+      "claim": "不同的行者并不会在统一天数或统一剧情节点获得离界窗口。",
+      "evidenceChain": [
+        {"order":1,"source":"徐长卿自身","result":"约第93天开启。","confidence":"亲自确认"},
+        {"order":2,"source":"沈修","result":"在七玄门阶段已较早开启。","confidence":"本人自述 + 当时确认"},
+        {"order":3,"source":"陆明远","result":"本世界已两个多月仍未开启。","confidence":"本人自述"}
+      ],
+      "unknown": ["个人化触发条件是什么", "是否存在极少数强制迁移"],
+      "relatedIds": ["player-xuchangqing", "person-shenxiu", "person-lumingyuan", "event-006"]
+    },
+    {
+      "id": "intel-original-plot-not-fixed",
+      "title": "原作剧情不能视为固定未来",
+      "scope": "cross-world",
+      "status": "已确认原则",
+      "claim": "进入世界后的现实会被行者、NPC选择和事件变化影响，穿越前原作记忆只能作为初始背景与风险参考。",
+      "evidenceChain": [
+        {"order":1,"source":"实际经历","result":"徐长卿、叶青、陈砚、沈修等行者已经实际介入七玄门及周边事件。","confidence":"亲眼确认"}
+      ],
+      "unknown": [],
+      "relatedIds": ["world-01"]
+    }
+  ]
+}
