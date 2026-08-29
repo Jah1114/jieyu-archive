@@ -26,6 +26,9 @@ for (const entry of worldRegistry.worlds ?? []) {
     errors.push(`世界注册项缺少 file：${entry.id ?? '未知世界'}`);
     continue;
   }
+  if (!entry.settingId) errors.push(`世界注册项缺少 settingId：${entry.id ?? '未知世界'}`);
+  if (!Number.isInteger(entry.visitIndex) || entry.visitIndex < 1) errors.push(`世界注册项 visitIndex 无效：${entry.id ?? '未知世界'}`);
+  if (!entry.timelineId) errors.push(`世界注册项缺少 timelineId：${entry.id ?? '未知世界'}`);
   if (!exists(entry.file)) {
     errors.push(`世界文件不存在：${entry.id ?? '未知世界'} → ${entry.file}`);
     continue;
@@ -34,6 +37,9 @@ for (const entry of worldRegistry.worlds ?? []) {
   worlds.push(world);
   if (entry.id !== world.id) errors.push(`世界注册 ID 不一致：registry=${entry.id}，file=${world.id}`);
   if (entry.name && entry.name !== world.name) warnings.push(`世界名称不一致：registry=${entry.name}，file=${world.name}`);
+  if (entry.settingId !== world.settingId) errors.push(`作品世界 ID 不一致：${entry.id}`);
+  if (entry.visitIndex !== world.visitIndex) errors.push(`访问次数不一致：${entry.id}`);
+  if (entry.timelineId !== world.timelineId) errors.push(`时间线 ID 不一致：${entry.id}`);
 }
 
 function add(id, type, name) {
@@ -51,7 +57,15 @@ function add(id, type, name) {
 add(player.id, '角色', player.name);
 for (const world of worlds) {
   add(world.id, '世界', world.name);
-  for (const loc of world.knownLocations ?? []) add(loc.id, '地点', loc.name);
+  const seenOrders = new Set();
+  for (const loc of world.knownLocations ?? []) {
+    add(loc.id, '地点', loc.name);
+    if (typeof loc.importance !== 'number') errors.push(`长期地点缺少 importance：${loc.id}`);
+    if (!Number.isInteger(loc.firstSeenOrder)) errors.push(`长期地点缺少 firstSeenOrder：${loc.id}`);
+    if (!loc.kind) warnings.push(`长期地点缺少 kind：${loc.id}`);
+    if (seenOrders.has(loc.firstSeenOrder)) warnings.push(`长期地点首次到达顺序重复：${world.id} → ${loc.firstSeenOrder}`);
+    seenOrders.add(loc.firstSeenOrder);
+  }
 }
 for (const x of people.people ?? []) add(x.id, '人物', x.name);
 for (const x of abilities.abilities ?? []) add(x.id, '能力', x.name);
@@ -149,7 +163,7 @@ for (const file of ['next.html','assets/next.js','assets/next-enhancements.js','
   if (!exists(file)) errors.push(`缺少前端文件：${file}`);
 }
 
-console.log(`世界：${worlds.length}`);
+console.log(`访问实例：${worlds.length}`);
 console.log(`实体：${ids.size}`);
 console.log(`引用：${refs.length}`);
 console.log(`待解锁/功能注册：${(features.features ?? []).length}`);
