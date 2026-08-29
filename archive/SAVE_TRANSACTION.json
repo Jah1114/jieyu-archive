@@ -1,33 +1,14 @@
 {
   "schemaVersion": 1,
-  "state": "in_progress",
-  "activeTransaction": {
+  "state": "clean",
+  "activeTransaction": null,
+  "lastCompletedTransaction": {
     "id": "save-20260830-tainan-talisman-turnover-01",
     "type": "save",
     "startedAt": "2026-08-30T02:17:54+08:00",
-    "changeDomains": [
-      "inventory",
-      "timeline",
-      "projects",
-      "narrativeFrontier"
-    ],
-    "targetFiles": [
-      "data/global/inventory.json",
-      "data/timeline.json",
-      "data/projects.json",
-      "archive/CURRENT_STATE.md",
-      "data/meta.json",
-      "archive/CONTINUITY.md"
-    ],
-    "reason": "保存太南小会制符周转试验、三张护身符换取三份火弹符材料、新市场报价与继续逛摊后的最新叙事前沿。"
-  },
-  "lastCompletedTransaction": {
-    "id": "maintenance-20260830-source-protocol-name-alignment",
-    "type": "maintenance",
-    "startedAt": "2026-08-30T00:53:01+08:00",
-    "completedAt": "2026-08-30T00:55:09+08:00",
-    "validationRunId": 33264239312,
-    "note": "已将 GitHub 活协议、README 与 CONTINUITY 对项目来源的引用统一为《界域长期项目_统一运行规范_GitHub活协议版.md》。未推进游戏剧情。"
+    "completedAt": "2026-08-30T02:23:30+08:00",
+    "validationRunId": 33268117413,
+    "note": "已保存约第124天上午太南小会制符周转试验：3张自制护身符换得3份火弹符材料，私人灵石仍约3块，护身符余约3张；新增材料/火弹符收购市场观察，更新制符稳定化与储物袋资源路线；叙事前沿推进至旧书/杂学摊浏览《低阶符纸处理杂录》等薄册且尚未购买。同步持久化沉浸叙事规则。校验通过。"
   },
   "repair": {
     "required": false,
