@@ -66,7 +66,7 @@
       "id":"market-fire-talisman-buyback-tainan-02","subjectName":"火弹符批量收购","itemId":"item-fire-talisman","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":25,"unit":"张","amountApprox":1,"priceType":"摊主开价","observedAt":"约第124天上午","note":"另一家符箓摊的普通收购报价；50张以上可按23张约1块，若未来能每隔数日稳定供给50张，摊主口头表示可按22张约1块。均尚未实际成交。"
     },
     {
-      "id":"market-protection-barter-tainan-01","subjectName":"护身符换火弹符材料","itemId":"item-protection-talisman","worldId":"world-01","locationId":"loc-tainan","quantity":3,"unit":"张护身符","priceType":"以物易物","observedAt":"约第124天上午","note":"实际成交：3张自制护身符换3份火弹符材料；摊主称每份正常用量约可绘制50张上下，实际产出待验证。"
+      "id":"market-protection-barter-tainan-01","subjectName":"护身符换火弹符材料","itemId":"item-protection-talisman","worldId":"world-01","locationId":"loc-tainan","quantity":3,"unit":"张护身符","barterText":"3张自制护身符换3份火弹符材料","priceType":"以物易物","observedAt":"约第124天上午","note":"实际成交；摊主称每份正常用量约可绘制50张上下，实际产出待验证。"
     },
     {
       "id":"market-talisman-paper-tainan-01","subjectName":"黄符纸","worldId":"world-01","locationId":"loc-tainan","currencyId":"currency-low-spirit-stone","quantity":50,"unit":"张","amountApprox":1,"priceType":"摊主开价","observedAt":"约第124天上午","note":"第一家材料摊报价；朱砂另算，纸质较顾承山此前提供的练习材料稍差。"
