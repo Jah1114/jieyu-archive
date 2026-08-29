@@ -1,7 +1,26 @@
 {
   "schemaVersion": 1,
-  "state": "clean",
-  "activeTransaction": null,
+  "state": "in_progress",
+  "activeTransaction": {
+    "id": "save-20260830-tainan-talisman-turnover-01",
+    "type": "save",
+    "startedAt": "2026-08-30T02:17:54+08:00",
+    "changeDomains": [
+      "inventory",
+      "timeline",
+      "projects",
+      "narrativeFrontier"
+    ],
+    "targetFiles": [
+      "data/global/inventory.json",
+      "data/timeline.json",
+      "data/projects.json",
+      "archive/CURRENT_STATE.md",
+      "data/meta.json",
+      "archive/CONTINUITY.md"
+    ],
+    "reason": "保存太南小会制符周转试验、三张护身符换取三份火弹符材料、新市场报价与继续逛摊后的最新叙事前沿。"
+  },
   "lastCompletedTransaction": {
     "id": "maintenance-20260830-source-protocol-name-alignment",
     "type": "maintenance",
@@ -20,7 +39,7 @@
     "continuityWrittenNearEnd": true,
     "cleanOnlyAfterVerification": true,
     "liveProtocolPath": "archive/OPERATION_PROTOCOL.md",
-    "liveProtocolVersion": 1,
+    "liveProtocolVersion": 2,
     "rereadLiveProtocolEveryOperation": true
   }
 }
