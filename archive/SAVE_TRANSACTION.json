@@ -1,7 +1,18 @@
 {
   "schemaVersion": 1,
-  "state": "clean",
-  "activeTransaction": null,
+  "state": "in_progress",
+  "activeTransaction": {
+    "id": "maintenance-20260830-source-protocol-name-alignment",
+    "type": "maintenance",
+    "startedAt": "2026-08-30T00:53:01+08:00",
+    "targetFiles": [
+      "archive/OPERATION_PROTOCOL.md",
+      "README.md",
+      "archive/CONTINUITY.md",
+      "archive/SAVE_TRANSACTION.json"
+    ],
+    "note": "将 GitHub 文档中项目来源规范名称统一为 GitHub 活协议版，避免替换来源后仍引用旧事务版文件名。未推进游戏剧情。"
+  },
   "lastCompletedTransaction": {
     "id": "maintenance-20260830-market-live-protocol",
     "type": "maintenance",
