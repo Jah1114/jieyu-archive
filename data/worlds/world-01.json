@@ -56,16 +56,9 @@
     "原作剧情只能作为进入前记忆参考，不能视为未来必然"
   ],
   "economy": {
-    "currency": "下品灵石",
-    "knownPrices": [
-      "火弹符30张约2块下品灵石",
-      "便宜短剑类低阶法器约12块",
-      "低阶飞针约9块",
-      "玄铁盾约18块",
-      "小型储物袋约12–20块",
-      "金刚符成品约1块/张",
-      "金刚符符法开价约50块"
-    ]
+    "primaryCurrencyId": "currency-low-spirit-stone",
+    "marketObservationsPath": "data/global/inventory.json#marketObservations",
+    "note": "价格按第一视角市场观察记录；不把行情写成物品永久属性，也不与其他世界货币自动换算。"
   },
   "originalMemoryBoundary": "知道韩立是原作关键人物，也知道太南谷与原作早期修仙路线有关；当前现实已被行者与实际选择改变。"
 }
