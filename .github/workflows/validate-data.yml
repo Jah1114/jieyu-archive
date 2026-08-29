@@ -35,3 +35,4 @@ jobs:
         run: |
           node --check assets/next.js
           node --check assets/next-enhancements.js
+          node --check assets/next-relations.js
