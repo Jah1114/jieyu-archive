@@ -1,5 +1,9 @@
 {
   "id": "world-01",
+  "settingId": "setting-fanren",
+  "visitIndex": 1,
+  "timelineId": "timeline-fanren-01",
+  "timelineRelation": "首次访问实例；未来若再次进入《凡人修仙传》，届时再依据实际证据判断是否属于同一时间线。",
   "name": "凡人修仙传",
   "phase": "太南小会时期",
   "status": "当前世界",
@@ -9,15 +13,42 @@
   "identity": "镜州人士，父母早亡，无田无业，外出谋生",
   "exitWindow": "约第93天首次开启；当前仍可主动离界",
   "knownLocations": [
-    {"id":"loc-jingzhou","name":"镜州 · 初始区域","status":"已离开","note":"入界后的初始身份与早期活动区域"},
-    {"id":"loc-qixuanmen","name":"七玄门 / 彩霞山","status":"已离开","note":"早期落脚、药童时期、发生七玄门与野狼帮大战"},
-    {"id":"loc-jiayuan","name":"嘉元城","status":"已到达/经过","note":"离开七玄门后的重要过渡区域；韩立当前最后已知在此处理私人事务"},
-    {"id":"loc-road-inn","name":"嘉元城方向沿途客栈","status":"已离开","note":"约第93天夜间修炼《长春功》时首次明确感知离界窗口"},
-    {"id":"loc-qingshi","name":"青石山","status":"已到达","note":"顾承山洞府所在地；曾通过现实观察破解老旧迷阵"},
-    {"id":"loc-tainan","name":"太南谷","status":"当前区域","note":"修仙者交易、小会、委托和资源积累中心"},
-    {"id":"loc-tainan-creek","name":"太南谷外围溪边","status":"已到达","note":"与陆明远第一次较深入交换行者信息并测试保护伞模块"},
-    {"id":"loc-tainan-market","name":"太南小会集市","status":"当前活动区域","note":"目前看到金刚符与符法报价；法器、符箓和材料交易集中"},
-    {"id":"loc-qijiazhuang","name":"齐家庄","status":"已到达","note":"灵谷种子护送委托目的地；曾确认途中三名可疑修士并未受邀"}
+    {
+      "id": "loc-tainan",
+      "name": "太南谷",
+      "status": "当前区域",
+      "kind": "修仙者枢纽",
+      "importance": 100,
+      "firstSeenOrder": 4,
+      "note": "修仙者交易、小会、委托和资源积累中心；当前主要活动区域"
+    },
+    {
+      "id": "loc-qixuanmen",
+      "name": "七玄门 / 彩霞山",
+      "status": "已离开",
+      "kind": "长期落脚 / 重大事件地",
+      "importance": 90,
+      "firstSeenOrder": 1,
+      "note": "早期落脚和药童生活持续较久；发生七玄门与野狼帮大战及首次修仙者实战"
+    },
+    {
+      "id": "loc-jiayuan",
+      "name": "嘉元城",
+      "status": "已到达/经过",
+      "kind": "城市 / 联系人节点",
+      "importance": 75,
+      "firstSeenOrder": 2,
+      "note": "离开七玄门后的重要过渡城市；韩立当前最后已知在此处理私人事务"
+    },
+    {
+      "id": "loc-qingshi",
+      "name": "青石山",
+      "status": "已到达",
+      "kind": "洞府 / 散修节点",
+      "importance": 70,
+      "firstSeenOrder": 3,
+      "note": "顾承山洞府所在地；曾通过现实观察破解老旧迷阵，并开始深入接触散修生活"
+    }
   ],
   "knownRules": [
     "灵根、练气体系、灵石、法器、符箓真实存在",
