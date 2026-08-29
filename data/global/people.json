@@ -1,0 +1,118 @@
+{
+  "people": [
+    {
+      "id": "person-chenyan",
+      "name": "陈砚",
+      "gender": "男",
+      "age": "23岁",
+      "kind": "行者",
+      "firstWorldId": "world-01",
+      "status": "当前同行 / 朋友",
+      "tags": ["当前同行", "行者"],
+      "known": {
+        "origin": "南京",
+        "worldCount": "第二个世界",
+        "realm": "练气一层",
+        "spiritualRoots": "四灵根，火金较显，另有土，木水弱",
+        "abilities": ["《引火诀》", "基础火金引气路线"],
+        "combat": "能产生极小火苗，仍在练习，实战手段较弱"
+      },
+      "relationship": "朋友 / 当前同行",
+      "informationSource": ["本人自述", "亲眼确认"]
+    },
+    {
+      "id": "person-yeqing",
+      "name": "叶青",
+      "gender": "女",
+      "age": "约25–26岁",
+      "kind": "行者",
+      "firstWorldId": "world-01",
+      "status": "当前同行",
+      "tags": ["当前同行", "行者"],
+      "known": {
+        "worldCount": "第五个世界",
+        "arrival": "比徐长卿早约4个月进入本世界",
+        "realm": "练气一层",
+        "spiritualRoots": "三灵根（水、木、火）",
+        "abilities": ["疾风步", "凡俗刀法", "现代医学/药理基础", "药材辨识", "交易判断"],
+        "worldIdentity": "岚州武师之女，经关系成为七玄门正式弟子"
+      },
+      "relationship": "当前同行；多人交涉时通常更主动",
+      "informationSource": ["本人自述", "亲眼确认"]
+    },
+    {
+      "id": "person-shenxiu",
+      "name": "沈修",
+      "gender": "男",
+      "age": "表面约20岁",
+      "kind": "行者",
+      "firstWorldId": "world-01",
+      "status": "已分开 / 去向未知",
+      "tags": ["已分开", "行者", "失联"],
+      "known": {
+        "worldCount": "第四个世界",
+        "spiritualRoots": "无灵根",
+        "abilities": ["弱念动力：数公斤级，精细控制较好，可训练慢增"],
+        "exitWindow": "最后确认时已开启"
+      },
+      "relationship": "曾同行",
+      "informationSource": ["本人自述", "亲眼确认"]
+    },
+    {
+      "id": "person-lumingyuan",
+      "name": "陆明远",
+      "gender": "男",
+      "age": "约25岁",
+      "kind": "行者",
+      "firstWorldId": "world-01",
+      "status": "初步合作",
+      "tags": ["行者", "合作研究"],
+      "known": {
+        "origin": "杭州",
+        "worldCount": "第三个世界",
+        "realWorldExperience": "约两年机械设计经验",
+        "realm": "练气一层",
+        "spiritualRoots": "四灵根，偏土",
+        "previousWorlds": ["第一个较普通现代世界", "《生化危机》电影版"],
+        "skills": ["手枪/步枪使用", "基础枪械拆装维护"],
+        "items": ["保护伞设施身份腕带（已没电）", "若干传感器/电子部件"]
+      },
+      "relationship": "松散长期合作意向：有机会共同研究科技 × 超凡交叉；双方保留底牌",
+      "informationSource": ["本人自述", "部分亲自测试"]
+    },
+    {
+      "id": "person-guchengshan",
+      "name": "顾承山",
+      "gender": "男",
+      "age": "实际接近80岁，外貌约六七十",
+      "kind": "本世界人物",
+      "firstWorldId": "world-01",
+      "status": "暂时同行 / 前辈",
+      "tags": ["本世界人物", "暂时同行"],
+      "known": {
+        "realm": "练气六层",
+        "identity": "青石山洞府主人，低阶散修",
+        "skills": ["低阶制符", "灵药处理", "基础迷阵维护", "熟悉太南谷与散修生活"]
+      },
+      "relationship": "前辈 / 交易伙伴；并非固定队成员",
+      "informationSource": ["NPC自述", "亲眼确认"]
+    },
+    {
+      "id": "person-hanli",
+      "name": "韩立",
+      "gender": "男",
+      "age": "约17岁",
+      "kind": "本世界人物",
+      "firstWorldId": "world-01",
+      "status": "可信联系人 / 已分开",
+      "tags": ["本世界人物", "已分开", "可信联系人"],
+      "known": {
+        "lastKnownLocation": "嘉元城处理私人事务",
+        "helpedWith": ["测灵根", "基础行气", "护体行气", "木属性吐纳", "《长春功》前两层", "驱物术", "火弹术", "三张低阶护身符"],
+        "knowledgeOfPlayer": "知道徐长卿恢复很快、体内灵力越来越多，但不知道完整无量灵海机制"
+      },
+      "relationship": "谨慎但可信；不是师徒，也不是无条件盟友",
+      "informationSource": ["亲眼确认"]
+    }
+  ]
+}
