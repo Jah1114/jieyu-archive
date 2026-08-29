@@ -10,9 +10,11 @@
   },
   "sync": {
     "continuityUpdated": true,
-    "publicSiteMayLagNarrative": true,
+    "structuredDataUpdated": true,
+    "dataDrivenPreviewUpdated": true,
+    "legacyIndexMayLag": true,
     "lastArchiveCommand": "存档",
-    "note": "续档已推进到约第124天上午；公开网站部分展示仍可能停留在第123天，下一次完整同步档案时统一刷新。"
+    "note": "项目命令已收敛为‘存档/读档’。next.html 直接读取当前结构化数据；index.html 暂作为旧版稳定首页，待 next 版验证后再替换。"
   },
   "principles": {
     "perspective": "徐长卿第一视角",
