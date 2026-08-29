@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "name": "界域持久化映射",
+  "purpose": "机器可读地描述现有长期档案结构及存档变化领域，用于一致性检查；它不是剧情规则，也不是游戏内容白名单。",
+  "principles": {
+    "storyDrivesSchema": true,
+    "schemaMustNotLimitNarrative": true,
+    "unknownConceptsMayEnterCanon": true,
+    "canonBeforeSpecializedSchema": true,
+    "maintenanceOwnsSchemaEvolution": true
+  },
+  "openNarrativePolicy": {
+    "rule": "剧情可以产生当前结构未预见的新概念。缺少专门结构不得阻止剧情发生，也不得为了适配现有 schema 扭曲已发生事实。",
+    "fallback": [
+      "优先保证 story/ 正史正文完整",
+      "有长期影响时写入能够承载它的现有通用事实层",
+      "必要时写入 data/timeline.json 保留重要事件",
+      "主游戏聊天不得仅为适配一次新概念自行建立大型永久数据架构",
+      "是否新增独立结构化层由维护聊天后续决定"
+    ]
+  },
+  "authoritativeData": {
+    "exactFiles": [
+      "data/meta.json",
+      "data/global/player.json",
+      "data/global/people.json",
+      "data/global/abilities.json",
+      "data/global/inventory.json",
+      "data/worlds/index.json",
+      "data/timeline.json",
+      "data/chapters.json",
+      "data/projects.json",
+      "data/intel.json",
+      "data/features.json"
+    ],
+    "patterns": [
+      "data/worlds/world-*.json"
+    ],
+    "rule": "新增正式 data/*.json 或 data/**/*.json 数据层时，必须在此登记为 exactFiles 或 patterns；否则 CI 失败。"
+  },
+  "domains": {
+    "narrativeFrontier": {
+      "description": "当前时间、地点、叙事前沿等核心连续性变化",
+      "requiredTargets": [
+        "data/meta.json",
+        "archive/CURRENT_STATE.md",
+        "archive/CONTINUITY.md"
+      ]
+    },
+    "player": {
+      "description": "玩家长期实体状态变化",
+      "requiredTargets": ["data/global/player.json"]
+    },
+    "people": {
+      "description": "长期人物实体变化",
+      "requiredTargets": ["data/global/people.json"],
+      "relatedTargets": ["archive/PEOPLE.md"]
+    },
+    "abilities": {
+      "description": "长期能力变化",
+      "requiredTargets": ["data/global/abilities.json"]
+    },
+    "inventory": {
+      "description": "长期物品、私人货币与市场观察变化",
+      "requiredTargets": ["data/global/inventory.json"]
+    },
+    "worldRegistry": {
+      "description": "访问实例新增、切换或注册状态变化",
+      "requiredTargets": ["data/worlds/index.json"]
+    },
+    "worldState": {
+      "description": "某个访问实例的长期地点、已知规则或世界状态变化",
+      "requiredTargetPatterns": ["data/worlds/world-*.json"]
+    },
+    "timeline": {
+      "description": "重要事件时间线变化",
+      "requiredTargets": ["data/timeline.json"]
+    },
+    "chapters": {
+      "description": "章节索引变化",
+      "requiredTargets": ["data/chapters.json"]
+    },
+    "canonStory": {
+      "description": "正史正文新增或修改",
+      "requiredTargetPatterns": ["story/*.md"]
+    },
+    "projects": {
+      "description": "长期项目变化",
+      "requiredTargets": ["data/projects.json"]
+    },
+    "intel": {
+      "description": "情报与证据链变化",
+      "requiredTargets": ["data/intel.json"]
+    },
+    "features": {
+      "description": "长期功能与第一视角解锁状态变化",
+      "requiredTargets": ["data/features.json"]
+    }
+  },
+  "transactionContract": {
+    "changeDomainsField": "changeDomains",
+    "targetFilesField": "targetFiles",
+    "rule": "正式存档在 in_progress 时声明本轮实际发生变化的领域；声明领域后，该领域的 requiredTargets / requiredTargetPatterns 必须被 targetFiles 覆盖。未声明的新剧情类型本身不构成错误，只有已经选择结构化保存的变化才受对应领域约束。"
+  }
+}
