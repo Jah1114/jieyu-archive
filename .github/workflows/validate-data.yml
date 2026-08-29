@@ -32,4 +32,6 @@ jobs:
       - name: Validate structured archive
         run: node scripts/validate-data.mjs
       - name: Check browser JavaScript syntax
-        run: node --check assets/next.js
+        run: |
+          node --check assets/next.js
+          node --check assets/next-enhancements.js
