@@ -13,10 +13,12 @@ const timeline = read('data/timeline.json');
 const projects = read('data/projects.json');
 const intel = read('data/intel.json');
 const chapters = read('data/chapters.json');
+const features = exists('data/features.json') ? read('data/features.json') : { features: [] };
 
 const errors = [];
 const warnings = [];
 const ids = new Map();
+const types = new Map();
 
 const worlds = [];
 for (const entry of worldRegistry.worlds ?? []) {
@@ -40,7 +42,10 @@ function add(id, type, name) {
     return;
   }
   if (ids.has(id)) errors.push(`重复 id：${id}（${ids.get(id).type} / ${type}）`);
-  else ids.set(id, { type, name });
+  else {
+    ids.set(id, { type, name });
+    types.set(id, type);
+  }
 }
 
 add(player.id, '角色', player.name);
@@ -58,44 +63,52 @@ for (const x of intel.intel ?? []) add(x.id, '情报', x.title);
 for (const x of chapters.chapters ?? []) add(x.id, '章节', x.title);
 
 const refs = [];
-function ref(target, from, field) {
-  if (target) refs.push({ target, from, field });
+function ref(target, from, field, expectedType = null) {
+  if (target) refs.push({ target, from, field, expectedType });
 }
 
-ref(player.coreTalentId, player.id, 'coreTalentId');
-ref(player.currentWorldId, player.id, 'currentWorldId');
-ref(meta.currentWorldId, 'meta', 'currentWorldId');
+ref(player.coreTalentId, player.id, 'coreTalentId', '能力');
+ref(player.currentWorldId, player.id, 'currentWorldId', '世界');
+ref(meta.currentWorldId, 'meta', 'currentWorldId', '世界');
 
 for (const world of worlds) {
-  for (const loc of world.knownLocations ?? []) ref(world.id, loc.id, 'parentWorldId');
+  for (const loc of world.knownLocations ?? []) ref(world.id, loc.id, 'parentWorldId', '世界');
 }
 for (const p of people.people ?? []) {
-  ref(p.firstWorldId, p.id, 'firstWorldId');
-  if (p.currentWorldId) ref(p.currentWorldId, p.id, 'currentWorldId');
-  for (const x of p.worldIds ?? []) ref(x, p.id, 'worldIds');
+  ref(p.firstWorldId, p.id, 'firstWorldId', '世界');
+  if (p.currentWorldId) ref(p.currentWorldId, p.id, 'currentWorldId', '世界');
+  for (const x of p.worldIds ?? []) ref(x, p.id, 'worldIds', '世界');
 }
-for (const a of abilities.abilities ?? []) if (a.sourceWorldId) ref(a.sourceWorldId, a.id, 'sourceWorldId');
-for (const item of inventory.items ?? []) if (item.sourceWorldId) ref(item.sourceWorldId, item.id, 'sourceWorldId');
-for (const c of inventory.currencies ?? []) if (c.worldId) ref(c.worldId, c.id, 'worldId');
+for (const a of abilities.abilities ?? []) if (a.sourceWorldId) ref(a.sourceWorldId, a.id, 'sourceWorldId', '世界');
+for (const item of inventory.items ?? []) if (item.sourceWorldId) ref(item.sourceWorldId, item.id, 'sourceWorldId', '世界');
+for (const c of inventory.currencies ?? []) if (c.worldId) ref(c.worldId, c.id, 'worldId', '世界');
 for (const e of timeline.events ?? []) {
-  ref(e.worldId, e.id, 'worldId');
+  ref(e.worldId, e.id, 'worldId', '世界');
+  if (!Array.isArray(e.locationIds)) errors.push(`事件 locationIds 必须为数组：${e.id}`);
+  for (const x of e.locationIds ?? []) ref(x, e.id, 'locationIds', '地点');
   for (const x of e.links ?? []) ref(x, e.id, 'links');
 }
 for (const p of projects.projects ?? []) {
-  ref(p.worldId, p.id, 'worldId');
+  ref(p.worldId, p.id, 'worldId', '世界');
   for (const x of p.participants ?? []) ref(x, p.id, 'participants');
 }
 for (const i of intel.intel ?? []) {
-  if (typeof i.scope === 'string' && i.scope.startsWith('world-')) ref(i.scope, i.id, 'scope');
+  if (typeof i.scope === 'string' && i.scope.startsWith('world-')) ref(i.scope, i.id, 'scope', '世界');
   for (const x of i.relatedIds ?? []) ref(x, i.id, 'relatedIds');
 }
 for (const c of chapters.chapters ?? []) {
-  ref(c.worldId, c.id, 'worldId');
+  ref(c.worldId, c.id, 'worldId', '世界');
   for (const x of c.relatedIds ?? []) ref(x, c.id, 'relatedIds');
 }
 
 for (const r of refs) {
-  if (!ids.has(r.target)) errors.push(`坏引用：${r.from}.${r.field} → ${r.target}`);
+  if (!ids.has(r.target)) {
+    errors.push(`坏引用：${r.from}.${r.field} → ${r.target}`);
+    continue;
+  }
+  if (r.expectedType && types.get(r.target) !== r.expectedType) {
+    errors.push(`引用类型错误：${r.from}.${r.field} → ${r.target}，预期 ${r.expectedType}，实际 ${types.get(r.target)}`);
+  }
 }
 
 if (!worlds.some(w => w.id === meta.currentWorldId)) errors.push(`meta.currentWorldId 未注册：${meta.currentWorldId}`);
@@ -126,13 +139,20 @@ for (const c of chapters.chapters ?? []) {
   if (!Array.isArray(c.relatedIds)) errors.push(`章节 relatedIds 必须为数组：${c.id}`);
 }
 
-if (!exists('next.html')) errors.push('缺少 next.html');
-if (!exists('assets/next.js')) errors.push('缺少 assets/next.js');
-if (!exists('assets/next.css')) errors.push('缺少 assets/next.css');
+for (const f of features.features ?? []) {
+  if (!f.id || !f.name) errors.push(`功能注册缺少 id/name：${JSON.stringify(f)}`);
+  if (f.publicVisible === false && f.state === '已解锁') warnings.push(`功能 ${f.id} 已解锁但仍设为不可见`);
+  if (f.backendSettingPath && !exists(f.backendSettingPath)) errors.push(`功能后台设定路径不存在：${f.id} → ${f.backendSettingPath}`);
+}
+
+for (const file of ['next.html','assets/next.js','assets/next-enhancements.js','assets/next.css']) {
+  if (!exists(file)) errors.push(`缺少前端文件：${file}`);
+}
 
 console.log(`世界：${worlds.length}`);
 console.log(`实体：${ids.size}`);
 console.log(`引用：${refs.length}`);
+console.log(`待解锁/功能注册：${(features.features ?? []).length}`);
 if (warnings.length) {
   console.log('\n警告：');
   for (const w of warnings) console.log(`- ${w}`);
