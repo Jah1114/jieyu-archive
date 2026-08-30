@@ -1,6 +1,7 @@
-// 档案展示增强 v4：顶部世界范围 + 少量稳定大类筛选。
+// 档案展示增强 v5：顶部世界范围 + 少量稳定大类筛选 + 最终交互收口。
 // 世界 / 旅程等已经由顶部世界范围控制的页面不重复增加本地“当前/历史世界”筛选。
 // 人物、能力、携带、项目、情报、世界槽与市场只保留少量长期稳定的大类。
+// 本层同时负责分类筛选与搜索的最终合并、页头一致性和跨世界页面的范围提示。
 // 仅改变展示与游戏外偏好读取，不改变正史事实。
 
 (() => {
@@ -16,6 +17,7 @@
     intel:'全部',
     worldslot:'全部'
   };
+  const UNSCOPED_TABS = new Set(['worldslot','abilities','inventory','diagnostics']);
 
   TAB_TITLES.market = ['市场观察', '顶部世界范围负责世界切换；本页只按交易性质做少量筛选'];
   TAB_TITLES.worldslot = ['世界槽', '游戏外高权重候选池；不是白名单，也不属于徐长卿第一视角正史'];
@@ -24,7 +26,7 @@
     const nav = $('#nav');
     if(nav && !nav.querySelector('[data-tab="market"]')){
       const worldButton = nav.querySelector('[data-tab="world"]');
-      worldButton?.insertAdjacentHTML('afterend', '<button data-tab="worldslot">世界槽</button><button data-tab="market">市场</button>');
+      worldButton?.insertAdjacentHTML('afterend', '<button type="button" data-tab="worldslot">世界槽</button><button type="button" data-tab="market">市场</button>');
     }
     const timeline = $('#timeline');
     if(timeline && !$('#market')){
@@ -33,14 +35,66 @@
   }
   ensureExtraUi();
 
+  function activeTab(){ return $('.section.active')?.id || 'overview'; }
+  function refreshActiveHeader(){
+    const tab = activeTab();
+    const title = TAB_TITLES[tab] || TAB_TITLES.overview;
+    $('#pageTitle').textContent = title[0];
+    $('#pageSub').textContent = title[1];
+    const scope = $('#scope');
+    if(scope){
+      const ignored = UNSCOPED_TABS.has(tab);
+      scope.disabled = ignored;
+      scope.title = ignored ? '当前页展示跨世界或全局信息，不受世界范围筛选' : '按世界范围筛选当前页';
+      scope.setAttribute('aria-label', ignored ? '世界范围（当前页不适用）' : '世界范围');
+    }
+  }
+
+  function applyArchiveSearch(){
+    const input = $('#search');
+    if(!input) return;
+    const q = input.value.trim().toLowerCase();
+    $$('.searchable').forEach(el => {
+      const categoryHidden = el.dataset.archiveFilterHidden === '1';
+      const match = !q || (el.dataset.search || '').toLowerCase().includes(q);
+      el.hidden = categoryHidden || !match;
+      el.style.opacity = '1';
+    });
+
+    const active = $('.section.active');
+    if(active){
+      let note = active.querySelector('.search-filter-note');
+      if(!note){
+        note = document.createElement('div');
+        note.className = 'search-filter-note';
+        active.prepend(note);
+      }
+      if(q){
+        const count = $$('.searchable',active).filter(el => {
+          if(el.hidden) return false;
+          return !el.parentElement?.closest('.searchable');
+        }).length;
+        note.hidden = false;
+        note.innerHTML = `正在筛选：<b>${esc(input.value.trim())}</b> · ${count} 条匹配`;
+      }else{
+        note.hidden = true;
+        note.textContent = '';
+      }
+    }
+  }
+
   const baseSwitchTab = switchTab;
   switchTab = function(tab){
     baseSwitchTab(tab);
     const notice = $('.notice');
-    if(!notice) return;
-    notice.innerHTML = tab === 'worldslot'
-      ? '<b>世界槽是游戏外偏好配置。</b> 它只提高候选权重，不属于徐长卿认知或正史，也不会阻止槽外世界出现。'
-      : defaultNotice;
+    if(notice){
+      notice.innerHTML = tab === 'worldslot'
+        ? '<b>世界槽是游戏外偏好配置。</b> 它只提高候选权重，不属于徐长卿认知或正史，也不会阻止槽外世界出现。'
+        : defaultNotice;
+    }
+    refreshActiveHeader();
+    // next-enhancements 也会在切页后重放搜索；本层后注册，最终以分类 + 搜索的交集为准。
+    setTimeout(applyArchiveSearch, 0);
   };
 
   function peopleGroup(p){
@@ -116,7 +170,10 @@
 
   function filterBarHtml(tab, options){
     normalizeFilter(tab, options);
-    return options.map(x => `<button class="${FILTERS[tab]===x.label?'active':''}" data-archive-filter-tab="${esc(tab)}" data-archive-filter-value="${esc(x.label)}"><span>${esc(x.label)}</span><span class="filter-count">${esc(x.count)}</span></button>`).join('');
+    return options.map(x => {
+      const active = FILTERS[tab] === x.label;
+      return `<button type="button" class="${active?'active':''}" aria-pressed="${active?'true':'false'}" data-archive-filter-tab="${esc(tab)}" data-archive-filter-value="${esc(x.label)}"><span>${esc(x.label)}</span><span class="filter-count">${esc(x.count)}</span></button>`;
+    }).join('');
   }
 
   function mountFilterBar(tab, target, options){
@@ -140,7 +197,9 @@
     if(!root) return;
     root.querySelectorAll('.entity-card[data-entity]').forEach(card => {
       const entity = ENTITY.get(card.dataset.entity);
-      card.hidden = !matcher(entity);
+      const categoryHidden = !matcher(entity);
+      card.dataset.archiveFilterHidden = categoryHidden ? '1' : '0';
+      card.hidden = categoryHidden;
     });
   }
 
@@ -152,13 +211,35 @@
       .map(e => e.raw);
   }
 
-  const baseRenderPeopleV4 = renderPeople;
+  const baseRenderOverviewV5 = renderOverview;
+  renderOverview = function(){
+    baseRenderOverviewV5();
+    const w = currentWorld();
+    const narrative = DATA.meta?.currentNarrative || {};
+    const state = DATA.player?.currentState || {};
+    const core = arr(DATA.abilities?.abilities).find(a => a.id === DATA.player?.coreTalentId);
+    $('#overviewCards').innerHTML = [
+      ['当前世界',w?.name || '未知',w?.phase || ''],
+      ['时间',narrative.worldDay ? `第 ${narrative.worldDay} 天` : '未知',`${narrative.dayPart || ''}${narrative.location ? ` · ${narrative.location}` : ''}`],
+      ['境界',state.realm || '未知',state.spiritualRoots || ''],
+      ['离界窗口',state.exitWindow || '未知','以当前角色状态记录为准']
+    ].map(x=>`<div class="card searchable" data-search="${esc(x.join(' '))}"><div class="label">${esc(x[0])}</div><div class="big">${esc(x[1])}</div><div class="small muted">${esc(x[2])}</div></div>`).join('');
+
+    $('#currentState').innerHTML = [
+      ['核心天赋',core?.name || resolveName(DATA.player?.coreTalentId),arr(core?.effects)[0] || '详见能力页'],
+      ['身体 / 法力',`${state.body || '未知'} / ${state.mana || '未知'}`,state.realm ? `当前境界：${state.realm}` : ''],
+      ['当前叙事前沿',narrative.location || '未知',narrative.frontier || '暂无记录']
+    ].map(x=>`<div class="card searchable" data-search="${esc(x.join(' '))}"><div class="label">${esc(x[0])}</div><div class="big">${esc(x[1])}</div><div class="small muted">${esc(x[2])}</div></div>`).join('');
+  };
+
+  const baseRenderPeopleV5 = renderPeople;
   renderPeople = function(){
-    baseRenderPeopleV4();
+    baseRenderPeopleV5();
     const root = $('#peopleGrid');
     if(!root) return;
     const records = recordsFromCards(root, 'person');
     const options = countOptions(records, peopleGroup, ['同行','联系','分离','死亡','其他']);
+    if(options[0] && root.querySelector(`[data-entity="${CSS.escape(DATA.player?.id || '')}"]`)) options[0].count += 1;
     mountFilterBar('people', root, options);
     const current = FILTERS.people;
     setEntityCards(root, e => {
@@ -169,9 +250,9 @@
     });
   };
 
-  const baseRenderAbilitiesV4 = renderAbilities;
+  const baseRenderAbilitiesV5 = renderAbilities;
   renderAbilities = function(){
-    baseRenderAbilitiesV4();
+    baseRenderAbilitiesV5();
     const root = $('#abilitiesGrid');
     if(!root) return;
     const records = recordsFromCards(root, 'ability');
@@ -181,9 +262,9 @@
     setEntityCards(root, e => e?.type === 'ability' && (current === '全部' || abilityGroup(e.raw) === current));
   };
 
-  const baseRenderInventoryV4 = renderInventory;
+  const baseRenderInventoryV5 = renderInventory;
   renderInventory = function(){
-    baseRenderInventoryV4();
+    baseRenderInventoryV5();
     const root = $('#inventoryGrid');
     if(!root) return;
     const records = recordsFromCards(root, 'item');
@@ -193,9 +274,9 @@
     setEntityCards(root, e => e?.type === 'item' && (current === '全部' || itemGroup(e.raw) === current));
   };
 
-  const baseRenderProjectsV4 = renderProjects;
+  const baseRenderProjectsV5 = renderProjects;
   renderProjects = function(){
-    baseRenderProjectsV4();
+    baseRenderProjectsV5();
     const root = $('#projectsGrid');
     if(!root) return;
     const records = recordsFromCards(root, 'project');
@@ -205,9 +286,9 @@
     setEntityCards(root, e => e?.type === 'project' && (current === '全部' || projectGroup(e.raw) === current));
   };
 
-  const baseRenderIntelV4 = renderIntel;
+  const baseRenderIntelV5 = renderIntel;
   renderIntel = function(){
-    baseRenderIntelV4();
+    baseRenderIntelV5();
     const root = $('#intelGrid');
     if(!root) return;
     const records = recordsFromCards(root, 'intel');
@@ -218,9 +299,9 @@
   };
 
   // 世界页和旅程页已经由顶部“世界范围”完整控制，不再叠加重复的当前/历史筛选。
-  const baseRenderWorldV4 = renderWorld;
+  const baseRenderWorldV5 = renderWorld;
   renderWorld = function(){
-    baseRenderWorldV4();
+    baseRenderWorldV5();
     const target = scopeWorldId();
     const worlds = target ? DATA.worlds.filter(w => w.id === target) : DATA.worlds;
     const head = $$('#world .head').find(h => h.querySelector('h3')?.textContent.includes('已知规则'));
@@ -229,9 +310,9 @@
     if(!details) return;
     details.innerHTML = worlds.map(w => {
       const observations = typeof marketForWorld === 'function' ? marketForWorld(w.id) : [];
-      const actual = observations.filter(o => ['成交','以物易物'].includes(o.priceType)).length;
+      const actual = observations.filter(o => ['成交','交换'].includes(marketGroup(o))).length;
       return `<div class="card searchable" data-search="${esc(arr(w.knownRules).join(' '))}"><div class="name">${esc(w.name)} · 已知规则</div><div class="details">${listHtml(w.knownRules)}</div></div>
-      <div class="card searchable" data-search="市场 ${esc(w.name)}"><div class="name">${esc(w.name)} · 市场摘要</div><div class="details">已记录 ${observations.length} 条市场观察，其中实际成交/交换 ${actual} 条。完整价格历史在“市场”页查看。</div><button class="world-market-link" data-open-market="1">打开市场页</button></div>`;
+      <div class="card searchable" data-search="市场 ${esc(w.name)}"><div class="name">${esc(w.name)} · 市场摘要</div><div class="details">已记录 ${observations.length} 条市场观察，其中实际成交/交换 ${actual} 条。完整价格历史在“市场”页查看。</div><button type="button" class="world-market-link" data-open-market="1">打开市场页</button></div>`;
     }).join('');
   };
 
@@ -253,7 +334,7 @@
     const root = $('#marketContent');
     if(!root) return;
     const all = marketRecordsForScope();
-    const actual = all.filter(o => ['成交','以物易物'].includes(o.priceType));
+    const actual = all.filter(o => ['成交','交换'].includes(marketGroup(o)));
     const subjects = new Set(all.map(o => o.subjectName).filter(Boolean));
     const options = countOptions(all, marketGroup, ['成交','报价','交换','观察']);
     const valid = new Set(options.map(x => x.label));
@@ -267,12 +348,19 @@
       grouped.get(key).push(o);
     });
 
+    const filterBar = options.length > 2
+      ? `<div class="archive-filterbar market-filterbar">${options.map(x => {
+          const active = x.label === MARKET_FILTER;
+          return `<button type="button" class="${active?'active':''}" aria-pressed="${active?'true':'false'}" data-market-filter="${esc(x.label)}"><span>${esc(x.label)}</span><span class="filter-count">${esc(x.count)}</span></button>`;
+        }).join('')}</div>`
+      : '';
+
     root.innerHTML = `<div class="market-summary">
       <div class="card"><div class="label">当前范围</div><div class="big">${all.length}</div><div class="small muted">市场观察总数</div></div>
       <div class="card"><div class="label">已验证</div><div class="big">${actual.length}</div><div class="small muted">实际成交 / 交换</div></div>
       <div class="card"><div class="label">对象</div><div class="big">${subjects.size}</div><div class="small muted">独立商品 / 行情主题</div></div>
     </div>
-    <div class="archive-filterbar market-filterbar">${options.map(x => `<button class="${x.label===MARKET_FILTER?'active':''}" data-market-filter="${esc(x.label)}"><span>${esc(x.label)}</span><span class="filter-count">${esc(x.count)}</span></button>`).join('')}</div>
+    ${filterBar}
     <div class="market-groups">${[...grouped.entries()].map(([name, records]) => {
       const latest = records[records.length - 1];
       const latestText = typeof marketObservationText === 'function'
@@ -314,15 +402,20 @@
       : all.filter(x => FILTERS.worldslot === '明确偏好' ? x._kind === 'explicit' : x._kind === 'recommended');
 
     root.innerHTML = `<div class="worldslot-banner"><div class="name">高权重候选池，不是白名单</div><div class="details">用户明确偏好 ×${esc(p.explicitPreferenceWeight)}；推荐候选 ×${esc(p.recommendedCandidateWeight)}；槽外基线 ×${esc(p.outsidePoolBaselineWeight)}。顶部“世界范围”不影响本页，因为世界槽是游戏外偏好配置。</div></div>
-    <div class="archive-filterbar">${options.map(x => `<button class="${FILTERS.worldslot===x.label?'active':''}" data-archive-filter-tab="worldslot" data-archive-filter-value="${esc(x.label)}"><span>${esc(x.label)}</span><span class="filter-count">${esc(x.count)}</span></button>`).join('')}</div>
+    <div class="archive-filterbar">${options.map(x => {
+      const active = FILTERS.worldslot === x.label;
+      return `<button type="button" class="${active?'active':''}" aria-pressed="${active?'true':'false'}" data-archive-filter-tab="worldslot" data-archive-filter-value="${esc(x.label)}"><span>${esc(x.label)}</span><span class="filter-count">${esc(x.count)}</span></button>`;
+    }).join('')}</div>
     <div class="worldslot-grid">${shown.map(x => slotCardHtml(x,x._kind)).join('')}</div>`;
   }
 
-  const baseRenderAllV4 = renderAll;
+  const baseRenderAllV5 = renderAll;
   renderAll = function(){
-    baseRenderAllV4();
+    baseRenderAllV5();
     renderMarket();
     renderWorldSlot();
+    refreshActiveHeader();
+    applyArchiveSearch();
   };
 
   document.addEventListener('click', e => {
@@ -350,7 +443,7 @@
         };
         renderers[tab]?.();
       }
-      applySearch();
+      applyArchiveSearch();
       return;
     }
 
@@ -358,12 +451,15 @@
     if(marketFilter){
       MARKET_FILTER = marketFilter.dataset.marketFilter;
       renderMarket();
-      applySearch();
+      applyArchiveSearch();
     }
   });
 
+  // 核心层与增强层都监听搜索输入；本层最后注册，确保最终结果始终是“页面大类筛选 ∩ 搜索词”。
+  $('#search')?.addEventListener('input', applyArchiveSearch);
+
   fetch('data/world-slot.json', {cache:'no-store'})
     .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-    .then(data => { WORLD_SLOT = data; renderWorldSlot(); applySearch(); })
-    .catch(err => { WORLD_SLOT_ERROR = err.message; renderWorldSlot(); });
+    .then(data => { WORLD_SLOT = data; renderWorldSlot(); applyArchiveSearch(); })
+    .catch(err => { WORLD_SLOT_ERROR = err.message; renderWorldSlot(); applyArchiveSearch(); });
 })();
