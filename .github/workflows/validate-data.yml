@@ -41,6 +41,8 @@ jobs:
         run: node scripts/validate-market.mjs
       - name: Validate world slot
         run: node scripts/validate-world-slot.mjs
+      - name: Validate UI contract
+        run: node scripts/validate-ui-contract.mjs
       - name: Check browser JavaScript syntax
         run: |
           node --check assets/next.js
