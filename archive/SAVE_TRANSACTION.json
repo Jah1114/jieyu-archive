@@ -1,7 +1,30 @@
 {
   "schemaVersion": 1,
-  "state": "clean",
-  "activeTransaction": null,
+  "state": "in_progress",
+  "activeTransaction": {
+    "id": "save-20260830-tainan-storagebag-turnover-02",
+    "type": "save",
+    "startedAt": "2026-08-30T19:36:00+08:00",
+    "changeDomains": [
+      "narrativeFrontier",
+      "abilities",
+      "inventory",
+      "worldState",
+      "timeline",
+      "projects"
+    ],
+    "targetFiles": [
+      "data/global/abilities.json",
+      "data/global/inventory.json",
+      "data/worlds/world-01.json",
+      "data/timeline.json",
+      "data/projects.json",
+      "archive/CURRENT_STATE.md",
+      "data/meta.json",
+      "archive/CONTINUITY.md"
+    ],
+    "reason": "保存约第124日至第132日太南小会制符周转验证、实际批量出售、购入制符杂录与符盒，并完成首个储物袋采购里程碑。"
+  },
   "lastCompletedTransaction": {
     "id": "save-20260830-tainan-talisman-turnover-01",
     "type": "save",
