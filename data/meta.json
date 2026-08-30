@@ -9,7 +9,7 @@
     "frontier": "已主动离开世界01《凡人修仙传》并进入世界02《赛博朋克 2077》相关世界；当前在未知城市巷道，刚确认灰布储物袋的灵力印记与内部空间跨界后仍可正常访问，随后听到近距离枪械交火、见到明显机械义体改造者与荒坂（ARASAKA）标识。具体城市、年代和事件背景尚未确认。"
   },
   "sync": {
-    "continuityUpdated": false,
+    "continuityUpdated": true,
     "structuredDataUpdated": true,
     "homepageUpdated": false,
     "lastArchiveCommand": "存档",
