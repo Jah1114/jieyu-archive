@@ -5,22 +5,22 @@
   "timelineId": "timeline-fanren-01",
   "timelineRelation": "首次访问实例；未来若再次进入《凡人修仙传》，届时再依据实际证据判断是否属于同一时间线。",
   "name": "凡人修仙传",
-  "phase": "太南小会时期",
-  "status": "当前世界",
+  "phase": "太南小会时期（已离开）",
+  "status": "已离开",
   "arrivalDay": 1,
-  "currentDayApprox": 132,
-  "currentLocation": "太南谷",
+  "currentDayApprox": 136,
+  "currentLocation": "太南谷（离界前最后地点）",
   "identity": "镜州人士，父母早亡，无田无业，外出谋生",
-  "exitWindow": "约第93天首次开启；当前仍可主动离界",
+  "exitWindow": "约第93天首次开启；约第136日前后主动使用并离开本访问实例",
   "knownLocations": [
     {
       "id": "loc-tainan",
       "name": "太南谷",
-      "status": "当前区域",
+      "status": "离界前最后活动区域",
       "kind": "修仙者枢纽",
       "importance": 100,
       "firstSeenOrder": 4,
-      "note": "修仙者交易、小会、委托和资源积累中心；当前主要活动区域"
+      "note": "修仙者交易、小会、委托和资源积累中心；徐长卿在此完成首轮制符周转、购得储物袋并最终主动离界"
     },
     {
       "id": "loc-qixuanmen",
@@ -38,7 +38,7 @@
       "kind": "城市 / 联系人节点",
       "importance": 75,
       "firstSeenOrder": 2,
-      "note": "离开七玄门后的重要过渡城市；韩立当前最后已知在此处理私人事务"
+      "note": "离开七玄门后的重要过渡城市；韩立最后已知在此处理私人事务"
     },
     {
       "id": "loc-qingshi",
@@ -60,5 +60,5 @@
     "marketObservationsPath": "data/global/inventory.json#marketObservations",
     "note": "价格按第一视角市场观察记录；不把行情写成物品永久属性，也不与其他世界货币自动换算。"
   },
-  "originalMemoryBoundary": "知道韩立是原作关键人物，也知道太南谷与原作早期修仙路线有关；当前现实已被行者与实际选择改变。"
+  "originalMemoryBoundary": "知道韩立是原作关键人物，也知道太南谷与原作早期修仙路线有关；实际经历已被行者与自身选择改变，本访问实例已经结束。"
 }
