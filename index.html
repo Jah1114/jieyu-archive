@@ -16,17 +16,17 @@
       <h1>界域档案</h1>
       <p id="brandPlayer">第一视角长期存档终端</p>
     </div>
-    <nav class="nav" id="nav">
-      <button class="active" data-tab="overview">概览</button>
-      <button data-tab="people">人物</button>
-      <button data-tab="world">世界</button>
-      <button data-tab="timeline">时间线</button>
-      <button data-tab="journey">旅程</button>
-      <button data-tab="abilities">能力</button>
-      <button data-tab="inventory">携带</button>
-      <button data-tab="projects">项目</button>
-      <button data-tab="intel">情报</button>
-      <button data-tab="diagnostics">诊断</button>
+    <nav class="nav" id="nav" aria-label="档案页面">
+      <button type="button" class="active" data-tab="overview">概览</button>
+      <button type="button" data-tab="people">人物</button>
+      <button type="button" data-tab="world">世界</button>
+      <button type="button" data-tab="timeline">时间线</button>
+      <button type="button" data-tab="journey">旅程</button>
+      <button type="button" data-tab="abilities">能力</button>
+      <button type="button" data-tab="inventory">携带</button>
+      <button type="button" data-tab="projects">项目</button>
+      <button type="button" data-tab="intel">情报</button>
+      <button type="button" data-tab="diagnostics">诊断</button>
     </nav>
     <div class="side-note">档案直接读取结构化存档。人物、地点、能力、物品、事件、章节、项目与情报使用稳定 ID 和统一关系层互相关联；正史正文仍以 Markdown 文件为权威来源。</div>
   </aside>
@@ -36,12 +36,12 @@
       <div><h2 id="pageTitle">系统概述</h2><p id="pageSub">正在读取结构化档案……</p></div>
       <div class="top-controls">
         <select id="scope" class="scope" aria-label="世界范围"><option value="current">当前世界</option><option value="all">全部世界</option></select>
-        <input id="search" class="search" placeholder="搜索人物、地点、能力、项目、情报、事件、章节……">
+        <input id="search" class="search" type="search" autocomplete="off" aria-label="搜索档案" placeholder="搜索人物、地点、世界槽、市场、能力、项目、情报、事件、章节……">
       </div>
     </div>
 
     <div class="notice">公开内容仅代表 <b>徐长卿当前认知</b>。未知事实保持未知；后台设定不会在这里泄露。</div>
-    <div class="sync" id="syncBox"><span>正在读取存档状态……</span><span class="badge">读取中</span></div>
+    <div class="sync" id="syncBox" aria-live="polite"><span>正在读取存档状态……</span><span class="badge">读取中</span></div>
 
     <section id="overview" class="section active">
       <div id="overviewCards" class="grid c4"></div>
@@ -57,7 +57,7 @@
     <section id="world" class="section">
       <div id="worldGrid" class="grid c3"></div>
       <div class="head"><h3>已知地点</h3></div><div id="locationsGrid" class="grid c3"></div>
-      <div class="head"><h3>已知规则与市场</h3></div><div id="worldDetails" class="grid c2"></div>
+      <div class="head"><h3>已知规则与市场摘要</h3></div><div id="worldDetails" class="grid c2"></div>
     </section>
     <section id="timeline" class="section"><div class="card"><div id="timelineGrid" class="timeline"></div></div></section>
     <section id="journey" class="section"><div id="journeyGrid" class="grid c2"></div></section>
@@ -82,7 +82,7 @@
 <aside id="drawer" class="drawer" aria-label="档案详情">
   <div class="drawer-head">
     <div><div id="drawerKicker" class="drawer-kicker">档案详情</div><div id="drawerTitle" class="drawer-title">—</div></div>
-    <button id="drawerClose" class="drawer-close" aria-label="关闭">×</button>
+    <button type="button" id="drawerClose" class="drawer-close" aria-label="关闭">×</button>
   </div>
   <div id="drawerBody" class="drawer-body"></div>
 </aside>
