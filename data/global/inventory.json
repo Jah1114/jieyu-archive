@@ -4,19 +4,19 @@
   ],
   "items": [
     {
-      "id":"item-fire-talisman","name":"火弹符","category":"战斗符箓","quantityApprox":27,"location":"随身/储物袋","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证",
+      "id":"item-fire-talisman","name":"火弹符","category":"战斗符箓","quantityApprox":27,"location":"随身/储物袋","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"已进入下一世界，但本轮尚未单独逐项检查数量与可用性",
       "acquisitionMethod":"自行制作","acquisitionNote":"已能稳定批量制作；约第124日至第132日期间大量成品用于太南小会周转销售与换取新材料。当前至少保留此前明确盘点的约27张自用火弹符；后续新增零散余量未精确盘点。",
       "actorLinks":[{"id":"player-xuchangqing","role":"制作"}],
       "relatedIds":["ability-fireball","ability-talisman"]
     },
     {
-      "id":"item-protection-talisman","name":"护身符","category":"防御符箓","quantityApprox":3,"location":"随身/储物袋","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"待离界时验证",
+      "id":"item-protection-talisman","name":"护身符","category":"防御符箓","quantityApprox":3,"location":"随身/储物袋","sourceWorldId":"world-01","source":"自行制作","crossWorldStatus":"已进入下一世界，但本轮尚未单独逐项检查数量与可用性",
       "acquisitionMethod":"自行制作","acquisitionNote":"在顾承山指导下开始学习，后续自行制作并留存；约第124天上午在太南小会以其中3张换取三份火弹符材料，当前余约3张。",
       "actorLinks":[{"id":"player-xuchangqing","role":"制作"},{"id":"person-guchengshan","role":"制符指导"}],
       "relatedIds":["ability-talisman"]
     },
     {
-      "id":"item-fire-talisman-material-batches","name":"火弹符材料","category":"制符材料","quantityApprox":1,"unit":"份左右","location":"储物袋","sourceWorldId":"world-01","source":"太南小会符箓摊交换","crossWorldStatus":"待离界时验证",
+      "id":"item-fire-talisman-material-batches","name":"火弹符材料","category":"制符材料","quantityApprox":1,"unit":"份左右","location":"储物袋","sourceWorldId":"world-01","source":"太南小会符箓摊交换","crossWorldStatus":"已确认从世界01带入世界02；首次检查时仍在储物袋内",
       "acquisitionMethod":"以物易物",
       "acquisitionEventId":"event-012",
       "acquisitionNote":"最初以3张自制护身符换取3份火弹符材料；其后首批基本耗尽，又以67张火弹符换得3份新材料继续周转。当前只确认仍有零散剩余，约一份上下，未再精确盘点。",
@@ -24,31 +24,31 @@
       "relatedIds":["ability-talisman","project-talisman-stability"]
     },
     {
-      "id":"item-low-talisman-paper-notes","name":"《低阶符纸处理杂录》","category":"制符资料","quantityApprox":1,"location":"储物袋","sourceWorldId":"world-01","source":"太南小会旧书/杂学摊","crossWorldStatus":"待离界时验证",
+      "id":"item-low-talisman-paper-notes","name":"《低阶符纸处理杂录》","category":"制符资料","quantityApprox":1,"location":"储物袋","sourceWorldId":"world-01","source":"太南小会旧书/杂学摊","crossWorldStatus":"已确认从世界01带入世界02；首次检查时仍在储物袋内",
       "acquisitionMethod":"购买","acquisitionNote":"约第124天上午以6枚碎灵购得。内容主要涉及符纸干湿、灵墨浓淡、废符裁切练习与成符保存等实用经验；没有提供新符法。",
       "actorLinks":[{"id":"player-xuchangqing","role":"购买与阅读"}],
       "relatedIds":["ability-talisman"]
     },
     {
-      "id":"item-talisman-storage-box","name":"防潮符盒","category":"生产工具","quantityApprox":1,"location":"储物袋","sourceWorldId":"world-01","source":"太南小会普通木盒摊","crossWorldStatus":"待离界时验证",
+      "id":"item-talisman-storage-box","name":"防潮符盒","category":"生产工具","quantityApprox":1,"location":"储物袋","sourceWorldId":"world-01","source":"太南小会普通木盒摊","crossWorldStatus":"已确认从世界01带入世界02；首次检查时仍在储物袋内",
       "acquisitionMethod":"购买","acquisitionNote":"以3枚碎灵购买的大号普通木盒，内衬干燥草叶，可平放约百张符纸/符箓，用于减少受潮、折角和表面磨损。",
       "actorLinks":[{"id":"player-xuchangqing","role":"购买"}],
       "relatedIds":["ability-talisman"]
     },
     {
-      "id":"item-storage-bag-small-01","name":"灰布小型储物袋","category":"储物法器","quantityApprox":1,"location":"随身","sourceWorldId":"world-01","source":"太南小会储物袋摊","crossWorldStatus":"待离界时验证",
-      "acquisitionMethod":"购买","acquisitionEventId":"event-013","acquisitionNote":"约第132天下午以11块下品灵石加8枚碎灵成交。旧灰布外皮，内部空间不足半方，足以容纳多份制符材料、符盒、衣物与零碎药材；已留下个人灵力印记并实际完成取放。",
+      "id":"item-storage-bag-small-01","name":"灰布小型储物袋","category":"储物法器","quantityApprox":1,"location":"随身","sourceWorldId":"world-01","source":"太南小会储物袋摊","crossWorldStatus":"已确认可从世界01带入世界02；进入后灵力印记与内部空间仍可正常访问",
+      "acquisitionMethod":"购买","acquisitionEventId":"event-013","acquisitionNote":"约第132天下午以11块下品灵石加8枚碎灵成交。旧灰布外皮，内部空间不足半方，足以容纳多份制符材料、符盒、衣物与零碎药材；已留下个人灵力印记并实际完成取放。首次主动离界进入世界02后立即检查，储物袋本体、灵力印记与内部空间均未见异常，符盒、剩余材料和《低阶符纸处理杂录》等已检查物仍在。",
       "actorLinks":[{"id":"player-xuchangqing","role":"购买、认主与使用"},{"id":"person-yeqing","role":"参与议价"},{"id":"person-chenyan","role":"同行见证"}],
       "relatedIds":["project-storage-bag"]
     },
     {
-      "id":"item-changchun-notes","name":"《长春功》前两层资料","category":"功法资料","quantityApprox":1,"location":"储物袋","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"待离界时验证",
+      "id":"item-changchun-notes","name":"《长春功》前两层资料","category":"功法资料","quantityApprox":1,"location":"储物袋","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"已进入下一世界，但本轮尚未单独检查",
       "acquisitionMethod":"赠予","acquisitionEventId":"event-005","acquisitionNote":"离开七玄门后，韩立将《长春功》前两层交给徐长卿。",
       "actorLinks":[{"id":"person-hanli","role":"赠予"}],
       "relatedIds":["ability-changchungong"]
     },
     {
-      "id":"item-wood-breathing-notes","name":"基础木行吐纳资料","category":"功法资料","quantityApprox":1,"location":"储物袋","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"待离界时验证",
+      "id":"item-wood-breathing-notes","name":"基础木行吐纳资料","category":"功法资料","quantityApprox":1,"location":"储物袋","sourceWorldId":"world-01","source":"韩立","crossWorldStatus":"已进入下一世界，但本轮尚未单独检查",
       "acquisitionMethod":"传授 / 整理记录","acquisitionNote":"早期由韩立提供适合徐长卿灵根情况的基础木行吐纳路线。",
       "actorLinks":[{"id":"person-hanli","role":"传授"}],
       "relatedIds":[]
