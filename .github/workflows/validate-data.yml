@@ -39,9 +39,12 @@ jobs:
         run: node scripts/validate-persistence.mjs
       - name: Validate market and live operation protocol
         run: node scripts/validate-market.mjs
+      - name: Validate world slot
+        run: node scripts/validate-world-slot.mjs
       - name: Check browser JavaScript syntax
         run: |
           node --check assets/next.js
           node --check assets/next-enhancements.js
           node --check assets/next-market.js
           node --check assets/next-relations.js
+          node --check assets/archive-ui-v2.js
