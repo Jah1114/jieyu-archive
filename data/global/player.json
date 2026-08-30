@@ -14,12 +14,12 @@
   },
   "personality": ["偏理性", "不喜欢强行当队长", "涉及自身底牌与核心利益时会自主判断"],
   "coreTalentId": "ability-wulianglinghai",
-  "currentWorldId": "world-01",
+  "currentWorldId": "world-02",
   "currentState": {
     "realm": "练气一层",
     "spiritualRoots": "五灵根：木最明显，水土次，火金弱",
-    "body": "良好",
-    "mana": "充盈",
-    "exitWindow": "已开启，可主动离界，无已知倒计时"
+    "body": "无明确严重伤势；刚进入新世界时右肩撞上金属墙，当前伤势程度尚未检查",
+    "mana": "长期表现充盈；进入世界02后尚未主动测试具体术法兼容性",
+    "exitWindow": "已使用世界01的离界窗口完成离开；世界02离界窗口状态尚未确认"
   }
 }
