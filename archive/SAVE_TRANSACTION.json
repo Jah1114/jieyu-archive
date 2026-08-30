@@ -20,7 +20,7 @@
     "continuityWrittenNearEnd": true,
     "cleanOnlyAfterVerification": true,
     "liveProtocolPath": "archive/OPERATION_PROTOCOL.md",
-    "liveProtocolVersion": 2,
+    "liveProtocolVersion": 3,
     "rereadLiveProtocolEveryOperation": true
   }
 }
