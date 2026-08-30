@@ -19,6 +19,17 @@
     {"id":"ability-protective-qi","name":"护体行气","type":"技巧","sourceWorldId":"world-01","source":"韩立指点","mastery":"熟悉","effects":["灵力附于皮肉筋骨以减轻冲击"],"limits":["不是完整防御术法"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自使用"},
     {"id":"ability-body-infuse","name":"灵力灌体","type":"技巧","sourceWorldId":"world-01","source":"自行摸索与练习","mastery":"熟悉","effects":["短时强化拳脚与腿部爆发","局部增强抗冲击"],"limits":["身体与经脉承担反冲"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自使用"},
     {"id":"ability-swift-step","name":"疾风步","type":"武学","sourceWorldId":"world-01","source":"叶青交换/指导","mastery":"入门","effects":["短距快速移动","与灵力灌腿结合后稳定性提高"],"limits":["仍属基础凡俗身法"],"crossWorldStatus":"待进入下一世界验证","evidence":"亲自练习"},
-    {"id":"ability-talisman","name":"制符","type":"技艺","sourceWorldId":"world-01","source":"韩立、顾承山指点","mastery":"火弹符较稳定；护身符初学","effects":["将灵力转化为可储存符箓","火弹符可交易和预存火力"],"limits":["材料、手腕、注意力、成功率与销售渠道仍是瓶颈"],"crossWorldStatus":"技艺知识应可保留，实际材料/规则待新世界验证","evidence":"亲自制作"}
+    {
+      "id":"ability-talisman",
+      "name":"制符",
+      "type":"技艺",
+      "sourceWorldId":"world-01",
+      "source":"韩立、顾承山指点",
+      "mastery":"火弹符已能稳定批量制作；护身符初学",
+      "effects":["将灵力转化为可储存符箓","火弹符可交易和预存火力","对当前太南材料完成多日批量制作后，整体成符率约稳定在七成多至八成附近","当前较适合长期维持的日产量估计约五六十张成符"],
+      "limits":["材料、手腕、注意力、成功率与销售渠道仍是瓶颈","连续多日高频制符时手腕恢复明显比法力更早成为限制","当前市场单一摊主的承接量有限，扩大产量不等于可以无限出售"],
+      "crossWorldStatus":"技艺知识应可保留，实际材料/规则待新世界验证",
+      "evidence":"约第124日至第132日连续生产与太南小会实际成交验证"
+    }
   ]
 }
