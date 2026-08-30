@@ -8,6 +8,16 @@
       "visitIndex": 1,
       "timelineId": "timeline-fanren-01",
       "file": "data/worlds/world-01.json",
+      "status": "departed"
+    },
+    {
+      "id": "world-02",
+      "order": 2,
+      "name": "赛博朋克 2077",
+      "settingId": "setting-cyberpunk-2077",
+      "visitIndex": 1,
+      "timelineId": "timeline-cyberpunk2077-01",
+      "file": "data/worlds/world-02.json",
       "status": "current"
     }
   ]
