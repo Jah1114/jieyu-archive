@@ -3,17 +3,17 @@
   "playerName": "徐长卿",
   "currentWorldId": "world-01",
   "currentNarrative": {
-    "worldDay": 124,
-    "dayPart": "上午",
+    "worldDay": 132,
+    "dayPart": "下午",
     "location": "太南谷",
-    "frontier": "与陈砚、叶青继续逛太南小会；已以3张自制护身符换得3份火弹符材料，私人灵石仍约3块。随后浏览法器、药材与杂学纸册，当前停在旧书/杂学摊翻看《低阶符纸处理杂录》等薄册，尚未购买。"
+    "frontier": "与陈砚、叶青经过约八天制符周转，已验证火弹符稳定批量生产与实际出售；刚在太南小会以11块下品灵石加8枚碎灵买下旧灰布小型储物袋，留下个人灵力印记并完成取放，储物袋采购目标刚刚完成。"
   },
   "sync": {
     "continuityUpdated": true,
     "structuredDataUpdated": true,
     "homepageUpdated": false,
     "lastArchiveCommand": "存档",
-    "note": "本轮推进了太南小会制符周转试验与市场询价；未形成新的自然章节节点，未更新章节索引/正史章节文件。"
+    "note": "本轮推进约第124日至第132日制符周转与首个储物袋里程碑；更新能力、库存/行情、世界日、时间线、项目与核心连续性。未修改章节索引或story正文，也未改变仓库架构。"
   },
   "principles": {
     "perspective": "徐长卿第一视角",
