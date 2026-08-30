@@ -1,43 +1,14 @@
 {
   "schemaVersion": 1,
-  "state": "in_progress",
-  "activeTransaction": {
+  "state": "clean",
+  "activeTransaction": null,
+  "lastCompletedTransaction": {
     "id": "save-20260830-cyberpunk-arrival-03",
     "type": "save",
     "startedAt": "2026-08-30T23:47:00+08:00",
-    "changeDomains": [
-      "narrativeFrontier",
-      "player",
-      "people",
-      "inventory",
-      "worldRegistry",
-      "worldState",
-      "timeline",
-      "projects"
-    ],
-    "targetFiles": [
-      "data/global/player.json",
-      "data/global/people.json",
-      "data/global/inventory.json",
-      "data/worlds/index.json",
-      "data/worlds/world-01.json",
-      "data/worlds/world-02.json",
-      "data/timeline.json",
-      "data/projects.json",
-      "archive/PEOPLE.md",
-      "archive/CURRENT_STATE.md",
-      "data/meta.json",
-      "archive/CONTINUITY.md"
-    ],
-    "note": "保存世界01离界前窗口核对、与叶青关系变化和告别，以及徐长卿主动离开《凡人修仙传》并进入世界02《赛博朋克 2077》的首场景；同步记录储物袋及袋内已检查物品首次跨世界保留验证。"
-  },
-  "lastCompletedTransaction": {
-    "id": "save-20260830-tainan-storagebag-turnover-02",
-    "type": "save",
-    "startedAt": "2026-08-30T19:36:00+08:00",
-    "completedAt": "2026-08-30T19:49:30+08:00",
-    "validationRunId": 33309847485,
-    "note": "已保存约第124日至第132日太南小会制符周转与首个储物袋里程碑：购入《低阶符纸处理杂录》和防潮符盒；多日火弹符成符率约七成多至八成，较适合长期维持的日产成符约五六十张，手腕先于法力成为生产瓶颈；多批火弹符实际出售并验证稳定供货约22张/块的渠道，另以67张火弹符换3份材料继续周转；约第132日下午以11块下品灵石加8枚碎灵购得并认主旧灰布小型储物袋。当前整块灵石约余1块、另有少量碎灵未精确盘点。同步更新叙事节奏：重复生产/交易流程可压缩，只详细呈现新变化节点。校验通过。"
+    "completedAt": "2026-08-30T23:55:00+08:00",
+    "validationRunId": 33320926091,
+    "note": "已保存世界01离界前连续性与世界02首场景：确认陈砚离界窗口仍未开启、叶青已开启且无已知倒计时；徐长卿离界前数日与叶青在双方自愿下发展为短暂亲密关系，随后与陈砚、叶青告别并约第136日前后主动离开《凡人修仙传》第一次访问。已建立世界02《赛博朋克 2077》第一次访问，第1天夜间位于未知城市巷道；亲眼确认枪械交火、机械义体与荒坂标识，具体城市/年代仍未知。灰布小型储物袋首次跨界验证通过，灵力印记与内部空间仍可访问，符盒、剩余材料和《低阶符纸处理杂录》等已检查物保留。GitHub Actions 校验通过。"
   },
   "repair": {
     "required": false,
