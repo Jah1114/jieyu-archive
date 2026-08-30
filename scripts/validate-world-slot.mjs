@@ -24,6 +24,9 @@ for (const [kind, list] of [['explicit', explicit], ['recommended', recommended]
   for (const entry of list) {
     if (!entry?.id || !entry?.name) errors.push(`${kind} 候选缺少 id/name`);
     if (!(typeof entry?.weight === 'number' && entry.weight > 0)) errors.push(`${entry?.id || kind} 权重无效`);
+    if (!(typeof entry?.description === 'string' && entry.description.trim().length >= 12)) {
+      errors.push(`${entry?.id || kind} 缺少有效简短介绍 description`);
+    }
     if (ids.has(entry.id)) errors.push(`世界槽重复 id：${entry.id}`);
     ids.add(entry.id);
     if (names.has(entry.name)) warnings.push(`世界槽重复名称：${entry.name}`);
@@ -38,6 +41,7 @@ if (!(typeof base === 'number' && typeof explicitWeight === 'number' && explicit
 if (!(typeof recWeight === 'number' && recWeight > base && recWeight < explicitWeight)) warnings.push('推荐候选权重建议位于槽外基线与用户明确偏好之间');
 
 console.log(`世界槽：用户明确偏好 ${explicit.length} 个；推荐候选 ${recommended.length} 个。`);
+console.log('世界槽介绍：明确偏好与推荐候选均已要求 description。');
 if (warnings.length) {
   console.log('\n警告：');
   warnings.forEach(w => console.log(`- ${w}`));
