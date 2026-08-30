@@ -1,0 +1,23 @@
+{
+  "id": "world-02",
+  "settingId": "setting-cyberpunk-2077",
+  "visitIndex": 1,
+  "timelineId": "timeline-cyberpunk2077-01",
+  "timelineRelation": "首次访问实例；当前没有可比较的同作品历史访问，未来若再次进入再依据实际证据判断时间线关系。",
+  "name": "赛博朋克 2077",
+  "phase": "刚进入 / 具体年代未知",
+  "status": "当前世界",
+  "arrivalDay": 1,
+  "currentDayApprox": 1,
+  "currentLocation": "未知城市巷道",
+  "identity": "尚未确认",
+  "exitWindow": "新世界离界窗口状态尚未确认",
+  "knownLocations": [],
+  "knownRules": [
+    "已观察到现代/未来城市环境、高密度霓虹与全息广告",
+    "近距离存在枪械交火，并亲眼见到明显机械义体改造者",
+    "可见荒坂（ARASAKA）标识",
+    "界域提供的语言兼容仍有效：进入后可直接理解当地英语"
+  ],
+  "originalMemoryBoundary": "徐长卿凭荒坂标识与环境判断自己进入了《赛博朋克 2077》相关世界；当前具体城市、年代、时间线与事件背景仍未确认。"
+}
