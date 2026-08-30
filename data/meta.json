@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "playerName": "徐长卿",
-  "currentWorldId": "world-01",
+  "currentWorldId": "world-02",
   "currentNarrative": {
-    "worldDay": 132,
-    "dayPart": "下午",
-    "location": "太南谷",
-    "frontier": "与陈砚、叶青经过约八天制符周转，已验证火弹符稳定批量生产与实际出售；刚在太南小会以11块下品灵石加8枚碎灵买下旧灰布小型储物袋，留下个人灵力印记并完成取放，储物袋采购目标刚刚完成。"
+    "worldDay": 1,
+    "dayPart": "夜间",
+    "location": "未知城市巷道",
+    "frontier": "已主动离开世界01《凡人修仙传》并进入世界02《赛博朋克 2077》相关世界；当前在未知城市巷道，刚确认灰布储物袋的灵力印记与内部空间跨界后仍可正常访问，随后听到近距离枪械交火、见到明显机械义体改造者与荒坂（ARASAKA）标识。具体城市、年代和事件背景尚未确认。"
   },
   "sync": {
-    "continuityUpdated": true,
+    "continuityUpdated": false,
     "structuredDataUpdated": true,
     "homepageUpdated": false,
     "lastArchiveCommand": "存档",
-    "note": "本轮推进约第124日至第132日制符周转与首个储物袋里程碑；更新能力、库存/行情、世界日、时间线、项目与核心连续性。未修改章节索引或story正文，也未改变仓库架构。"
+    "note": "本轮保存世界01离界前窗口核对、与叶青关系变化及告别，冻结《凡人修仙传》第一次访问并建立世界02《赛博朋克 2077》第一次访问；同步记录首个储物袋及已检查袋内物首次跨世界保留验证。章节索引与story正文未改动。"
   },
   "principles": {
     "perspective": "徐长卿第一视角",
