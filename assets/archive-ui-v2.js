@@ -1,4 +1,5 @@
-// 档案展示增强 v2：市场独立页、世界槽、人物/能力/携带分类。
+// 档案展示增强 v3：统一筛选式信息架构。
+// 人物、世界、世界槽、旅程、能力、携带、项目、情报与市场均使用紧凑筛选条，不再用大块分类切割页面。
 // 仅改变展示与游戏外偏好读取，不改变正史事实。
 
 (() => {
@@ -6,6 +7,9 @@
   let WORLD_SLOT = null;
   let WORLD_SLOT_ERROR = null;
   let MARKET_FILTER = '全部';
+  const FILTERS = {
+    people:'全部', world:'全部', journey:'全部', abilities:'全部', inventory:'全部', projects:'全部', intel:'全部', worldslot:'全部'
+  };
 
   TAB_TITLES.market = ['市场观察', '按对象折叠历史行情；报价、成交与以物易物保持区分'];
   TAB_TITLES.worldslot = ['世界槽', '游戏外高权重候选池；不是白名单，也不属于徐长卿第一视角正史'];
@@ -28,27 +32,20 @@
     baseSwitchTab(tab);
     const notice = $('.notice');
     if(!notice) return;
-    if(tab === 'worldslot'){
-      notice.innerHTML = '<b>世界槽是游戏外偏好配置。</b> 它只提高候选权重，不属于徐长卿认知或正史，也不会阻止槽外世界出现。';
-    }else{
-      notice.innerHTML = defaultNotice;
-    }
+    notice.innerHTML = tab === 'worldslot'
+      ? '<b>世界槽是游戏外偏好配置。</b> 它只提高候选权重，不属于徐长卿认知或正史，也不会阻止槽外世界出现。'
+      : defaultNotice;
   };
 
-  function groupShell(title, cards, cls=''){
-    if(!cards.length) return '';
-    return `<div class="archive-group ${cls}"><div class="archive-group-head"><h3>${esc(title)}</h3><span class="count">${cards.length}</span></div><div class="archive-group-grid ${cls}">${cards.join('')}</div></div>`;
-  }
-
   function peopleGroup(p){
-    const text = [p.status, ...arr(p.tags)].join(' ');
+    const text = [p.status, ...arr(p.tags), p.relationship].join(' ');
     if(/死亡|已故/.test(text)) return '死亡';
     if(/当前同行/.test(text)) return '当前同行';
     if(/暂时同行/.test(text)) return '暂时同行';
     if(/失联|去向未知/.test(text)) return '失联';
     if(/已分开/.test(text)) return '已分开';
-    if(/合作|联系人/.test(text)) return '联系人';
-    return '其他人物';
+    if(/合作|联系人|前辈/.test(text)) return '联系人';
+    return '其他';
   }
 
   function abilityGroup(a){
@@ -69,73 +66,163 @@
     return '其他';
   }
 
-  function cardMap(container){
-    const map = new Map();
-    [...container.querySelectorAll('.entity-card[data-entity]')].forEach(card => map.set(card.dataset.entity, card.outerHTML));
-    return map;
+  function worldGroup(w){
+    return (w.id === DATA.meta.currentWorldId || w.status === 'current') ? '当前访问' : '历史访问';
   }
 
-  const baseRenderPeopleV2 = renderPeople;
+  function journeyGroup(c){ return c.worldId === DATA.meta.currentWorldId ? '当前世界' : '历史世界'; }
+
+  function intelGroup(i){
+    const s = String(i.status || '');
+    if(/高可信/.test(s)) return '高可信推测';
+    if(/机制未知|未知机制/.test(s)) return '现象确认·机制未知';
+    if(/已确认/.test(s)) return '已确认';
+    return '其他';
+  }
+
+  function countOptions(records, grouper, preferred=[]){
+    const counts = new Map();
+    arr(records).forEach(x => {
+      const k = grouper(x);
+      counts.set(k, (counts.get(k) || 0) + 1);
+    });
+    const keys = [...preferred.filter(k => counts.has(k)), ...[...counts.keys()].filter(k => !preferred.includes(k))];
+    return [{label:'全部', count:arr(records).length}, ...keys.map(k => ({label:k,count:counts.get(k)}))].filter(x => x.label === '全部' || x.count > 0);
+  }
+
+  function normalizeFilter(tab, options){
+    const valid = new Set(options.map(x => x.label));
+    if(!valid.has(FILTERS[tab])) FILTERS[tab] = '全部';
+  }
+
+  function filterBarHtml(tab, options){
+    normalizeFilter(tab, options);
+    return options.map(x => `<button class="${FILTERS[tab]===x.label?'active':''}" data-archive-filter-tab="${esc(tab)}" data-archive-filter-value="${esc(x.label)}"><span>${esc(x.label)}</span><span class="filter-count">${esc(x.count)}</span></button>`).join('');
+  }
+
+  function mountFilterBar(tab, target, options){
+    if(!target) return;
+    let bar = target.previousElementSibling;
+    if(!bar || !bar.classList.contains('archive-filterbar') || bar.dataset.filterTab !== tab){
+      bar = document.createElement('div');
+      bar.className = 'archive-filterbar';
+      bar.dataset.filterTab = tab;
+      target.parentNode.insertBefore(bar, target);
+    }
+    bar.innerHTML = filterBarHtml(tab, options);
+  }
+
+  function setEntityCards(root, matcher){
+    if(!root) return;
+    root.querySelectorAll('.entity-card[data-entity]').forEach(card => {
+      const entity = ENTITY.get(card.dataset.entity);
+      card.hidden = !matcher(entity);
+    });
+  }
+
+  const baseRenderPeopleV3 = renderPeople;
   renderPeople = function(){
-    baseRenderPeopleV2();
+    baseRenderPeopleV3();
     const root = $('#peopleGrid');
     if(!root) return;
-    const cards = cardMap(root);
-    const self = cards.get(DATA.player?.id);
-    const order = ['当前同行','暂时同行','联系人','已分开','失联','死亡','其他人物'];
-    const groups = Object.fromEntries(order.map(k => [k, []]));
-    arr(DATA.people?.people).forEach(p => {
-      const html = cards.get(p.id);
-      if(html) (groups[peopleGroup(p)] ||= []).push(html);
+    const records = arr(DATA.people?.people);
+    const options = countOptions(records, peopleGroup, ['当前同行','暂时同行','联系人','已分开','失联','死亡','其他']);
+    mountFilterBar('people', root, options);
+    const current = FILTERS.people;
+    setEntityCards(root, e => {
+      if(!e) return false;
+      if(e.type === 'player') return current === '全部';
+      if(e.type !== 'person') return false;
+      return current === '全部' || peopleGroup(e.raw) === current;
     });
-    root.innerHTML = `${self ? `<div class="archive-group self"><div class="archive-group-grid">${self}</div></div>` : ''}${order.map(k => groupShell(k, groups[k] || [], 'people')).join('')}`;
   };
 
-  const baseRenderAbilitiesV2 = renderAbilities;
+  const baseRenderAbilitiesV3 = renderAbilities;
   renderAbilities = function(){
-    baseRenderAbilitiesV2();
+    baseRenderAbilitiesV3();
     const root = $('#abilitiesGrid');
     if(!root) return;
-    const cards = cardMap(root);
-    const order = ['核心','修炼','战斗','辅助','生产','其他'];
-    const groups = Object.fromEntries(order.map(k => [k, []]));
-    arr(DATA.abilities?.abilities).forEach(a => {
-      const html = cards.get(a.id);
-      if(html) groups[abilityGroup(a)].push(html);
-    });
-    root.innerHTML = order.map(k => groupShell(k, groups[k] || [])).join('');
+    const records = arr(DATA.abilities?.abilities);
+    const options = countOptions(records, abilityGroup, ['核心','修炼','战斗','辅助','生产','其他']);
+    mountFilterBar('abilities', root, options);
+    const current = FILTERS.abilities;
+    setEntityCards(root, e => e?.type === 'ability' && (current === '全部' || abilityGroup(e.raw) === current));
   };
 
-  const baseRenderInventoryV2 = renderInventory;
+  const baseRenderInventoryV3 = renderInventory;
   renderInventory = function(){
-    baseRenderInventoryV2();
+    baseRenderInventoryV3();
     const root = $('#inventoryGrid');
     if(!root) return;
-    const cards = cardMap(root);
-    const order = ['战斗','生产','装备','资料','其他'];
-    const groups = Object.fromEntries(order.map(k => [k, []]));
-    arr(DATA.inventory?.items).forEach(i => {
-      const html = cards.get(i.id);
-      if(html) groups[itemGroup(i)].push(html);
-    });
-    root.innerHTML = order.map(k => groupShell(k, groups[k] || [])).join('');
+    const records = arr(DATA.inventory?.items);
+    const options = countOptions(records, itemGroup, ['战斗','生产','装备','资料','其他']);
+    mountFilterBar('inventory', root, options);
+    const current = FILTERS.inventory;
+    setEntityCards(root, e => e?.type === 'item' && (current === '全部' || itemGroup(e.raw) === current));
   };
 
-  const baseRenderWorldV2 = renderWorld;
+  const baseRenderProjectsV3 = renderProjects;
+  renderProjects = function(){
+    baseRenderProjectsV3();
+    const root = $('#projectsGrid');
+    if(!root) return;
+    const records = arr(DATA.projects?.projects);
+    const options = countOptions(records, p => p.type || '其他');
+    mountFilterBar('projects', root, options);
+    const current = FILTERS.projects;
+    setEntityCards(root, e => e?.type === 'project' && (current === '全部' || (e.raw.type || '其他') === current));
+  };
+
+  const baseRenderIntelV3 = renderIntel;
+  renderIntel = function(){
+    baseRenderIntelV3();
+    const root = $('#intelGrid');
+    if(!root) return;
+    const records = arr(DATA.intel?.intel).filter(i => matchesScopeByWorld(i.scope?.startsWith('world-') ? i.scope : null, true));
+    const options = countOptions(records, intelGroup, ['已确认','现象确认·机制未知','高可信推测','其他']);
+    mountFilterBar('intel', root, options);
+    const current = FILTERS.intel;
+    setEntityCards(root, e => e?.type === 'intel' && (current === '全部' || intelGroup(e.raw) === current));
+  };
+
+  const baseRenderJourneyV3 = renderJourney;
+  renderJourney = function(){
+    baseRenderJourneyV3();
+    const root = $('#journeyGrid');
+    if(!root) return;
+    const records = arr(DATA.chapters?.chapters).filter(c => matchesScopeByWorld(c.worldId, true));
+    const options = countOptions(records, journeyGroup, ['当前世界','历史世界']);
+    mountFilterBar('journey', root, options);
+    const current = FILTERS.journey;
+    setEntityCards(root, e => e?.type === 'chapter' && (current === '全部' || journeyGroup(e.raw) === current));
+  };
+
+  const baseRenderWorldV3 = renderWorld;
   renderWorld = function(){
-    baseRenderWorldV2();
+    baseRenderWorldV3();
     const target = scopeWorldId();
-    const worlds = target ? DATA.worlds.filter(w => w.id === target) : DATA.worlds;
+    const scopedWorlds = target ? DATA.worlds.filter(w => w.id === target) : DATA.worlds;
+    const options = countOptions(scopedWorlds, worldGroup, ['当前访问','历史访问']);
+    const worldRoot = $('#worldGrid');
+    mountFilterBar('world', worldRoot, options);
+    const current = FILTERS.world;
+    const selected = scopedWorlds.filter(w => current === '全部' || worldGroup(w) === current);
+    const selectedIds = new Set(selected.map(w => w.id));
+
+    setEntityCards(worldRoot, e => e?.type === 'world' && selectedIds.has(e.id));
+    setEntityCards($('#locationsGrid'), e => e?.type === 'location' && selectedIds.has(e.raw.parentWorldId));
+
     const head = $$('#world .head').find(h => h.querySelector('h3')?.textContent.includes('已知规则'));
     if(head) head.innerHTML = '<div><h3>已知规则与市场摘要</h3><p>完整行情已移动到独立“市场”页</p></div>';
     const details = $('#worldDetails');
-    if(!details) return;
-    details.innerHTML = worlds.map(w => {
-      const observations = typeof marketForWorld === 'function' ? marketForWorld(w.id) : [];
-      const actual = observations.filter(o => ['成交','以物易物'].includes(o.priceType)).length;
-      return `<div class="card searchable" data-search="${esc(arr(w.knownRules).join(' '))}"><div class="name">${esc(w.name)} · 已知规则</div><div class="details">${listHtml(w.knownRules)}</div></div>
-      <div class="card searchable" data-search="市场 ${esc(w.name)}"><div class="name">${esc(w.name)} · 市场摘要</div><div class="details">已记录 ${observations.length} 条市场观察，其中实际成交/交换 ${actual} 条。价格历史不再在世界页全部展开。</div><button class="world-market-link" data-open-market="1">打开市场页</button></div>`;
-    }).join('');
+    if(details){
+      details.innerHTML = selected.map(w => {
+        const observations = typeof marketForWorld === 'function' ? marketForWorld(w.id) : [];
+        const actual = observations.filter(o => ['成交','以物易物'].includes(o.priceType)).length;
+        return `<div class="card searchable" data-search="${esc(arr(w.knownRules).join(' '))}"><div class="name">${esc(w.name)} · 已知规则</div><div class="details">${listHtml(w.knownRules)}</div></div>
+        <div class="card searchable" data-search="市场 ${esc(w.name)}"><div class="name">${esc(w.name)} · 市场摘要</div><div class="details">已记录 ${observations.length} 条市场观察，其中实际成交/交换 ${actual} 条。价格历史不再在世界页全部展开。</div><button class="world-market-link" data-open-market="1">打开市场页</button></div>`;
+      }).join('') || '<div class="empty" style="grid-column:1/-1">当前筛选没有世界记录。</div>';
+    }
   };
 
   function marketRecordsForScope(){
@@ -156,8 +243,11 @@
     const all = marketRecordsForScope();
     const actual = all.filter(o => ['成交','以物易物'].includes(o.priceType));
     const subjects = new Set(all.map(o => o.subjectName).filter(Boolean));
-    const types = ['全部', ...new Set(all.map(o => o.priceType).filter(Boolean))];
-    const shown = MARKET_FILTER === '全部' ? all : all.filter(o => o.priceType === MARKET_FILTER);
+    const typeCounts = new Map();
+    all.forEach(o => { const k=o.priceType||'其他'; typeCounts.set(k,(typeCounts.get(k)||0)+1); });
+    const types = [{label:'全部',count:all.length}, ...[...typeCounts].map(([label,count])=>({label,count}))];
+    if(!types.some(x=>x.label===MARKET_FILTER)) MARKET_FILTER='全部';
+    const shown = MARKET_FILTER === '全部' ? all : all.filter(o => (o.priceType||'其他') === MARKET_FILTER);
     const grouped = new Map();
     shown.forEach(o => {
       const key = o.subjectName || '未命名对象';
@@ -169,7 +259,7 @@
       <div class="card"><div class="label">已验证</div><div class="big">${actual.length}</div><div class="small muted">实际成交 / 以物易物</div></div>
       <div class="card"><div class="label">对象</div><div class="big">${subjects.size}</div><div class="small muted">独立商品 / 行情主题</div></div>
     </div>
-    <div class="market-filterbar">${types.map(t => `<button class="${t===MARKET_FILTER?'active':''}" data-market-filter="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+    <div class="archive-filterbar market-filterbar">${types.map(x => `<button class="${x.label===MARKET_FILTER?'active':''}" data-market-filter="${esc(x.label)}"><span>${esc(x.label)}</span><span class="filter-count">${esc(x.count)}</span></button>`).join('')}</div>
     <div class="market-groups">${[...grouped.entries()].map(([name, records]) => {
       const latest = records[records.length - 1];
       const latestText = typeof marketObservationText === 'function' ? marketObservationText(latest,{includeSubject:false,includeWorld:false}) : '';
@@ -177,8 +267,8 @@
     }).join('') || '<div class="empty">当前筛选没有市场观察。</div>'}</div>`;
   }
 
-  function slotCards(list, recommended=false){
-    return arr(list).map(x => `<div class="worldslot-card searchable" data-search="${esc([x.name,x.reason].join(' '))}"><div class="slot-name">${esc(x.name)}</div><div class="slot-meta">相对权重 ×${esc(x.weight)}${recommended?' · 推荐候选 / 未确认接触':' · 用户明确偏好'}</div>${x.reason?`<div class="slot-reason">${esc(x.reason)}</div>`:''}</div>`).join('');
+  function slotCard(x, recommended=false){
+    return `<div class="worldslot-card searchable" data-slot-group="${recommended?'推荐候选':'明确偏好'}" data-search="${esc([x.name,x.reason].join(' '))}"><div class="slot-name">${esc(x.name)}</div><div class="slot-meta">相对权重 ×${esc(x.weight)}${recommended?' · 推荐候选 / 未确认接触':' · 用户明确偏好'}</div>${x.reason?`<div class="slot-reason">${esc(x.reason)}</div>`:''}</div>`;
   }
 
   function renderWorldSlot(){
@@ -187,25 +277,52 @@
     if(WORLD_SLOT_ERROR){ root.innerHTML = `<div class="empty">世界槽读取失败：${esc(WORLD_SLOT_ERROR)}</div>`; return; }
     if(!WORLD_SLOT){ root.innerHTML = '<div class="empty">正在读取世界槽……</div>'; return; }
     const p = WORLD_SLOT.selectionPolicy || {};
+    const explicit = arr(WORLD_SLOT.explicitPreferences);
+    const recommended = arr(WORLD_SLOT.recommendedCandidates);
+    const records = [
+      ...explicit.map(x=>({...x,_group:'明确偏好'})),
+      ...recommended.map(x=>({...x,_group:'推荐候选'}))
+    ];
+    const options = countOptions(records, x=>x._group, ['明确偏好','推荐候选']);
+    normalizeFilter('worldslot', options);
+    const current = FILTERS.worldslot;
+    const cards = records.filter(x=>current==='全部'||x._group===current).map(x=>slotCard(x,x._group==='推荐候选')).join('');
     root.innerHTML = `<div class="worldslot-banner"><div class="name">高权重候选池，不是白名单</div><div class="details">用户明确偏好 ×${esc(p.explicitPreferenceWeight)}；推荐候选 ×${esc(p.recommendedCandidateWeight)}；槽外基线 ×${esc(p.outsidePoolBaselineWeight)}。槽外作品和原创世界始终可以出现，权重只表示相对倾向。</div></div>
-    <div class="head"><div><h3>用户明确偏好</h3><p>${arr(WORLD_SLOT.explicitPreferences).length} 个作品 / 系列</p></div></div>
-    <div class="worldslot-grid">${slotCards(WORLD_SLOT.explicitPreferences)}</div>
-    <div class="head"><div><h3>推荐候选</h3><p>根据现有偏好推测；不代表已经看过或玩过</p></div></div>
-    <div class="worldslot-grid">${slotCards(WORLD_SLOT.recommendedCandidates,true)}</div>`;
+    <div class="archive-filterbar">${filterBarHtml('worldslot',options)}</div>
+    <div class="worldslot-grid">${cards || '<div class="empty" style="grid-column:1/-1">当前筛选没有候选世界。</div>'}</div>`;
   }
 
-  const baseRenderAllV2 = renderAll;
+  const baseRenderAllV3 = renderAll;
   renderAll = function(){
-    baseRenderAllV2();
+    baseRenderAllV3();
     renderMarket();
     renderWorldSlot();
+  };
+
+  const rerender = {
+    people:()=>renderPeople(), world:()=>renderWorld(), journey:()=>renderJourney(), abilities:()=>renderAbilities(),
+    inventory:()=>renderInventory(), projects:()=>renderProjects(), intel:()=>renderIntel(), worldslot:()=>renderWorldSlot()
   };
 
   document.addEventListener('click', e => {
     const market = e.target.closest('[data-open-market]');
     if(market){ switchTab('market'); return; }
-    const filter = e.target.closest('[data-market-filter]');
-    if(filter){ MARKET_FILTER = filter.dataset.marketFilter; renderMarket(); applySearch(); }
+
+    const marketFilter = e.target.closest('[data-market-filter]');
+    if(marketFilter){
+      MARKET_FILTER = marketFilter.dataset.marketFilter;
+      renderMarket();
+      applySearch();
+      return;
+    }
+
+    const filter = e.target.closest('[data-archive-filter-tab]');
+    if(filter){
+      const tab = filter.dataset.archiveFilterTab;
+      FILTERS[tab] = filter.dataset.archiveFilterValue;
+      rerender[tab]?.();
+      applySearch();
+    }
   });
 
   fetch('data/world-slot.json', {cache:'no-store'})
