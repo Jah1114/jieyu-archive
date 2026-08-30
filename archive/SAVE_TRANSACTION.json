@@ -1,37 +1,14 @@
 {
   "schemaVersion": 1,
-  "state": "in_progress",
-  "activeTransaction": {
+  "state": "clean",
+  "activeTransaction": null,
+  "lastCompletedTransaction": {
     "id": "save-20260830-tainan-storagebag-turnover-02",
     "type": "save",
     "startedAt": "2026-08-30T19:36:00+08:00",
-    "changeDomains": [
-      "narrativeFrontier",
-      "abilities",
-      "inventory",
-      "worldState",
-      "timeline",
-      "projects"
-    ],
-    "targetFiles": [
-      "data/global/abilities.json",
-      "data/global/inventory.json",
-      "data/worlds/world-01.json",
-      "data/timeline.json",
-      "data/projects.json",
-      "archive/CURRENT_STATE.md",
-      "data/meta.json",
-      "archive/CONTINUITY.md"
-    ],
-    "reason": "保存约第124日至第132日太南小会制符周转验证、实际批量出售、购入制符杂录与符盒，并完成首个储物袋采购里程碑。"
-  },
-  "lastCompletedTransaction": {
-    "id": "save-20260830-tainan-talisman-turnover-01",
-    "type": "save",
-    "startedAt": "2026-08-30T02:17:54+08:00",
-    "completedAt": "2026-08-30T02:23:30+08:00",
-    "validationRunId": 33268117413,
-    "note": "已保存约第124天上午太南小会制符周转试验：3张自制护身符换得3份火弹符材料，私人灵石仍约3块，护身符余约3张；新增材料/火弹符收购市场观察，更新制符稳定化与储物袋资源路线；叙事前沿推进至旧书/杂学摊浏览《低阶符纸处理杂录》等薄册且尚未购买。同步持久化沉浸叙事规则。校验通过。"
+    "completedAt": "2026-08-30T19:49:30+08:00",
+    "validationRunId": 33309847485,
+    "note": "已保存约第124日至第132日太南小会制符周转与首个储物袋里程碑：购入《低阶符纸处理杂录》和防潮符盒；多日火弹符成符率约七成多至八成，较适合长期维持的日产成符约五六十张，手腕先于法力成为生产瓶颈；多批火弹符实际出售并验证稳定供货约22张/块的渠道，另以67张火弹符换3份材料继续周转；约第132日下午以11块下品灵石加8枚碎灵购得并认主旧灰布小型储物袋。当前整块灵石约余1块、另有少量碎灵未精确盘点。同步更新叙事节奏：重复生产/交易流程可压缩，只详细呈现新变化节点。校验通过。"
   },
   "repair": {
     "required": false,
